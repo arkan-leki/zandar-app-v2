@@ -9,22 +9,31 @@ import SalesContextProvider from './contexts/SalesContext'
 import GroupsContextProvider from './contexts/GroupsContext'
 import SalesList from './components/sale/SalesList'
 import APIContextProvider from "./contexts/APIContext";
+import VendorsContextProvider from "./contexts/VendorsContext";
+import LocalsContextProvider from "./contexts/LocalsContext";
+import TableLayout from "./layout/TableLayout";
 
 function App() {
     return (
-        <APIContextProvider>
-            <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <GroupsContextProvider>
-                            <SalesContextProvider>
-                                <SalesList/>
-                            </SalesContextProvider>
-                        </GroupsContextProvider>
-                    </Route>
-                </Switch>
-            </Router>
-        </APIContextProvider>
+        <TableLayout>
+            <APIContextProvider>
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <GroupsContextProvider>
+                                <VendorsContextProvider>
+                                    <LocalsContextProvider>
+                                        <SalesContextProvider>
+                                            <SalesList/>
+                                        </SalesContextProvider>
+                                    </LocalsContextProvider>
+                                </VendorsContextProvider>
+                            </GroupsContextProvider>
+                        </Route>
+                    </Switch>
+                </Router>
+            </APIContextProvider>
+        </TableLayout>
     );
 }
 

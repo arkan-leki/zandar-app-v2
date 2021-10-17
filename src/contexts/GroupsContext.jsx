@@ -1,10 +1,12 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {APIContext} from './APIContext'
 
-export const groupsContext = createContext()
+export const GroupsContext = createContext(undefined)
+
 const GroupsContextProvider = (props) => {
-    const {groups, setGroups} = useState()
+    const [groups, setGroups] = useState([])
     const {groupsURL, zenderAXIOS} = useContext(APIContext)
+
     useEffect(() => {
         zenderAXIOS.get(groupsURL).then((response) => {
             setGroups(response.data);
@@ -12,11 +14,11 @@ const GroupsContextProvider = (props) => {
         // eslint-disable-next-line
     }, [])
 
-    const value = [groups]
+    const value = {groups}
     return (
-        <groupsContext.Provider value={{value}}>
+        <GroupsContext.Provider value={value}>
             {props.children}
-        </groupsContext.Provider>
+        </GroupsContext.Provider>
     )
 }
 export default GroupsContextProvider
