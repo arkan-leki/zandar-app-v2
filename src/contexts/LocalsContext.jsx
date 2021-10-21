@@ -5,10 +5,10 @@ export const LocalsContext = createContext(undefined)
 
 const LocalsContextProvider = (props) => {
     const [locals, setLocals] = useState([])
-    const {localsURL, zenderAXIOS} = useContext(APIContext)
+    const {localURL, zenderAXIOS} = useContext(APIContext)
 
     useEffect(() => {
-        zenderAXIOS.get(localsURL).then((response) => {
+        zenderAXIOS.get(localURL).then((response) => {
             setLocals(response.data);
         });
         // eslint-disable-next-line
