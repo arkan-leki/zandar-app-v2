@@ -13,7 +13,9 @@ const ItemsContextProvider = (props) => {
         zenderAXIOS.get(itemsURL).then((response) => {
             setItems(response.data);
             setItemForList(response.data)
-        });
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
         // eslint-disable-next-line
     }, [])
 

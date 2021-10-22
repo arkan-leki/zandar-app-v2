@@ -16,7 +16,9 @@ const SaleDetailContextProvider = (props) => {
             return getSale(id)
         zenderAXIOS.get(salesDetailURL).then((response) => {
             setSaleDetail(response.data);
-        });
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
         // eslint-disable-next-line
     }, [])
 
@@ -54,7 +56,9 @@ const SaleDetailContextProvider = (props) => {
         zenderAXIOS.get(`${salesURL}${id}/`).then((response) => {
             setSale(response.data);
             setSaleDetail(response.data.sell_detail);
-        });
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
     }
 
     const addToList = (item) => {

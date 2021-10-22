@@ -6,7 +6,7 @@ import {useContext, useState} from "react";
 import {SaleDetailContext} from "../../contexts/SaleDetailContext";
 
 const SaleItem = ({kala}) => {
-    const {updateSale, deleteSale, addSale, updateTemorary} = useContext(SaleDetailContext)
+    const {updateSale, deleteSale, addSale} = useContext(SaleDetailContext)
     const [quantity, setQuantity] = useState(kala.quantity)
     const [price] = useState(kala.price)
 
@@ -24,7 +24,11 @@ const SaleItem = ({kala}) => {
     };
 
     const handleDelete = () => {
-        deleteSale(kala.id)
+        if(window.confirm("areu sure")){
+            deleteSale(kala.id)
+        }else{
+            console.log('Thing was saved to the database.');
+        }
     };
 
     const handleInput = (value) => {
@@ -55,7 +59,7 @@ const SaleItem = ({kala}) => {
                             <p className="mb-3 text-muted text-uppercase small"> نرخ
                                 :{Currency(parseFloat(kala.finalprice))} </p>
                             <p className="mb-2 text-muted text-uppercase small"> گروپ
-                                :{kala.item_group} </p>
+                                :{kala.item_group_name} </p>
                             <p className="mb-3 text-muted text-uppercase small"> ماوە
                                 :{kala.mawe}</p>
                         </div>

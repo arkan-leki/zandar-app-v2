@@ -10,7 +10,7 @@ import SaleItem from "./SaleItem";
 import ItemsCard from "./ItemsCard";
 
 
-const SaleDetail = (props) => {
+const SaleDetail = () => {
     const {sale, saleDetail, getSale} = useContext(SaleDetailContext)
     const total_price = Object.values(saleDetail).reduce((r, {total}) => r + total, 0)
     const [show, setShow] = useState(false);

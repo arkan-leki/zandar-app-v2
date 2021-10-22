@@ -14,6 +14,7 @@ const SaleToPrint = ({sale}) => {
     });
 
 
+
     return (
         <>
             <OverlayTrigger
@@ -42,7 +43,7 @@ const SaleToPrint = ({sale}) => {
                                 </h2>
                                 <Row>
                                     <p className="fs-6">
-                                        تەلەفۆن - ٠٧٧١٩٩٣٠٨٤٩
+                                        ژ.ئۆفیس - 07709292883
                                     </p>
                                     <p className="fs-6">ناونیشان کەلار - لیوکە</p>
                                 </Row>
@@ -80,8 +81,8 @@ const SaleToPrint = ({sale}) => {
                                     <th scope="col">#</th>
                                     <th scope="col">کۆد</th>
                                     <th scope="col">کاڵا</th>
-                                    <th>بڕ</th>
-                                    <th>نرخی دانە</th>
+                                    <th>عدد</th>
+                                    <th>نرخ</th>
                                     <th>کۆ</th>
                                 </tr>
                                 </thead>
@@ -112,7 +113,7 @@ const SaleToPrint = ({sale}) => {
                         <Row className={"mt-2"}>
                             <Col xs={{order: 'first'}} className={"text-center fs-5  border  border-2"}>
                                 <span> حسابی پێشوو : </span>
-                                <p> {Currency(parseFloat(sale.local_mawe)-parseFloat(sale.totallint))}</p>
+                                <p> {Currency(parseFloat(sale.local_mawe) - parseFloat(sale.totallint))}</p>
                                 <span> حسابی ئێستا : </span>
                                 <p> {Currency(parseFloat(sale.local_mawe))}</p>
                             </Col>
