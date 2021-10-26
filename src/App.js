@@ -11,6 +11,8 @@ import TableLayout from "./layout/TableLayout";
 import SaleDetailContextProvider from "./contexts/SaleDetailContext";
 import SaleDetail from "./components/saleDetail/SaleDetail";
 import ItemsContextProvider from "./contexts/ItemsContext";
+import LocalList from "./components/locals/LocalList";
+import RegionsContextProvider from "./contexts/RegionlsContext";
 
 function App() {
     return (
@@ -39,10 +41,14 @@ function App() {
                                 </ItemsContextProvider>
                             </SaleDetailContextProvider>
                         </Route>
-                        <Route exact path="/saleDetail/">
-                            <SaleDetailContextProvider>
-                                <SaleDetail />
-                            </SaleDetailContextProvider>
+                        <Route exact path="/locals/">
+                            <GroupsContextProvider>
+                                <RegionsContextProvider>
+                                    <LocalsContextProvider>
+                                        <LocalList />
+                                    </LocalsContextProvider>
+                                </RegionsContextProvider>
+                            </GroupsContextProvider>
                         </Route>
                     </Switch>
                 </TableLayout>

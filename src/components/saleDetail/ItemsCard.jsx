@@ -45,7 +45,7 @@ const ItemsCard = ({sale}) => {
                     </InputGroup>
                 </Form>
                 <Row>
-                    {items.filter((i)=> i.group === sale.group).map((item, index) =>
+                    {items.filter((i)=> i.group === sale.group && i.deleted === false).map((item, index) =>
                         (
                             <Col key={index} lg='4' md='6' className='mb-lg-0 mb-4'>
                                 <CartItem sale={sale} addToCart={addToCart} item={item}/>

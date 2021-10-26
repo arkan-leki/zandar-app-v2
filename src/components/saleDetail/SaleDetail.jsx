@@ -106,7 +106,6 @@ const SaleDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* Card */}
                     </Col>
                 </Row>
 

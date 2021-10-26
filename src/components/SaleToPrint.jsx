@@ -1,8 +1,8 @@
-import {Button, Col, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
+import {Button, Col, Form, OverlayTrigger, Row, Table, Tooltip} from "react-bootstrap";
 import moment from "moment";
 import Currency from "../helper/Currency";
 import image from "../zend.png";
-import {useRef} from "react";
+import {useLayoutEffect, useRef} from "react";
 import {useReactToPrint} from "react-to-print";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPrint} from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,10 @@ const SaleToPrint = ({sale}) => {
     });
 
 
+    useLayoutEffect(() => {
+        return () => {
+        }
+    }, [sale])
 
     return (
         <>
@@ -76,7 +80,7 @@ const SaleToPrint = ({sale}) => {
                         <Row className="text-center mt-2">
                             <Table responsive
                                    className=" table table-striped table-hover align-middle caption-top border border-2  ">
-                                <thead className="table-dark fs-6">
+                                <thead className="table-light fs-6">
                                 <tr className="text-center  ">
                                     <th scope="col">#</th>
                                     <th scope="col">کۆد</th>
@@ -91,7 +95,7 @@ const SaleToPrint = ({sale}) => {
                                     <tr key={index}>
                                         <th scope="row">{kala.id}</th>
                                         <th scope="row">{kala.item_code}</th>
-                                        <th scope="row">{kala.item}</th>
+                                        <th scope="row">{kala.item_name}</th>
                                         <th>{kala.quantity}</th>
                                         <th>{Currency(parseFloat(kala.price))}</th>
                                         <th>{Currency(parseFloat(kala.total))}</th>
@@ -111,18 +115,35 @@ const SaleToPrint = ({sale}) => {
                             </Table>
                         </Row>
                         <Row className={"mt-2"}>
-                            <Col xs={{order: 'first'}} className={"text-center fs-5  border  border-2"}>
-                                <span> حسابی پێشوو : </span>
-                                <p> {Currency(parseFloat(sale.local_mawe) - parseFloat(sale.totallint))}</p>
-                                <span> حسابی ئێستا : </span>
-                                <p> {Currency(parseFloat(sale.local_mawe))}</p>
+                            {/*<Col xs={{order: 'first'}} className={"text-center fs-5  border  border-2"}>*/}
+                            {/*    <span> حسابی پێشوو : </span>*/}
+                            {/*    <p> {Currency(parseFloat(local))}</p>*/}
+                            {/*    <span> حسابی ئێستا : </span>*/}
+                            {/*    <p> {Currency(parseFloat(sale.local_mawe))}</p>*/}
+                            {/*</Col>*/}
+                            <Col className="mx-auto text-center  border-bottom border-5 justify-center">
+                                <Form>
+                                    <Form.Group>
+                                        <Form.Floating>واصل</Form.Floating>
+                                        <Form.Control type={'text'} className="border border-2"/>
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.FloatingLabel>غیر واصل</Form.FloatingLabel>
+                                        <Form.Check />
+                                    </Form.Group>
+                                </Form>
                             </Col>
-                            <Col xs/>
-                            <Col xs={{order: 'last'}} className={"text-center fs-5 border  border-2"}>
+                            <Col/>
+                            <Col xs={{order: 'last'}} className={"text-center fs-5  border-bottom border-5"}>
                                 {sale.discount > 0 ? <p> {Currency(parseFloat(sale.discount))} داشکاندن </p> : ''}
                                 <p>کۆی وەسڵ: </p>
                                 <p>{Currency(parseFloat(sale.totallint))}</p>
                             </Col>
+                        </Row>
+                        <Row className="mx-auto text-center justify-center" style={{height: 100 + 'px'}}>
+                            <Col/>
+                            <h1 className="col-4 border-bottom border-5"> مۆری وردبینی </h1>
+                            <Col/>
                         </Row>
                     </div>
                 </div>

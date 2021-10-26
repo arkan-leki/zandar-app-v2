@@ -34,7 +34,7 @@ const CartItem = ({item, addToCart, sale}) => {
                             "total": (parseFloat(item.mawe) * parseFloat(item.finalprice)),
                             "item_group": item.group_name,
                             "item_price": item.price,
-                            "quantity": item.mawe,
+                            "quantity": quantity,
                             "price": item.finalprice,
                             "sell": sale.id,
                         },
