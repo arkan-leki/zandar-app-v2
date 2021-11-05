@@ -1,0 +1,75 @@
+import {createContext, useContext, useEffect, useState} from 'react'
+import {APIContext} from './APIContext'
+
+export const SalesContext = createContext(undefined)
+
+const SalesContextProvider = (props) => {
+    const [sales, setSales] = useState([])
+    const [salesTemp, setSalesTemp] = useState([])
+
+
+    const {salesURL, zenderAXIOS} = useContext(APIContext)
+    useEffect(() => {
+        zenderAXIOS.get(`${salesURL}?status=false`).then((response) => {
+            setSales(response.data);
+            setSalesTemp(response.data)
+        });
+        // eslint-disable-next-line
+    }, [])
+
+    const allSales = () => {
+        zenderAXIOS.get(salesURL).then((response) => {
+            setSales(response.data);
+            setSalesTemp(response.data)
+        });
+    }
+
+    const addSale = (vendor, group, local) => {
+        zenderAXIOS.post(salesURL, {
+            vendor: vendor, group: group, local: local
+        }).then((response) => {
+            setSales([response.data, ...sales])
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const deleteSale = (id) => {
+        zenderAXIOS.delete(`${salesURL}${id}/`).then((response) => {
+            setSales(sales.filter(sale => sale.id !== id))
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const updateSale = (id, updatedSale) => {
+        zenderAXIOS.patch(`${salesURL}${id}/`, updatedSale).then((response) => {
+            setSales(sales.map((sale) => sale.id === id ? response.data : sale))
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const updateSaleDate = (dates, group) => {
+        if (group) {
+            setSales(salesTemp.filter((sale) => sale.group === group))
+            setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
+            return
+        }
+        setSales(salesTemp.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
+    }
+
+    const setSaleGroup = (data) => {
+        setSales(salesTemp.filter((sale) => sale.group === data))
+    }
+
+    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales};
+
+    return (
+        <SalesContext.Provider value={values}>
+            {props.children}
+        </SalesContext.Provider>
+    )
+}
+
+export default SalesContextProvider
