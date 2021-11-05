@@ -5,6 +5,8 @@ export const PaymentsContext = createContext(undefined)
 
 const PaymentsContextProvider = (props) => {
     const [payments, setPayments] = useState([])
+    const [banks, setBanks] = useState([])
+
     const {paymentURL,bankURL, zenderAXIOS} = useContext(APIContext)
 
     useEffect(() => {
@@ -12,13 +14,13 @@ const PaymentsContextProvider = (props) => {
             setPayments(response.data);
         });
         zenderAXIOS.get(bankURL).then((response) => {
-            setPayments(response.data);
+            setBanks(response.data);
         });
         // eslint-disable-next-line
     }, [])
 
 
-    const value = {payments}
+    const value = {payments,banks}
     return (
         <PaymentsContext.Provider value={value}>
             {props.children}

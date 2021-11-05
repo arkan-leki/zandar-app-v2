@@ -1,14 +1,11 @@
-import {Row, Col, Table, Tooltip, OverlayTrigger, InputGroup, FormControl, Button, Container} from "react-bootstrap";
+import {Row, Col, Table, Tooltip, OverlayTrigger, Container} from "react-bootstrap";
 import React, {useContext, useState} from "react";
 import {LocalDetailContext} from "../../contexts/LocalDetailContext";
 import Currency from "../../helper/Currency";
 import moment from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faAddressBook,
     faEdit,
-    faGlobe,
-    faSearch,
     faTruckLoading,
     faTruckMoving
 } from "@fortawesome/free-solid-svg-icons";
@@ -112,21 +109,23 @@ const LocalDetail = () => {
                     <h4> بەرێز {local.owner_name}</h4>
                     <hr/>
                     {local.mawe && <div className="row m-2">
-                        <div className="row col border border-3 text-right m-2">
-                            <div className="col "><p>ناو : {local.name}</p>
-                                <p>ناوچە : {local.region}</p>
-                                <p>ژمارەی موبایل : {local.phone}</p></div>
-                            <div className="col "><p>کۆد : {local.code}</p>
-                                <p>قەرز : {group === ''?Object.values(local.mawe).reduce((r, item) => r + parseFloat(item), 0):
-                                    local.mawe[group]}</p>
-                                <p>قەرز یەکەم جار : {local.exchange}</p>
-                            </div>
-                        </div>
-                        <div className="col-4 border border-3 m-2 text-center">
+                       <Col>
+                           <Row className="border border-3 text-right m-2">
+                               <Col><p>ناو : {local.name}</p>
+                                   <p>ناوچە : {local.region}</p>
+                                   <p>ژمارەی موبایل : {local.phone}</p></Col>
+                               <Col><p>کۆد : {local.code}</p>
+                                   <p>قەرز : {group === ''?Currency(Object.values(local.mawe).reduce((r, item) => r + parseFloat(item)), 0):
+                                       Currency(local.mawe[group])}</p>
+                                   <p>قەرز یەکەم جار : {local.exchange}</p>
+                               </Col>
+                           </Row>
+                       </Col>
+                        <Col md={2} className=" border border-3 m-2 text-center">
                             <p>بەرواری فرۆش</p>
                             <p>{moment(new Date(local.date)).format("YYYY/MM/DD")}</p>
                             <p>زنجیرە {local.id}</p>
-                        </div>
+                        </Col>
                         <Table>
                             <thead className="table-dark">
                             <tr>
@@ -141,7 +140,7 @@ const LocalDetail = () => {
                             </thead>
                             <tbody>
                             <tr>
-                                <th scope="row"><a href={'#'}>{local.id}</a></th>
+                                <th scope="row">{local.id}</th>
                                 <th scope="row">{local.name}</th>
                                 <th scope="row"> یەکەم جار</th>
                                 <th scope="row">{Currency(parseFloat(local.exchange))}$</th>

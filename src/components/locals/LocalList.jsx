@@ -49,19 +49,19 @@ const LocalList = () => {
 
 
     return (
-        <section className="p-5">
+        <section className="p-5 px-2">
             <div className="table-title">
-                <div className="row">
-                    <div className="col-sm-6">
+                <Row>
+                    <Col md={4}>
                         <h2>بەڕێوەبردنی <b>کڕیارەکان</b></h2>
-                    </div>
-                    <div className="d-print-none col-sm-6">
+                    </Col>
+                    <Col>
                         <Row>
-                            <Col md={2}>
+                            <Col md={3}>
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                         options={groupsOpt} onChange={(e) => setGroupHandler(e)}/>
                             </Col>
-                            <Col md={2}>
+                            <Col md={3}>
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                         options={regionsOpt} onChange={(e) => setRegionHandler(e.value)}/>
                             </Col>
@@ -75,13 +75,13 @@ const LocalList = () => {
                             </Col>
                         </Row>
 
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </div>
             <Alert show={showAlert} variant="success">
                 نوێکردنەوەی لیستی کڕیارەکان
             </Alert>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
                 <tr>
                     <th scope="col"> زنجیرە</th>

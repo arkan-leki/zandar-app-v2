@@ -31,16 +31,17 @@ const Retail = () => {
             let item_sell = _item.item_sell.filter((sale) => (new Date(sale.date) - startDate) >= 0 && (new Date(sale.date) - endDate <= 0))
             let quantity = Object.values(item_sell).reduce((r, { quantity }) => r + quantity, 0)
             let date = Object.values(item_sell).reduce((r, { date }) => date, 0)
-            let price = Object.values(item_sell).reduce((r, { price, quantity }) => r + parseFloat(quantity * price), 0);
-            return _item_sell.push({ "item": _item.name, "item_price": _item.price, "qazanc": Currency(price - (_item.price * quantity)), "barcode": _item.barcode, "quantity": quantity, "mawe": _item.mawe, "maweprice": (_item.mawe * _item.price), "price": price, "date": date, "group": _item.group, 'itemp': Currency(price / quantity) })
+            let price = Object.values(item_sell).reduce((r, { price, quantity }) => r + (parseFloat(quantity) * parseFloat(price)), 0);
+            return _item_sell.push({ "item": _item.name, "item_price": parseFloat(_item.price), "qazanc": price - (_item.price * quantity), "barcode": _item.barcode, "quantity": quantity, "mawe": _item.mawe, "maweprice": (_item.mawe * _item.price), "price": price, "date": date, "group": _item.group, 'itemp': (price / quantity) })
         })
         setTday(_item_sell.filter((_items) => _items.quantity !== 0))
     }
 
     useEffect(() => {
-        return () => {
-            setShowAlert(true);
-        }
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 2000)
     }, [tday])
 
     const onChange = () => {
@@ -57,11 +58,11 @@ const Retail = () => {
             <div className="table-title">
                 <div className="row">
                     <div className="col-sm-6">
-                        <h2>بەڕێوەبردنی <b>فرۆشتنەکان</b></h2>
+                        <h2>بەڕێوەبردنی <b>بارەکان</b></h2>
                     </div>
                     <div className="d-print-none col-sm-6">
                         <Row>
-                            <Col md={6}>
+                            <Col>
                                 <InputGroup className="mb-3">
                                     <FormControl
                                         type="date"
@@ -81,7 +82,7 @@ const Retail = () => {
                                     <Button onClick={onChange}><FontAwesomeIcon icon={faSearch}/></Button>
                                 </InputGroup>
                             </Col>
-                            <Col md={2}>
+                            <Col>
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                         options={groupsOpt} onChange={(e) => setGroupHandler(e.value)}/>
                             </Col>
@@ -90,9 +91,9 @@ const Retail = () => {
                 </div>
             </div>
             <Alert show={showAlert} variant="success">
-                نوێکردنەوەی لیستی فرۆشتنەکان
+                نوێکردنەوەی لیستی کاڵاکان
             </Alert>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
                 <tr>
                     <th>گروپ</th>
@@ -119,16 +120,16 @@ const Retail = () => {
                 </tbody>
                 <tfoot>
                 <tr>
-                    <th></th>
-                    <th></th>
+                    <th/>
+                    <th/>
                     <th>{tday.length}</th>
-                    <th></th>
-                    <th>{Currency(Object.values(saleDetail).reduce((r, { item_price, quantity }) => r + parseFloat(quantity * item_price), 0))}</th>
-                    <th>{Object.values(saleDetail).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
-                    <th>{Object.values(saleDetail).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
-                    <th>{Currency(Object.values(saleDetail).reduce((r, { price, quantity }) => r + parseFloat(quantity * price), 0))}</th>
-                    <th>{Currency(Object.values(saleDetail).reduce((r, { finalprice, mawe }) => r + parseFloat(mawe * finalprice), 0))}</th>
-                    <th>{Currency(Object.values(saleDetail).reduce((r, { quantity, item_price, price }) => r + (quantity * (parseFloat(price) - parseFloat(item_price))), 0))}</th>
+                    <th>{Currency(Object.values(tday).reduce((r, { item_price }) => r + parseFloat(item_price), 0))}</th>
+                    <th>{Currency(Object.values(tday).reduce((r, { itemp }) => r + parseFloat(itemp), 0))}</th>
+                    <th>{Object.values(tday).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
+                    <th>{Object.values(tday).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
+                    <th>{Currency(Object.values(tday).reduce((r, { price }) => r + parseFloat(price), 0))}</th>
+                    <th>{Currency(Object.values(tday).reduce((r, { maweprice }) => r + parseFloat(maweprice), 0))}</th>
+                    <th>{Currency(Object.values(tday).reduce((r, { qazanc }) => r + parseFloat(qazanc), 0))}</th>
                 </tr>
                 </tfoot>
             </Table>

@@ -71,7 +71,7 @@ const ItemsList = (props) => {
             <Alert show={showAlert} variant="success">
                 نوێکردنەوەی لیستی فرۆشتنەکان
             </Alert>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
                 <thead>
                 <tr>
                     <th>#</th>
