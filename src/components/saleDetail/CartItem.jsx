@@ -23,7 +23,7 @@ const CartItem = ({item, addToCart, sale}) => {
                     <input type={'number'} value={quantity} onChange={event => setQuantity(event.target.valueAsNumber)}/>
                 </ListGroup>
                 <Card.Footer className="px-1">
-                    <Button variant="primary" onClick={() => addToCart(
+                    <Button variant={item.deleted?"secondary":"primary"} onClick={() => addToCart(
                         {
                             "temp": true,
                             "item": item.id,
@@ -31,14 +31,14 @@ const CartItem = ({item, addToCart, sale}) => {
                             "item_code": item.barcode,
                             "mawe": item.mawe,
                             "finalprice": item.finalprice,
-                            "total": (parseFloat(item.mawe) * parseFloat(item.finalprice)),
+                            "total": (parseFloat(item.quantity) * parseFloat(item.finalprice)),
                             "item_group": item.group_name,
                             "item_price": item.price,
                             "quantity": quantity,
                             "price": item.finalprice,
                             "sell": sale.id,
                         },
-                    )}><FontAwesomeIcon
+                    )} disabled={item.deleted}><FontAwesomeIcon
                         icon={faCartPlus}/><span>هەڵگرتن</span></Button>
                 </Card.Footer>
             </Card.Body>

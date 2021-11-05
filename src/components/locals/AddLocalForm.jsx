@@ -17,6 +17,7 @@ const AddLocalForm = () => {
     const codeRef = useRef('')
     const phoneRef = useRef('')
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         addLocal(
@@ -44,7 +45,7 @@ const AddLocalForm = () => {
                 <Form.Control type='text'  ref={nameRef} onChange={(event)=>nameRef.current=event.target.value}/>
             </Form.Group>
             <Form.Group>
-                <Form.Label >>خاوەنی کار</Form.Label>
+                <Form.Label >خاوەنی کار</Form.Label>
                 <Form.Control type='text'  ref={ownerRef} onChange={(event)=>ownerRef.current=event.target.value}/>
             </Form.Group>
             <Form.Group>
@@ -57,11 +58,11 @@ const AddLocalForm = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label >ناونیشان</Form.Label>
-                <Select placeholder="هەڵبژاردن..." name="group"  options={regionsOpt} onChange={(e) => setRegion(e.value)}/>
+                <Select placeholder="هەڵبژاردن..." name="region"  options={regionsOpt} onChange={(e) => setRegion(e.value)}/>
             </Form.Group>
             <hr/>
             <Button variant="success" type="submit">
-                زیادکردنی داواکاری
+                زیادکردنی کڕیار
             </Button>
         </Form>
     )

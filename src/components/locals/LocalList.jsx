@@ -1,6 +1,6 @@
 import {Alert, Button, Col, Modal, Row, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAddressBook} from "@fortawesome/free-solid-svg-icons";
+import {faAddressBook, faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import React, {useContext, useEffect, useState} from "react";
 import {LocalsContext} from "../../contexts/LocalsContext";
@@ -13,7 +13,7 @@ import AddLocalForm from "./AddLocalForm";
 const LocalList = () => {
     const {regions} = useContext(RegionsContext)
     const {groups} = useContext(GroupsContext)
-    const {locals, setLocalRegion, setGroupFilter, groupFilter} = useContext(LocalsContext)
+    const {locals, setLocalRegion, setGroupFilter, groupFilter,onlyNeed} = useContext(LocalsContext)
 
     const [showAlert, setShowAlert] = useState(false)
     const [show, setShow] = useState(false);
@@ -47,6 +47,7 @@ const LocalList = () => {
         setGroupFilter(value)
     }
 
+
     return (
         <section className="p-5">
             <div className="table-title">
@@ -65,7 +66,11 @@ const LocalList = () => {
                                         options={regionsOpt} onChange={(e) => setRegionHandler(e.value)}/>
                             </Col>
                             <Col>
-                                <Button onClick={handleShow} className="btn btn-success" data-toggle="modal">
+                                <Button onClick={onlyNeed} variant={"outline-primary"} data-toggle="modal">
+                                    <FontAwesomeIcon icon={faGlobe}/> <span>قەرزارەکان</span></Button>
+                            </Col>
+                            <Col>
+                                <Button onClick={handleShow} variant={"outline-success"}  data-toggle="modal">
                                     <FontAwesomeIcon icon={faAddressBook}/> <span>زیادکردنی کڕیار</span></Button>
                             </Col>
                         </Row>
@@ -84,12 +89,13 @@ const LocalList = () => {
                     <th scope="col">کۆد</th>
                     <th scope="col">ژمارەی موبایل</th>
                     <th scope="col">ناونیشان</th>
-                    <th className="d-print-none" scope="col">قەرزی یەکەم جار</th>
-                    <th className="d-print-none"> کۆن</th>
+                    <th className="d-print-none" scope="col">یەکەم جار</th>
+                    <th className="d-print-none">{groupFilter.label} کۆن</th>
                     <th className="d-print-none" scope="col">کۆی کڕین</th>
+                    <th scope="col">پارەی داواکراو</th>
                     <th scope="col">پارەی دراو</th>
                     <th>
-                        {groupFilter.label}
+                        {groupFilter.label} ماوە
                     </th>
                 </tr>
                 </thead>
@@ -104,13 +110,13 @@ const LocalList = () => {
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td/>
+                    <td/>
+                    <td/>
+                    <td/>
                     <td>
-                        {groupFilter.value === 0 ? Currency(Object.values(locals).reduce((r, {mawe}) => r + Object.values(mawe).reduce((r, item) => r + item, 0), 0)):
-                            Currency(Object.values(locals).reduce((r, {mawe}) => r + parseFloat(mawe[groupFilter.value - 1]), 0))}
+                        {groupFilter.value === 0 ? Currency(Object.values(locals).reduce((r, {mawe}) => r + Object.values(mawe).reduce((r, item) => r + item, 0), 0)) :
+                            Currency(Object.values(locals).reduce((r, {mawe}) => r + parseFloat(mawe[groupFilter.value]), 0))}
                     </td>
                 </tr>
                 </tfoot>
@@ -123,7 +129,7 @@ const LocalList = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddLocalForm />
+                    <AddLocalForm/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -132,7 +138,7 @@ const LocalList = () => {
                 </Modal.Footer>
             </Modal>
         </section>
-    )
+    );
 }
 
 export default LocalList

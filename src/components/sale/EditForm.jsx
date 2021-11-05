@@ -28,25 +28,29 @@ const EditForm = ({theSale}) => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group>
+                <Form.Label >بنکە</Form.Label>
                 <Select value={
                     groupsOpt.filter(option =>
                         option.value === group)
-                } name="group" className="form-control" options={groupsOpt} onChange={(e) => setGroup(e.value)}/>
+                } name="group" options={groupsOpt} onChange={(e) => setGroup(e.value)}/>
             </Form.Group>
             <Form.Group>
+                <Form.Label >ڤیزیتۆر</Form.Label>
                 <Select value={
                     vendorsOpt.filter(option =>
                         option.value === vendor)
-                } placeholder="هەڵبژاردن..." name="vendor" className="form-control" options={vendorsOpt}
+                } placeholder="هەڵبژاردن..." name="vendor" options={vendorsOpt}
                         onChange={(e) => setVendor(e.value)}/>
             </Form.Group>
             <Form.Group>
+                <Form.Label >فرۆشگا</Form.Label>
                 <Select value={
                     localsOpt.filter(option =>
                         option.value === local)
-                } placeholder="هەڵبژاردن..." name="local" className="form-control" options={localsOpt}
+                } placeholder="هەڵبژاردن..." name="local" options={localsOpt}
                         onChange={(e) => setLocal(e.value)}/>
             </Form.Group>
+            <hr/>
             <Button variant="success" type="submit">
                 زیادکردنی داواکاری
             </Button>

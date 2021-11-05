@@ -24,14 +24,17 @@ const SaleDetailContextProvider = (props) => {
 
     const addSale = (temp_id, data) => {
         zenderAXIOS.post(salesDetailURL, data).then((response) => {
-            setSaleDetail([...saleDetail.filter((sale) => sale.id !== temp_id), response.data])
+            setSaleDetail(saleDetail.map((sale) => sale.id === temp_id ? response.data : sale))
         }).catch(err => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
     }
 
     const deleteSale = (id) => {
-        zenderAXIOS.delete(`${saleDetailURL}${id}/`).then((response) => {
+        if(id<0){
+            return setSaleDetail(saleDetail.filter(sale => sale.id !== id))
+        }
+        zenderAXIOS.delete(`${saleDetailURL}${id}/`).then(() => {
             setSaleDetail(saleDetail.filter(sale => sale.id !== id))
         }).catch(err => {
             setSaleDetail(saleDetail.filter(sale => sale.id !== id))
@@ -41,7 +44,7 @@ const SaleDetailContextProvider = (props) => {
     const updateSale = (id, updatedSale) => {
         zenderAXIOS.patch(`${salesDetailURL}${id}/`, updatedSale).then((response) => {
             setSaleDetail(saleDetail.map((sale) => sale.id === id ? response.data : sale))
-        }).catch(err => {
+        }).catch(() => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
     }
@@ -62,7 +65,7 @@ const SaleDetailContextProvider = (props) => {
     }
 
     const addToList = (item) => {
-        const id = Math.floor(Math.random() * 1000) + 1
+        const id = Math.floor(Math.random() * -1000) + 1
         const newCart = {id, ...item}
         setSaleDetail([...saleDetail, newCart])
     }

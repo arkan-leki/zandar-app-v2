@@ -13,6 +13,15 @@ import SaleDetail from "./components/saleDetail/SaleDetail";
 import ItemsContextProvider from "./contexts/ItemsContext";
 import LocalList from "./components/locals/LocalList";
 import RegionsContextProvider from "./contexts/RegionlsContext";
+import Retail from "./components/retail";
+import LocalDetail from "./components/localDetail/LocalDetail";
+import LocalDetailContextProvider from "./contexts/LocalDetailContext";
+import ItemsList from "./components/items/ItemsList";
+import CatsContextProvider from "./contexts/CategoresContext";
+import ItemDetailContextProvider from "./contexts/ItemDetailContext";
+import ItemDetal from "./components/items/ItemDetal";
+import Board from "./components/dashboard/Board";
+import PaymentsContextProvider from "./contexts/PaymentsContext";
 
 function App() {
     return (
@@ -21,14 +30,16 @@ function App() {
                 <TableLayout>
                     <Switch>
                         <Route exact path="/">
-                            {/*<DataTabel />*/}
+                            <PaymentsContextProvider>
+                                <Board />
+                            </PaymentsContextProvider>
                         </Route>
                         <Route exact path="/sales/">
                             <GroupsContextProvider>
                                 <VendorsContextProvider>
                                     <LocalsContextProvider>
                                         <SalesContextProvider>
-                                                <SalesList />
+                                            <SalesList/>
                                         </SalesContextProvider>
                                     </LocalsContextProvider>
                                 </VendorsContextProvider>
@@ -37,18 +48,50 @@ function App() {
                         <Route exact path="/saleDetail/:id">
                             <SaleDetailContextProvider>
                                 <ItemsContextProvider>
-                                    <SaleDetail />
+                                    <SaleDetail/>
                                 </ItemsContextProvider>
                             </SaleDetailContextProvider>
+                        </Route>
+                        <Route exact path="/retail/">
+                            <GroupsContextProvider>
+                                <SaleDetailContextProvider>
+                                    <ItemsContextProvider>
+                                        <Retail/>
+                                    </ItemsContextProvider>
+                                </SaleDetailContextProvider>
+                            </GroupsContextProvider>
                         </Route>
                         <Route exact path="/locals/">
                             <GroupsContextProvider>
                                 <RegionsContextProvider>
                                     <LocalsContextProvider>
-                                        <LocalList />
+                                        <LocalList/>
                                     </LocalsContextProvider>
                                 </RegionsContextProvider>
                             </GroupsContextProvider>
+                        </Route>
+                        <Route exact path="/localDetail/:id">
+                            <GroupsContextProvider>
+                                <LocalDetailContextProvider>
+                                    <LocalDetail/>
+                                </LocalDetailContextProvider>
+                            </GroupsContextProvider>
+                        </Route>
+                        <Route exact path="/items/">
+                            <GroupsContextProvider>
+                                <CatsContextProvider>
+                                    <ItemsContextProvider>
+                                        <ItemsList/>
+                                    </ItemsContextProvider>
+                                </CatsContextProvider>
+                            </GroupsContextProvider>
+                        </Route>
+                        <Route exact path="/itemDetail/:id">
+                            <ItemDetailContextProvider>
+                                <CatsContextProvider>
+                                    <ItemDetal/>
+                                </CatsContextProvider>
+                            </ItemDetailContextProvider>
                         </Route>
                     </Switch>
                 </TableLayout>

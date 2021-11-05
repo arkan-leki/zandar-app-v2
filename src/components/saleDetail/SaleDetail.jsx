@@ -83,7 +83,7 @@ const SaleDetail = () => {
                                     <FontAwesomeIcon
                                         icon={faShoppingCart}
                                     /> نوێکردنەوە </Button>
-                                <SaleToPrint sale={sale}/>
+                                {sale.id && <SaleToPrint sale={sale}/>}
                             </div>
                         </div>
                         {/* Card */}

@@ -6,8 +6,7 @@ export const LocalsContext = createContext(undefined)
 
 const LocalsContextProvider = (props) => {
     const [locals, setLocals] = useState([])
-    const [localz, setLocalz] = useState([])
-    const {localURL, localsURL, zenderAXIOS} = useContext(APIContext)
+    const {paymentURL, bankURL, localsURL, zenderAXIOS} = useContext(APIContext)
     const [localsTemp, setLocalsTemp] = useState([])
     const [groupFilter, setGroupFilter] = useState({value: 0, label: 'هەموو'})
 
@@ -19,12 +18,6 @@ const LocalsContextProvider = (props) => {
         // eslint-disable-next-line
     }, [])
 
-    useEffect(() => {
-        zenderAXIOS.get(localURL).then((response) => {
-            setLocalz(response.data);
-        });
-        // eslint-disable-next-line
-    }, [])
     const getLocal = (sale, id, plus) => {
         let attemptsValue = 0
         let oldValue = 0
@@ -62,7 +55,54 @@ const LocalsContextProvider = (props) => {
         })
     }
 
-    const value = {locals, localz, getLocal, setLocalRegion, groupFilter, setGroupFilter, addLocal}
+    const addPaymentLocal = (pay, bank) => {
+        zenderAXIOS.post(bankURL, bank).then((response) => {
+            const bankID = response.data.id
+            zenderAXIOS.post(paymentURL, {
+                "group": pay.group,
+                "local": pay.local,
+                "bank": bankID
+            }).then(() => {
+                zenderAXIOS.get(`${localsURL}${pay.local}/`).then((response) => {
+                    setLocals(locals.map((local) => local.id === pay.local ? response.data : local))
+                });
+            }).catch(err => {
+                console.log(err)
+                alert("داواکاریەکەت سەرنەکەوت");
+            })
+
+        }).catch(err => {
+            console.log(err)
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+
+    }
+
+    const updateLocal = (id, data) => {
+        zenderAXIOS.patch(`${localsURL}${id}/`, data).then((response) => {
+            setLocals(locals.map((local) => local.id === id ? response.data : local))
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const onlyNeed = () => {
+        if (groupFilter.value === 0)
+            return setLocals(localsTemp.filter((loc) => Object.values(loc.mawe).reduce((r, item) => r + item, 0) !== 0))
+        setLocals(localsTemp.filter((loc) => loc.mawe[groupFilter.value] !== 0))
+    }
+
+    const value = {
+        onlyNeed,
+        locals,
+        getLocal,
+        setLocalRegion,
+        groupFilter,
+        setGroupFilter,
+        addLocal,
+        updateLocal,
+        addPaymentLocal
+    }
     return (
         <LocalsContext.Provider value={value}>
             {props.children}

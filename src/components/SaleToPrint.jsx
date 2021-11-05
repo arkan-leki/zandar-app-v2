@@ -24,7 +24,7 @@ const SaleToPrint = ({sale}) => {
             <OverlayTrigger
                 overlay={
                     <Tooltip id={`tooltip-top`}>
-                        Print
+                        چاپکردن
                     </Tooltip>
                 }>
                 <Button variant={"outline-secondary"} onClick={handlePrint}>
@@ -115,12 +115,12 @@ const SaleToPrint = ({sale}) => {
                             </Table>
                         </Row>
                         <Row className={"mt-2"}>
-                            {/*<Col xs={{order: 'first'}} className={"text-center fs-5  border  border-2"}>*/}
-                            {/*    <span> حسابی پێشوو : </span>*/}
-                            {/*    <p> {Currency(parseFloat(local))}</p>*/}
-                            {/*    <span> حسابی ئێستا : </span>*/}
-                            {/*    <p> {Currency(parseFloat(sale.local_mawe))}</p>*/}
-                            {/*</Col>*/}
+                            <Col xs={{order: 'first'}} className={"text-center fs-5  border  border-2"}>
+                                <span> حسابی پێشوو : </span>
+                                <p> {Currency(parseFloat(sale.local_mawe[sale.group]))}</p>
+                                <span> حسابی ئێستا : </span>
+                                <p> {Currency(parseFloat(sale.local_mawe[sale.group])+parseFloat(sale.totallint))}</p>
+                            </Col>
                             <Col className="mx-auto text-center  border-bottom border-5 justify-center">
                                 <Form>
                                     <Form.Group>
@@ -133,7 +133,7 @@ const SaleToPrint = ({sale}) => {
                                     </Form.Group>
                                 </Form>
                             </Col>
-                            <Col/>
+                            {/*<Col/>*/}
                             <Col xs={{order: 'last'}} className={"text-center fs-5  border-bottom border-5"}>
                                 {sale.discount > 0 ? <p> {Currency(parseFloat(sale.discount))} داشکاندن </p> : ''}
                                 <p>کۆی وەسڵ: </p>
