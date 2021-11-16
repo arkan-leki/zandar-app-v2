@@ -21,6 +21,7 @@ const APIContextProvider = (props) => {
     const paymentURL= 'payment/'
     const catURL= 'cat/'
     const oldAccURL = 'oldacc/'
+    const reSellURL = 'resell/'
 
     const zenderAXIOS = axios.create({
         baseURL: baseURL
@@ -41,7 +42,8 @@ const APIContextProvider = (props) => {
         saleURL,
         saleDetailURL,
         salesDetailURL,
-        regionURL
+        regionURL,
+        reSellURL
     }
 
     return (

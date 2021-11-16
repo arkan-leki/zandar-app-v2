@@ -51,7 +51,7 @@ const SaleItem = ({kala}) => {
                     <a href={`/itemDetail/${kala.item}`}>{kala.id}
                         <div className="mask">
                             <img className="img-fluid w-50"
-                                 src={kala.image} alt={'...'}/>
+                                 src={kala.item_image} alt={'...'}/>
                             <div className="mask rgba-black-slight"/>
                         </div>
                     </a>

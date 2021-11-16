@@ -1,4 +1,4 @@
-import {faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faCartArrowDown, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import moment from 'moment'
 import {useContext, useEffect, useState} from 'react'
@@ -8,21 +8,26 @@ import {SalesContext} from '../../contexts/SalesContext'
 import Currency from '../../helper/Currency'
 import EditForm from "./EditForm";
 import SaleToPrint from "../SaleToPrint";
+import ReSale from "./ReSale";
 
 const Sale = ({sale}) => {
     const {deleteSale, updateSale} = useContext(SalesContext)
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+
     const [status, setStatus] = useState(false);
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
-
+    const handleShow2 = () => setShow2(true);
+    const handleClose2 = () => setShow2(false);
     const handleStatus = (stat) => {
         setStatus(!stat)
         updateSale(sale.id, {"status": !stat})
     }
     useEffect(() => {
         handleClose()
+        handleClose2()
     }, [sale])
 
     const handleDelete = (saleID) => {
@@ -86,6 +91,15 @@ const Sale = ({sale}) => {
                 <OverlayTrigger
                     overlay={
                         <Tooltip id={`tooltip-top`}>
+                            گەڕانەوە
+                        </Tooltip>
+                    }>
+                    <Button variant={"outline-danger"} onClick={handleShow2} data-toggle="modal">
+                        <FontAwesomeIcon icon={faCartArrowDown}/></Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                    overlay={
+                        <Tooltip id={`tooltip-top`}>
                             سڕینەوە
                         </Tooltip>
                     }>
@@ -93,6 +107,22 @@ const Sale = ({sale}) => {
                         <FontAwesomeIcon icon={faTrash}/></Button>
                 </OverlayTrigger>
             </td>
+
+            <Modal show={show2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        گەڕانەوە فرۆش
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ReSale theSale={sale}/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        داخستن
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

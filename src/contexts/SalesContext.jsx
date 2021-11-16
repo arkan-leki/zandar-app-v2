@@ -7,8 +7,8 @@ const SalesContextProvider = (props) => {
     const [sales, setSales] = useState([])
     const [salesTemp, setSalesTemp] = useState([])
 
+    const {salesURL, zenderAXIOS, reSellURL} = useContext(APIContext)
 
-    const {salesURL, zenderAXIOS} = useContext(APIContext)
     useEffect(() => {
         zenderAXIOS.get(`${salesURL}?status=false`).then((response) => {
             setSales(response.data);
@@ -63,7 +63,19 @@ const SalesContextProvider = (props) => {
         setSales(salesTemp.filter((sale) => sale.group === data))
     }
 
-    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales};
+    const addReSale = (sell, item, quantity, price) => {
+        zenderAXIOS.post(reSellURL, {
+            sell: sell, item: item, quantity: quantity, price: price
+        }).then(() => {
+            zenderAXIOS.get(`${salesURL}${sell}/`).then((response) => {
+                setSales(sales.map((sale) => sale.id === sell ? response.data : sale))
+            });
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales, addReSale};
 
     return (
         <SalesContext.Provider value={values}>

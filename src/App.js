@@ -22,6 +22,7 @@ import ItemDetailContextProvider from "./contexts/ItemDetailContext";
 import ItemDetal from "./components/items/ItemDetal";
 import Board from "./components/dashboard/Board";
 import PaymentsContextProvider from "./contexts/PaymentsContext";
+import SaleBack from "./components/saleBack/saleBack";
 
 function App() {
     return (
@@ -92,6 +93,13 @@ function App() {
                                     <ItemDetal/>
                                 </CatsContextProvider>
                             </ItemDetailContextProvider>
+                        </Route>
+                        <Route exact path="/SaleBack/">
+                            <ItemsContextProvider>
+                                <SalesContextProvider>
+                                    <SaleBack />
+                                </SalesContextProvider>
+                            </ItemsContextProvider>
                         </Route>
                     </Switch>
                 </TableLayout>

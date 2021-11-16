@@ -9,13 +9,12 @@ const CartItem = ({item, addToCart, sale}) => {
     return (
         <Card className={'bg-light mb-5'}>
             <Card.Header>{item.group_name}</Card.Header>
-            <Card.Img alt="..." variant="top" src=".."/>
+            <Card.Img variant="top" src={item.image} alt={'...'}/>
             <Card.Body className='text-center'>
-                <a href='#!' className='grey-text'>
+                <a href={`/itemDetail/${item.id}`} className="text-decoration-none">
                     <h5>{item.barcode}</h5>
                 </a>
                 <Card.Title><strong>{item.name}</strong></Card.Title>
-                {/*<Card.Text><h4>{Currency(parseFloat(item.finalprice))}</h4></Card.Text>*/}
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>نرخ
                         : {Currency(parseFloat(item.finalprice))}</ListGroupItem>
