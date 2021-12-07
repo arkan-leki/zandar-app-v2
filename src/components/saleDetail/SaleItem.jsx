@@ -50,8 +50,8 @@ const SaleItem = ({kala}) => {
                 <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
                     <a href={`/itemDetail/${kala.item}`}>{kala.id}
                         <div className="mask">
-                            <img className="img-fluid w-50"
-                                 src={kala.item_image} alt={'...'}/>
+                            <img className="img-fluid w-50 "
+                                 src={kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'}/>
                             <div className="mask rgba-black-slight"/>
                         </div>
                     </a>

@@ -9,7 +9,7 @@ const CartItem = ({item, addToCart, sale}) => {
     return (
         <Card className={'bg-light mb-5'}>
             <Card.Header>{item.group_name}</Card.Header>
-            <Card.Img variant="top" src={item.image} alt={'...'}/>
+            <Card.Img variant="top" src={item.image} alt={'...'} height={100 + 'px'} width={100 + 'px'}/>
             <Card.Body className='text-center'>
                 <a href={`/itemDetail/${item.id}`} className="text-decoration-none">
                     <h5>{item.barcode}</h5>

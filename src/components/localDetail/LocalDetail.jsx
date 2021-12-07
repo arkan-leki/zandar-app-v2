@@ -62,7 +62,7 @@ const LocalDetail = () => {
         let suumer = parseFloat(local.exchange)
 
         return (
-            arr.sort((a, b) => a.date - b.date).map((attempt, index) => (
+            arr.sort((a, b) => new Date(a.date.split('/').reverse().join()) - new Date(b.date.split('/').reverse().join())).map((attempt, index) => (
                 <tr key={index}>
                     <th scope="row"> {attempt.id}</th>
                     <th scope="row">{attempt.name}</th>

@@ -28,8 +28,8 @@ const Item = ({item}) => {
 
     return (
         <>
-            <td><img src={item.image}
-                     className="img-fluid rounded-start m-2 d-print-none" alt="....." width={50 + 'px'}/>{item.id}
+            <td><img src={item.image} width={100 + 'px'}
+                     className=" rounded-start m-2 d-print-none" alt="....." height={100 + 'px'}/>{item.id}
             </td>
             <td>{item.barcode}</td>
             <td>{item.group_name}</td>
