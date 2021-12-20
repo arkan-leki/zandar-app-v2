@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Alert, Button, Col, FormControl, InputGroup, Modal, Row, Table } from 'react-bootstrap'
-import { SalesContext } from '../../contexts/SalesContext'
-import AddSaleForm from './AddSaleForm'
-import Sale from './Sale'
-import { faCartPlus, faGlobe, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { GroupsContext } from "../../contexts/GroupsContext";
+import moment from 'moment'
+import React, { useContext, useEffect, useState } from 'react'
+import { Col, FormControl, InputGroup, Row, Table, Button, Modal, Alert } from 'react-bootstrap'
 import Select from "react-select";
-import moment from "moment";
-import Currency from "../../helper/Currency";
+import { GroupsContext } from '../../contexts/GroupsContext'
+import { PaymentsContext } from '../../contexts/PaymentsContext'
+import Currency from '../../helper/Currency'
+import AddPaymentForm from './AddPaymentForm'
+import Payment from './Payment'
 
-const SalesList = () => {
+const PaymentsList = () => {
+    const { payments, updatePaymentDate, setPaymentGroup } = useContext(PaymentsContext)
+    const summer = Object.values(payments).reduce((r, { bank_income }) => r + parseFloat(bank_income), 0);
+    const sall = payments.length
+
     const { groups } = useContext(GroupsContext)
-    const { sales, updateSaleDate, setSaleGroup, allSales } = useContext(SalesContext)
     const [showAlert, setShowAlert] = useState(false)
 
     const [show, setShow] = useState(false);
@@ -32,13 +35,13 @@ const SalesList = () => {
         return () => {
             handleShowAlert();
         }
-    }, [sales])
+    }, [payments])
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
     const onChange = () => {
-        updateSaleDate({ startDate, endDate }, group)
+        updatePaymentDate({ startDate, endDate }, group)
     };
 
     const [group, setGroup] = useState('')
@@ -46,17 +49,16 @@ const SalesList = () => {
     const groupsOpt = [...groups.map((opt) => ({ value: opt.id, label: opt.name }))]
     const setGroupHandler = (value) => {
         setGroup(value)
-        setSaleGroup(group)
+        setPaymentGroup(group)
     }
-
 
 
     return (
         <section className="pt-5 px-2">
-            <div className="table-title">
+            <div className='table-title'>
                 <Row>
                     <Col md={4}>
-                        <h2>بەڕێوەبردنی <b>فرۆشتنەکان</b></h2>
+                        <h2>بەڕێوەبردنی <b>پارەدان</b></h2>
                     </Col>
                     <Col>
                         <Row>
@@ -88,54 +90,46 @@ const SalesList = () => {
                                 <Button onClick={handleShow} variant={"outline-success"} data-toggle="modal">
                                     <FontAwesomeIcon icon={faCartPlus} /> <span>زیادکردن</span></Button>
                             </Col>
-                            <Col>
-                                <Button onClick={() => allSales()} variant={"outline-primary"}>
-                                    <FontAwesomeIcon icon={faGlobe} /> <span>زیادتر</span></Button>
-                            </Col>
                         </Row>
                     </Col>
                 </Row>
             </div>
+
             <Alert show={showAlert} variant="success">
-                نوێکردنەوەی لیستی فرۆشتنەکان
+                نوێکردنەوەی لیستی پارەدانەکان
             </Alert>
+
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th className="d-print-none" scope="col"> وەسڵ</th>
-                        <th className="d-print-none" scope="col"> فرۆشیار</th>
-                        <th scope="col">ژمارەی وەسڵ</th>
-                        <th scope="col">کڕیار</th>
-                        <th>بار</th>
-                        <th>کێش</th>
-                        <th scope="col">ناونیشان</th>
-                        <th scope="col">کۆی وەسل</th>
-                        <th scope="col">کۆی داشکان</th>
-                        <th scope="col">کۆتا</th>
-                        <th scope="col">کۆی گەڕاوە</th>
-                        <th scope="col">بەروار</th>
-                        <th className="d-print-none">حاڵەت</th>
+                        <th scope="col"> وەسڵی پارەدان</th>
+                        <th >بنکەی فرۆش</th>
+                        <th scope="col"> کڕیار</th>
+                        <th scope="col"> کۆدی کڕیار</th>
+                        <th scope="col"> ژ.موبایلی کڕیار</th>
+                        <th >پارەی دراو</th>
+                        <th>کۆی داشکان</th>
+                        <th >بەروار</th>
                         <th className="d-print-none">رێکەوت</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        sales.map(sale => (
-                            <tr key={sale.id}>
-                                <Sale sale={sale} />
-                            </tr>
-                        ))
-                    }
+                    {payments.map((payment, index) => (
+                        <tr key={index}>
+                            <Payment payment={payment} />
+                        </tr>
+                    ))}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th />
-                        <th />
-                        <th />
-                        <th />
-                        <th>{Object.values(sales).reduce((r, { totallBar }) => r + parseFloat(totallBar), 0)}</th>
-                        <th>{Object.values(sales).reduce((r, { sell_detail }) => r + parseInt(Object.values(sell_detail).reduce((r, { allwight }) => r + parseFloat(allwight), 0).toFixed(0)), 0)} کگم</th>
-                        <th>{Currency(Object.values(sales).reduce((r, { totall }) => r + parseFloat(totall), 0))}</th>
+                        <th>{sall}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>  {Currency(summer)}  </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </Table>
@@ -143,11 +137,11 @@ const SalesList = () => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        زیادکردنی فرۆش
+                        زیادکردنی پارەدان
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddSaleForm />
+                    <AddPaymentForm />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -159,4 +153,4 @@ const SalesList = () => {
     )
 }
 
-export default SalesList
+export default PaymentsList

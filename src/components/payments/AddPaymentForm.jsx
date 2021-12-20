@@ -1,27 +1,31 @@
-import {Button, Form} from "react-bootstrap";
+import React, { useContext, useState } from 'react'
+import { Form, Button } from 'react-bootstrap'
 import Select from "react-select";
-import React, {useContext, useState} from "react";
-import {LocalsContext} from "../../contexts/LocalsContext";
-import {GroupsContext} from "../../contexts/GroupsContext";
-import Currency from "../../helper/Currency";
+import { GroupsContext } from '../../contexts/GroupsContext';
+import { LocalsContext } from '../../contexts/LocalsContext';
+import { PaymentsContext } from '../../contexts/PaymentsContext';
+import Currency from '../../helper/Currency';
 
-const LocalPayment = ({theLocal, groupid}) => {
-    const {addPaymentLocal} = useContext(LocalsContext);
+const AddPaymentForm = () => {
+    const {addPayment} = useContext(PaymentsContext);
     const {groups} = useContext(GroupsContext)
+    const {locals} = useContext(LocalsContext)
 
     const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
+    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: opt.name}))]
 
     const [payed, setPayed] = useState(0)
     const [loan, setLoan] = useState(0)
-    const [group, setGroup] = useState(groupid)
+    const [local, setLocal] = useState(0)
+    const [group, setGroup] = useState(0)
     const [dinar, setDinar] = useState(1480)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addPaymentLocal(
+        addPayment(
             {
                 "group": group,
-                "local": theLocal.id,
+                "local": local,
                 "bank": null
             },
             {
@@ -32,8 +36,14 @@ const LocalPayment = ({theLocal, groupid}) => {
         );
     }
 
+
     return (
         <Form onSubmit={handleSubmit}>
+            <Form.Group>
+                <Form.Label>کڕیار</Form.Label>
+                <Select defaultValue={localsOpt[group - 1]} placeholder="هەڵبژاردن..." name="group" options={localsOpt}
+                        onChange={(e) => setLocal(e.value)}/>
+            </Form.Group>
             <Form.Group>
                 <Form.Label>بنکەی وەسڵ</Form.Label>
                 <Select defaultValue={groupsOpt[group - 1]} placeholder="هەڵبژاردن..." name="group" options={groupsOpt}
@@ -62,4 +72,5 @@ const LocalPayment = ({theLocal, groupid}) => {
         </Form>
     )
 }
-export default LocalPayment
+
+export default AddPaymentForm

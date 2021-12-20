@@ -4,13 +4,14 @@ import Select from 'react-select';
 import {SalesContext} from '../../contexts/SalesContext';
 import {GroupsContext} from "../../contexts/GroupsContext";
 import {VendorsContext} from "../../contexts/VendorsContext";
-import {LocalsContext} from "../../contexts/LocalsContext";
+// import {LocalsContext} from "../../contexts/LocalsContext";
+import { Locals2Context } from '../../contexts/Locals2Context';
 
 const AddSaleForm = () => {
     const {addSale} = useContext(SalesContext);
     const {groups} = useContext(GroupsContext)
     const {vendors} = useContext(VendorsContext)
-    const {locals} = useContext(LocalsContext)
+    const {locals} = useContext(Locals2Context)
 
     const [vendor, setVendor] = useState('')
     const [group, setGroup] = useState('')
@@ -18,7 +19,7 @@ const AddSaleForm = () => {
 
     const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
     const vendorsOpt = [...vendors.map((opt) => ({value: opt.id, label: opt.name}))]
-    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: `${opt.name} ${opt.region_name} ${opt.phone}`}))]
+    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: `${opt.name} ${opt.region_name} ${opt.code}`}))]
 
     const handleSubmit = (e) => {
         e.preventDefault();

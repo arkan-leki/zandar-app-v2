@@ -14,9 +14,10 @@ const TableLayout = (props) => {
                             <Link className="nav-link text-white" to={`/`}>ماڵەوە</Link>
                             <Link className="nav-link text-white" to={`/sales`}>فرۆشتنەکان</Link>
                             <Link className="nav-link text-white" to={`/locals`}>کڕیارەکان</Link>
+                            <Link className="nav-link text-white" to={`/buy`}>داخلبونی کاڵا</Link>
                             <Link className="nav-link text-white" to={`/retail`}>دەرچووی مەخزەن</Link>
                             <Link className="nav-link text-white" to={`/items`}>کاڵاکان</Link>
-                            {/*<Link className="nav-link text-white" to={`/items`}>کاڵاکان</Link>*/}
+                            <Link className="nav-link text-white" to={`/payments`}>پارەدانەکان</Link>
 
                             <NavDropdown title="گروپەکان" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

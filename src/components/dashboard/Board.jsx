@@ -42,6 +42,7 @@ const Board = () => {
                         </Card.Body>
                     </Card>
                     <br />
+                    
 
                 </Row>
             </section>

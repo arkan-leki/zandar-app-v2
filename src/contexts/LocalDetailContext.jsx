@@ -8,9 +8,10 @@ const LocalDetailContextProvider = (props) => {
     const [local, setLocal] = useState([])
     const [sales, setSales] = useState([])
     const [oldAcc, setOldAcc] = useState([])
+    const [resell, setResell] = useState([])
     const [payment, setPayment] = useState([])
 
-    const {salesURL, localsURL, oldAccURL, zenderAXIOS, paymentURL} = useContext(APIContext)
+    const {reSellURL, salesURL, localsURL, oldAccURL, zenderAXIOS, paymentURL} = useContext(APIContext)
     const {id} = useParams();
 
     useEffect(() => {
@@ -34,13 +35,18 @@ const LocalDetailContextProvider = (props) => {
         }).catch(err => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
+        zenderAXIOS.get(`${reSellURL}`).then((response) => {
+            setResell(response.data.filter((val) => val.local === parseInt(id)));
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
         // eslint-disable-next-line
     }, [])
 
 
 
 
-    const value = {local, sales , oldAcc, payment}
+    const value = {local, sales , oldAcc, payment, resell}
     return (
         <LocalDetailContext.Provider value={value}>
             {props.children}

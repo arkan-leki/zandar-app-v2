@@ -66,17 +66,23 @@ const SaleToPrint = ({ sale }) => {
                                     </Row>
                                 </Row>
                             </Col>
-                            <Col className={" m-2 text-center bg-warning border border-3 border-primary text-dark"}>
+                            {sale.phone === "1" ? <Col className={" m-2 text-center bg-success border border-3 border-primary text-dark"}>
                                 <h4> {sale.group_name} </h4>
-                                <p> {sale.id}</p>
+                                <p> ژ.وەسڵ ({sale.id}) </p>
+                                <p>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</p>
+                            </Col> : <Col className={" m-2 text-center bg-warning border border-3 border-primary text-dark"}>
+                                <h4> {sale.group_name} </h4>
+                                <p> ژ.وەسڵ ({sale.id}) </p>
                                 <p>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</p>
                             </Col>
+                            }
+
                             <Col className={" m-2 text-center border border-3 border-primary"}>
                                 <h4>فرۆشیار </h4>
                                 <p>{sale.vendor_name}</p>
                                 <p>{sale.vendor_phone}</p>
                             </Col>
-                            
+
                         </Row>
                         <Row className="text-center mt-2">
                             <Table responsive
@@ -94,7 +100,17 @@ const SaleToPrint = ({ sale }) => {
                                 <tbody className="fs-6">
                                     {sale.sell_detail && sale.sell_detail.map((kala, index) => (
                                         <tr key={index}>
-                                            <th scope="row">{kala.id}</th>
+                                            <th scope="row">
+                                                {kala.item_image !== 'null' ?
+                                                    <div className="mask">
+                                                        <img className="img-fluid w-10 "
+                                                            src={kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
+                                                        <div className="mask rgba-black-slight" />
+                                                    </div>
+                                                    :
+                                                    kala.id
+                                                }
+                                            </th>
                                             <th scope="row">{kala.item_code}</th>
                                             <th scope="row">{kala.item_name}</th>
                                             <th>{kala.quantity}</th>

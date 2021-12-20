@@ -1,6 +1,6 @@
 import axios from "axios";
-import {createContext} from "react";
-import {getConfiguration} from '../config';
+import { createContext } from "react";
+import { getConfiguration } from '../config';
 
 
 export const APIContext = createContext(undefined)
@@ -17,16 +17,24 @@ const APIContextProvider = (props) => {
     const itemsURL = 'items/'
     const localURL = 'local/'
     const regionURL = 'region/'
-    const bankURL= 'bank/'
-    const paymentURL= 'payment/'
-    const catURL= 'cat/'
+    const bankURL = 'bank/'
+    const paymentURL = 'payment/'
+    const catURL = 'cat/'
     const oldAccURL = 'oldacc/'
     const reSellURL = 'resell/'
+    const buyURL = "orders/"
+    const buysURL = "orders/"
+    const orderedURL = "ordered/"
+    const tradersURL = "traders/"
 
     const zenderAXIOS = axios.create({
         baseURL: baseURL
     })
     const value = {
+        buyURL,
+        tradersURL,
+        orderedURL,
+        buysURL,
         oldAccURL,
         catURL,
         paymentURL,

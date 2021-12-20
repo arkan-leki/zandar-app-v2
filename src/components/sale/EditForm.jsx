@@ -4,13 +4,14 @@ import React, {useContext, useState} from "react";
 import {SalesContext} from "../../contexts/SalesContext";
 import {GroupsContext} from "../../contexts/GroupsContext";
 import {VendorsContext} from "../../contexts/VendorsContext";
-import {LocalsContext} from "../../contexts/LocalsContext";
+import { Locals2Context } from "../../contexts/Locals2Context";
+// import {LocalsContext} from "../../contexts/LocalsContext";
 
 const EditForm = ({theSale}) => {
     const {updateSale} = useContext(SalesContext);
     const {groups} = useContext(GroupsContext)
     const {vendors} = useContext(VendorsContext)
-    const {locals} = useContext(LocalsContext)
+    const {locals} = useContext(Locals2Context)
 
     const [vendor, setVendor] = useState(theSale.vendor)
     const [group, setGroup] = useState(theSale.group)
