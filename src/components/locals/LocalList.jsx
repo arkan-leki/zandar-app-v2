@@ -50,12 +50,12 @@ const LocalList = () => {
 
     return (
         <section className="p-5 px-2">
-            <div className="table-title">
+            <div className="table-title" >
                 <Row>
                     <Col md={4}>
                         <h2>بەڕێوەبردنی <b>کڕیارەکان</b></h2>
                     </Col>
-                    <Col>
+                    <Col className="d-print-none">
                         <Row>
                             <Col md={3}>
                                 <Select placeholder="هەڵبژاردن..." name="group"
@@ -92,8 +92,8 @@ const LocalList = () => {
                     <th className="d-print-none" scope="col">یەکەم جار</th>
                     <th className="d-print-none">{groupFilter.label} کۆن</th>
                     <th className="d-print-none" scope="col">کۆی کڕین</th>
-                    <th scope="col">پارەی داواکراو</th>
-                    <th scope="col">پارەی دراو</th>
+                    <th className="d-print-none" scope="col">پارەی داواکراو</th>
+                    <th className="d-print-none" scope="col">پارەی دراو</th>
                     <th>
                         {groupFilter.label} ماوە
                     </th>
@@ -111,6 +111,9 @@ const LocalList = () => {
                 <tfoot>
                 <tr>
                     <td/>
+                    <td>
+                        {Object.values(locals).reduce((r) => r + 1, 0)}
+                    </td>
                     <td/>
                     <td/>
                     <td/>

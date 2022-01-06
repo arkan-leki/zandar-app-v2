@@ -7,12 +7,13 @@ import { GroupsContext } from "../../contexts/GroupsContext";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import Item from "./Item";
 import Currency from "../../helper/Currency";
+import AddNewItemForm from "./AddNewItemForm";
 
 const ItemsList = (props) => {
     const { groups } = useContext(GroupsContext)
     const { items, setItemsGroup } = useContext(ItemsContext)
     const [showAlert, setShowAlert] = useState(false)
-    const [status, setStatus] = useState(true)
+    const [status, setStatus] = useState(false)
     const [itemFilter, setItemFilter] = useState(true)
 
     const [show, setShow] = useState(false);
@@ -52,13 +53,13 @@ const ItemsList = (props) => {
                     <Col className="d-print-none">
                         <Row>
                             <Col>
-                                <Button variant={"outline-primary"}
+                                <Button variant={(!itemFilter) ? "outline-danger" : "outline-secondary"}
                                     onClick={(e) => setItemFilter(!itemFilter)}>
                                     <FontAwesomeIcon icon={faGlobe} /><span>  نە ماوە</span>
                                 </Button>
                             </Col>
                             <Col>
-                                <Button variant={"outline-primary"}
+                                <Button variant={(status) ? "outline-danger" : "outline-secondary"}
                                     onClick={(e) => setStatus(!status)}>
                                     <FontAwesomeIcon icon={faFilter} /><span>  نا چالاککراو</span>
                                 </Button>
@@ -81,43 +82,37 @@ const ItemsList = (props) => {
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th className="d-print-none">#</th>
                         <th>کۆد</th>
                         <th>گروپ</th>
                         <th hidden={true}>ناوی کۆمپانیا</th>
                         <th hidden={true}>جۆر</th>
                         <th>ناوی مەواد</th>
-                        <th>نرخی کڕین</th>
-                        <th>نسبە</th>
+                        <th className="d-print-none">نرخی کڕین</th>
+                        <th className="d-print-none">نسبە</th>
                         <th>نرخ</th>
                         <th hidden={true}>جۆر بار</th>
                         <th hidden={true}>دانە</th>
                         <th hidden={true}>وەزن دانە</th>
                         <th hidden={true}>وەزن بار</th>
-                        <th>نقل مخزن</th>
+                        <th hidden={true}>نقل مخزن</th>
                         <th>هاتوو</th>
                         <th>فرۆشراو</th>
                         <th>ماوە</th>
-                        <th />
+                        <th className="d-print-none">دۆخ</th>
+                        <th className="d-print-none" />
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        (status === true) ?
-                            (itemFilter === true) ?
-                                items.filter((i) => i.mawe > 0).map((item, index) => (
-                                    <tr key={index}>
-                                        <Item item={item} />
-                                    </tr>
-                                ))
-                                :
-                                items.map((item, index) => (
-                                    <tr key={index}>
-                                        <Item item={item} />
-                                    </tr>
-                                ))
+                        (itemFilter) ?
+                            items.filter((i) => i.deleted === status && i.mawe > 0).map((item, index) => (
+                                <tr key={index}>
+                                    <Item item={item} />
+                                </tr>
+                            ))
                             :
-                            items.filter((i) => i.deleted === true).map((item, index) => (
+                            items.filter((i) => i.deleted === status).map((item, index) => (
                                 <tr key={index}>
                                     <Item item={item} />
                                 </tr>
@@ -126,7 +121,7 @@ const ItemsList = (props) => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th />
+                        <th className="d-print-none" />
                         <th />
                         <th />
                         <th>{Object.values(items).reduce((r, { id }) => r + 1, 0)}</th>
@@ -135,19 +130,19 @@ const ItemsList = (props) => {
                             price
                         }) => r + (parseFloat(mawe) * parseFloat(price)), 0))}
                         </th>
-                        <th>{Currency(Object.values(items).reduce((r, {
+                        <th className="d-print-none">{Currency(Object.values(items).reduce((r, {
                             mawe,
                             price,
                             finalprice
                         }) => r + (parseFloat(mawe) * (parseFloat(finalprice) - parseFloat(price))), 0))}
                         </th>
-                        <th>{Currency(Object.values(items).reduce((r, {
+                        <th className="d-print-none">{Currency(Object.values(items).reduce((r, {
                             mawe,
                             finalprice
                         }) => r + (parseFloat(mawe) * parseFloat(finalprice)), 0))}
                         </th>
                         <th />
-                        <th />
+                        <th hidden={true} />
                         <th>{Object.values(items).reduce((r, { popularity }) => r + parseFloat(popularity), 0)}</th>
                         <th>{Object.values(items).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
                     </tr>
@@ -161,7 +156,7 @@ const ItemsList = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/*<AddSaleForm/>*/}
+                    <AddNewItemForm />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

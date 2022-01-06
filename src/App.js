@@ -30,6 +30,7 @@ import TradersContextProvider from "./contexts/TradersContext";
 import PaymentsList from "./components/payments/PaymentsList";
 import GroupsContextProvider from './contexts/GroupsContext';
 import Locals2ContextProvider from "./contexts/Locals2Context";
+import ReSellContextProvider from "./contexts/ReSellContext";
 
 function App() {
     return (
@@ -48,11 +49,11 @@ function App() {
                                     <Route exact path="/sales/">
                                         <>
                                             <VendorsContextProvider>
-                                                {/* <LocalsContextProvider> */}
-                                                <SalesContextProvider>
-                                                    <SalesList />
-                                                </SalesContextProvider>
-                                                {/* </LocalsContextProvider> */}
+                                                <ReSellContextProvider>
+                                                    <SalesContextProvider>
+                                                        <SalesList />
+                                                    </SalesContextProvider>
+                                                </ReSellContextProvider>
                                             </VendorsContextProvider>
                                         </>
                                     </Route>
@@ -85,27 +86,33 @@ function App() {
                                         <>
                                             <LocalDetailContextProvider>
                                                 <PaymentsContextProvider>
-                                                    <LocalDetail />
+                                                    <ReSellContextProvider>
+                                                        <LocalDetail />
+                                                    </ReSellContextProvider>
                                                 </PaymentsContextProvider>
                                             </LocalDetailContextProvider>
                                         </>
                                     </Route>
-                                    <Route exact path="/items/">
-                                        <>
-                                            <CatsContextProvider>
-                                                <ItemsContextProvider>
-                                                    <ItemsList />
-                                                </ItemsContextProvider>
-                                            </CatsContextProvider>
-                                        </>
-                                    </Route>
-                                    <Route exact path="/itemDetail/:id">
-                                        <ItemDetailContextProvider>
-                                            <CatsContextProvider>
-                                                <ItemDetal />
-                                            </CatsContextProvider>
-                                        </ItemDetailContextProvider>
-                                    </Route>
+
+                                    <ItemsContextProvider>
+                                        <CatsContextProvider>
+                                            <TradersContextProvider>
+                                                <Route exact path="/items/">
+                                                    <>
+                                                        <ItemsList />
+                                                    </>
+                                                </Route>
+                                                <Route exact path="/itemDetail/:id">
+                                                    <ItemDetailContextProvider>
+                                                        <>
+                                                            <ItemDetal />
+                                                        </>
+                                                    </ItemDetailContextProvider>
+                                                </Route>
+                                            </TradersContextProvider>
+                                        </CatsContextProvider>
+                                    </ItemsContextProvider>
+
                                     <Route exact path="/SaleBack/">
                                         <ItemsContextProvider>
                                             <SalesContextProvider>

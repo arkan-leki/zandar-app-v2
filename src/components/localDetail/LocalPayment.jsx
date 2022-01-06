@@ -14,7 +14,7 @@ const LocalPayment = ({ payment }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const { updatePayment } = useContext(PaymentsContext);
+    const { updatePayment, updateBank } = useContext(PaymentsContext);
     const { groups } = useContext(GroupsContext)
 
     const groupsOpt = [...groups.map((opt) => ({ value: opt.id, label: opt.name }))]
@@ -30,14 +30,16 @@ const LocalPayment = ({ payment }) => {
             {
                 "group": group,
                 "local": payment.local,
-                "bank": null
-            },
+                "bank": payment.bank
+            }
+        )
+        updateBank(payment.bank,
             {
                 "group": group,
                 "income": payed,
                 "loan": loan
             }
-        );
+        )
     }
     return (
         <>

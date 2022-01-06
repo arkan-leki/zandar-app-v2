@@ -1,10 +1,10 @@
 import {Button, Form} from "react-bootstrap";
 import Select from "react-select";
 import React, {useContext, useState} from "react";
-import {SalesContext} from "../../contexts/SalesContext";
+import { ReSellContext } from "../../contexts/ReSellContext";
 
 const ReSale = ({theSale}) => {
-    const {addReSale} = useContext(SalesContext);
+    const {addReSale} = useContext(ReSellContext);
 
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')

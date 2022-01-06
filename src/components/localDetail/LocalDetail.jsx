@@ -1,22 +1,19 @@
-import { Row, Col, Table, Tooltip, OverlayTrigger, Container, Button } from "react-bootstrap";
+import { Row, Col, Table, Container, Button } from "react-bootstrap";
 import React, { useContext, useRef, useState } from "react";
 import { LocalDetailContext } from "../../contexts/LocalDetailContext";
 import Currency from "../../helper/Currency";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faEdit,
     faHamburger,
-    faPrint,
-    faTruckLoading,
-    faTruckMoving
-} from "@fortawesome/free-solid-svg-icons";
+    faPrint} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import image from "../../zend.png";
 import Select from "react-select";
 import { GroupsContext } from "../../contexts/GroupsContext";
 import { useReactToPrint } from "react-to-print";
 import LocalPayment from './LocalPayment'
+import LocalSell from "./LocalSell";
 
 const LocalDetail = () => {
 
@@ -34,7 +31,6 @@ const LocalDetail = () => {
     }
 
     const handleShow = () => setShow(!show);
-
 
     const list = () => {
         let arr = []
@@ -253,33 +249,7 @@ const LocalDetail = () => {
                             {
                                 sales.map((sale, index) => (
                                     <tr key={index}>
-                                        <td>{sale.group_name}</td>
-                                        <td>{sale.vendor_name}</td>
-                                        <td>
-                                            <Link to={`/saleDetail/${sale.id}`}>{sale.id}</Link>
-                                        </td>
-                                        <td>
-                                            {sale.totallBar}
-                                        </td>
-                                        <td>{Currency(parseFloat(sale.totall))} </td>
-                                        <td>{Currency(parseFloat(sale.discount))} </td>
-                                        <td>{Currency(parseFloat(sale.totallint))} </td>
-                                        <td>{Currency(parseFloat(sale.totalback))} </td>
-                                        <td>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</td>
-                                        <td><span className={""}>{sale.status ? <FontAwesomeIcon icon={faTruckMoving} /> :
-                                            <FontAwesomeIcon icon={faTruckLoading} />}</span></td>
-                                        <td>
-                                            <OverlayTrigger
-                                                overlay={
-                                                    <Tooltip id={`tooltip-top`}>
-                                                        دەستکاری
-                                                    </Tooltip>
-                                                }>
-                                                <Link className="btn btn-outline-warning" to={`/saleDetail/${sale.id}`}>
-                                                    <FontAwesomeIcon
-                                                        icon={faEdit} /></Link>
-                                            </OverlayTrigger>
-                                        </td>
+                                        <LocalSell sale={sale} />
                                     </tr>
                                 ))
                             }
@@ -315,16 +285,16 @@ const LocalDetail = () => {
                 </Row>
                 <Row className={"d-print-none"}>
                     <div className="table-title">
-                        <h2>پارەدانەکانی <b>{local.name}</b></h2>
+                        <h2>گەڕانەوەکان <b>{local.name}</b></h2>
                     </div>
                     <Table striped bordered hover responsive>
                         <thead>
                             <tr>
-                                <th scope="col"> وەسڵی پارەدان</th>
+                                <th scope="col"> وەسڵی گەڕانەوە</th>
                                 <th >بنکەی فرۆش</th>
                                 <th scope="col"> کڕیار</th>
                                 <th scope="col"> کاڵا</th>
-                                <th >پارەی دراو</th>
+                                <th >دانە</th>
                                 <th>کۆی داشکان</th>
                                 <th >بەروار</th>
                             </tr>

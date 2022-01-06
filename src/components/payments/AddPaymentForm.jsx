@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Select from "react-select";
 import { GroupsContext } from '../../contexts/GroupsContext';
-import { LocalsContext } from '../../contexts/LocalsContext';
+import { Locals2Context } from '../../contexts/Locals2Context';
 import { PaymentsContext } from '../../contexts/PaymentsContext';
 import Currency from '../../helper/Currency';
 
 const AddPaymentForm = () => {
     const {addPayment} = useContext(PaymentsContext);
     const {groups} = useContext(GroupsContext)
-    const {locals} = useContext(LocalsContext)
+    const {locals} = useContext(Locals2Context)
 
     const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
     const localsOpt = [...locals.map((opt) => ({value: opt.id, label: opt.name}))]

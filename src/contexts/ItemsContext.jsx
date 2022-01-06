@@ -9,7 +9,7 @@ const ItemsContextProvider = (props) => {
 
     const [itemForList, setItemForList] = useState([])
 
-    const {itemsURL, zenderAXIOS} = useContext(APIContext)
+    const {itemsURL, itemURL, zenderAXIOS} = useContext(APIContext)
 
     useEffect(() => {
         zenderAXIOS.get(itemsURL).then((response) => {
@@ -44,7 +44,15 @@ const ItemsContextProvider = (props) => {
         })
     }
 
-    const value = {items, filterItems, itemForList, itemsTemp,setItemsGroup, updateItem}
+    const addNewItem = (data) => {
+        zenderAXIOS.post(`${itemURL}`, data).then((response) => {
+            setItems([response.data, ...items])
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const value = {items, filterItems, itemForList, itemsTemp,setItemsGroup, updateItem, addNewItem}
     return (
         <ItemsContext.Provider value={value}>
             {props.children}

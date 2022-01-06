@@ -35,6 +35,14 @@ const BuyDetailContextProvider = (props) => {
         })
     }
 
+    const editOrdered = (order_id, data) => {
+        zenderAXIOS.patch(`${orderedURL}${order_id}/`, data).then((response) => {
+            setOrdereds(ordereds.map((order) => order.id === order_id ? response.data : order))
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
     const deleteOrdered = (id) => {
         if(id<0){
             return setOrdereds(ordereds.filter(order => order.id !== id))
@@ -47,7 +55,7 @@ const BuyDetailContextProvider = (props) => {
     }
     
 
-    const value = {ordereds, buy, addToList, addOrdered, deleteOrdered}
+    const value = {ordereds, buy, addToList, addOrdered, deleteOrdered, editOrdered}
     return (
         <BuyDetailContext.Provider value={value}>
             {props.children}

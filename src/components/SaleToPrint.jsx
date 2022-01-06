@@ -1,7 +1,7 @@
 import { Button, Col, Form, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
 import moment from "moment";
 import Currency from "../helper/Currency";
-import image from "../zend.png";
+import image from "../386.png";
 import { useLayoutEffect, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,9 +47,9 @@ const SaleToPrint = ({ sale }) => {
                                 </h2>
                                 <Row>
                                     <p className="fs-6">
-                                        ژ.ئۆفیس - 07709292883
+                                        ژ.ئۆفیس - 07510675202
                                     </p>
-                                    <p className="fs-6">ناونیشان کەلار - لیوکە</p>
+                                    <p className="fs-6">هەولێر - منارە ، بەرامبەر لەنگەی نوێ</p>
                                 </Row>
                             </Col>
                         </Row>
@@ -57,7 +57,7 @@ const SaleToPrint = ({ sale }) => {
                             <Col xs={6} className={"m-2"}>
                                 <Row>
                                     <Row xs={8} className={"text-center  fs-4"}>
-                                        <i>ناو : {sale.local_name}</i>
+                                        <i>فرۆشگا : {sale.local_name}</i>
                                         <i>ناونیشان : {sale.local_region}</i>
                                     </Row>
                                     <Row className={"text-center  fs-6"}>
@@ -68,11 +68,11 @@ const SaleToPrint = ({ sale }) => {
                             </Col>
                             {sale.phone === "1" ? <Col className={" m-2 text-center bg-success border border-3 border-primary text-dark"}>
                                 <h4> {sale.group_name} </h4>
-                                <p> ژ.وەسڵ ({sale.id}) </p>
+                                <p> ژ.پسولە ({sale.id}) </p>
                                 <p>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</p>
                             </Col> : <Col className={" m-2 text-center bg-warning border border-3 border-primary text-dark"}>
                                 <h4> {sale.group_name} </h4>
-                                <p> ژ.وەسڵ ({sale.id}) </p>
+                                <p> ژ.پسولە ({sale.id}) </p>
                                 <p>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</p>
                             </Col>
                             }
@@ -92,7 +92,7 @@ const SaleToPrint = ({ sale }) => {
                                         <th scope="col">#</th>
                                         <th scope="col">کۆد</th>
                                         <th scope="col">کاڵا</th>
-                                        <th>عدد</th>
+                                        <th>دانە</th>
                                         <th>نرخ</th>
                                         <th>کۆ</th>
                                     </tr>
@@ -104,7 +104,7 @@ const SaleToPrint = ({ sale }) => {
                                                 {kala.item_image !== 'null' ?
                                                     <div className="mask">
                                                         <img className="img-fluid w-10 "
-                                                            src={kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
+                                                            src={''+kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
                                                         <div className="mask rgba-black-slight" />
                                                     </div>
                                                     :
@@ -141,11 +141,11 @@ const SaleToPrint = ({ sale }) => {
                             <Col className="mx-auto text-center  border-bottom border-5 border-warning justify-center">
                                 <Form>
                                     <Form.Group>
-                                        <Form.Floating>واصل</Form.Floating>
+                                        <Form.Floating>بڕی پارەی دراو</Form.Floating>
                                         <Form.Control type={'text'} className="border border-3 border-warning" />
                                     </Form.Group>
                                     <Form.Group>
-                                        <Form.FloatingLabel>غیر واصل</Form.FloatingLabel>
+                                        <Form.FloatingLabel>پارەی نەداوە</Form.FloatingLabel>
                                         <Form.Check />
                                     </Form.Group>
                                 </Form>
@@ -153,13 +153,13 @@ const SaleToPrint = ({ sale }) => {
                             {/*<Col/>*/}
                             <Col xs={{ order: 'last' }} className={"text-center fs-5  border-bottom border-5 border-warning"}>
                                 {sale.discount > 0 ? <p> {Currency(parseFloat(sale.discount))} داشکاندن </p> : ''}
-                                <p>کۆی وەسڵ: </p>
+                                <p>کۆی پسولە: </p>
                                 <p>{Currency(parseFloat(sale.totallint))}</p>
                             </Col>
                         </Row>
                         <Row className="mx-auto text-center justify-center" style={{ height: 100 + 'px' }}>
                             <Col />
-                            <h1 className="col-4 border-bottom border-5 text-primary border-primary"> مۆری وردبینی </h1>
+                            <h1 className="col-4 border-bottom border-5 text-primary border-primary"> واژوی وردبینی </h1>
                             <Col />
                         </Row>
                     </div>

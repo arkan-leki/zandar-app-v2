@@ -33,7 +33,7 @@ const ItemEditForm = ({theItem}) => {
                 "price": price,
                 "addprice": addPrice / 100,
                 "stock": stock,
-                "image": null,
+                // "image": null,
                 "deleted": false,
                 "category": category,
             }
@@ -57,16 +57,16 @@ const ItemEditForm = ({theItem}) => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>نرخ</Form.Label>
-                <Form.Control type='number' defaultValue={price} onChange={(event) => setPrice(event.target.value)}/>
+                <Form.Control type='text' defaultValue={price} onChange={(event) => setPrice(event.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>رێژە</Form.Label>
-                <Form.Control type='number' defaultValue={addPrice}
+                <Form.Control type='text' defaultValue={addPrice}
                               onChange={(event) => setAddPrice(event.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>مانەوەی یەکەمجار</Form.Label>
-                <Form.Control type='number' defaultValue={stock} min={0}
+                <Form.Control type='text' defaultValue={stock}
                               onChange={(event) => setStock(event.target.value)}/>
             </Form.Group>
             <hr/>

@@ -44,7 +44,7 @@ const ItemsListView = ({ buy }) => {
                                 <Button variant={item.deleted ? "secondary" : "primary"} onClick={() => addToList(
                                     {
                                         "temp": true,
-                                        "item": item.name,
+                                        "item_name": item.name,
                                         "item_code": item.barcode,
                                         "item_bag": item.bag,
                                         "quantity": quantity,
