@@ -1,4 +1,4 @@
-import { Row, Col, Table, Form, Button } from "react-bootstrap";
+import { Row, Col, Table, Form, Button, Image } from "react-bootstrap";
 import React, { useContext, useState } from "react";
 import { ItemDetailContext } from "../../contexts/ItemDetailContext";
 import Currency from "../../helper/Currency";
@@ -6,7 +6,7 @@ import Select from "react-select";
 import { CatsContext } from "../../contexts/CategoresContext";
 
 const ItemDetail = () => {
-    const { sales, item, updateItem } = useContext(ItemDetailContext)
+    const { sales, item, updateItem, updateImage } = useContext(ItemDetailContext)
     const { cats } = useContext(CatsContext)
 
     const catsOpt = [...cats.map((opt) => ({ value: opt.id, label: opt.name }))]
@@ -21,6 +21,9 @@ const ItemDetail = () => {
     const [stock, setStock] = useState(item.stock)
     const [category, setCategory] = useState(item.category)
     const [deleted, setDeleted] = useState(item.deleted)
+    const [image, setImage] = useState('')
+    const [isSelected, setIsSelected] = useState(false)
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,12 +37,31 @@ const ItemDetail = () => {
                 "quantity": quantity,
                 "barcode": code,
                 "stock": stock,
-                // "image": null,
                 "deleted": deleted,
                 "category": category,
             }
-        );
+        )
+        if (isSelected) {
+            let formData = new FormData();
+            formData.append("image", image.f);
+            console.log(formData)
+            updateImage(item.id,
+                formData
+            )
+        }
     }
+
+    const Imagehandler = (event) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImage({ p: reader.result, f: event.target.files[0] });
+            }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        setIsSelected(true)
+    };
+
     return (
         <section>
             <Row className={"p-5"}>
@@ -84,18 +106,25 @@ const ItemDetail = () => {
                             <Form.Control type='number' defaultValue={item.stock}
                                 onChange={(event) => setStock(event.target.value)} />
                         </Form.Group>
-                        <Form.Check >
-                            <Form.Check.Label>
-                                دۆخ
-                                <Form.Check.Input
-                                    defaultChecked={item.deleted}
-                                    value={deleted}
-                                    type="checkbox"
-                                    onChange={() => setDeleted(item.deleted)}
-                                />
-                                <span className="form-check-sign" />
-                            </Form.Check.Label>
-                        </Form.Check>
+                        <Form.Group>
+                            <Form.Check >
+                                <Form.Check.Label>
+                                    دۆخ
+                                    <Form.Check.Input
+                                        defaultChecked={item.deleted}
+                                        value={deleted}
+                                        type="checkbox"
+                                        onChange={() => setDeleted(item.deleted)}
+                                    />
+                                    <span className="form-check-sign" />
+                                </Form.Check.Label>
+                            </Form.Check>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>وێنە</Form.Label>
+                            <Image src={isSelected ? image.p : item.image} />
+                            <Form.Control type="file" onChange={Imagehandler} />
+                        </Form.Group>
                         <hr />
                         <Button variant="success" type="submit">
                             زیادکردنی داواکاری

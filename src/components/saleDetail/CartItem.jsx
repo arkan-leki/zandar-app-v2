@@ -1,15 +1,15 @@
-import {Button, Card, ListGroup, ListGroupItem} from "react-bootstrap";
+import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import Currency from "../../helper/Currency";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCartPlus} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
 
-const CartItem = ({item, addToCart, sale}) => {
+const CartItem = ({ item, addToCart, sale }) => {
     const [quantity, setQuantity] = useState(item.mawe)
     return (
         <Card className={'bg-light mb-5'}>
             <Card.Header>{item.group_name}</Card.Header>
-            <Card.Img variant="top" src={item.image} alt={'...'} height={100 + 'px'} width={100 + 'px'}/>
+            <Card.Img variant="top" src={item.image} alt={'...'} height={100 + 'px'} width={100 + 'px'} />
             <Card.Body className='text-center'>
                 <a href={`/itemDetail/${item.id}`} className="text-decoration-none">
                     <h5>{item.barcode}</h5>
@@ -18,11 +18,13 @@ const CartItem = ({item, addToCart, sale}) => {
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>نرخ
                         : {Currency(parseFloat(item.finalprice))}</ListGroupItem>
+                    <ListGroupItem>جۆر
+                        : {item.quantity}</ListGroupItem>
                     <ListGroupItem>ماوە : {item.mawe}</ListGroupItem>
-                    <input type={'number'} value={quantity} onChange={event => setQuantity(event.target.valueAsNumber)}/>
+                    <input type={'number'} value={quantity} onChange={event => setQuantity(event.target.valueAsNumber)} />
                 </ListGroup>
                 <Card.Footer className="px-1">
-                    <Button variant={item.deleted?"secondary":"primary"} onClick={() => addToCart(
+                    <Button variant={item.deleted ? "secondary" : "primary"} onClick={() => addToCart(
                         {
                             "temp": true,
                             "item": item.id,
@@ -36,9 +38,10 @@ const CartItem = ({item, addToCart, sale}) => {
                             "quantity": quantity,
                             "price": item.finalprice,
                             "sell": sale.id,
+                            "dana": item.quantity
                         },
                     )} disabled={item.deleted}><FontAwesomeIcon
-                        icon={faCartPlus}/><span>هەڵگرتن</span></Button>
+                            icon={faCartPlus} /><span>هەڵگرتن</span></Button>
                 </Card.Footer>
             </Card.Body>
         </Card>

@@ -1,5 +1,5 @@
 import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
-import {ItemsContext} from "../../contexts/ItemsContext";
+// import {ItemsContext} from "../../contexts/ItemsContext";
 import React, {useContext, useState} from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
@@ -9,10 +9,10 @@ import CartItem from "./CartItem";
 
 
 const ItemsCard = ({sale}) => {
-    const {items, filterItems, itemForList} = useContext(ItemsContext)
-    const {addToList} = useContext(SaleDetailContext)
+    // const {} = useContext(ItemsContext)
+    const {items, filterItems, itemForList, addToList} = useContext(SaleDetailContext)
     const [text, setText] = useState([])
-
+    
 
     const handleChange = (data) => {
         filterItems(data)

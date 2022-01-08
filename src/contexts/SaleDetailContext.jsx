@@ -1,26 +1,40 @@
-import {createContext, useContext, useEffect, useState} from 'react'
-import {APIContext} from './APIContext'
-import {useParams} from "react-router-dom/cjs/react-router-dom";
+import { createContext, useContext, useEffect, useState } from 'react'
+import { APIContext } from './APIContext'
+import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 export const SaleDetailContext = createContext(undefined)
 
 const SaleDetailContextProvider = (props) => {
     const [saleDetail, setSaleDetail] = useState([])
     const [sale, setSale] = useState([])
-    const {id} = useParams();
+    const { id } = useParams();
+    const [items, setItems] = useState([])
+    // const [itemsTemp, setItemsTemp] = useState([])
 
-    const {salesURL, saleDetailURL, salesDetailURL, zenderAXIOS} = useContext(APIContext)
+    const [itemForList, setItemForList] = useState([])
+    const { itemsURL, salesURL, saleDetailURL, salesDetailURL, zenderAXIOS } = useContext(APIContext)
 
     useEffect(() => {
         if (id)
             return getSale(id)
         zenderAXIOS.get(salesDetailURL).then((response) => {
-            setSaleDetail(response.data);
+            setSaleDetail(response.data)
+            getItems(response.data.group)
         }).catch(err => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
         // eslint-disable-next-line
     }, [])
+
+    const getItems = (id) => {
+        zenderAXIOS.get(`${itemsURL}?group=${id}`).then((response) => {
+            setItems(response.data);
+            // setItemsTemp(response.data)
+            setItemForList(response.data)
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
 
     const addSale = (temp_id, data) => {
         zenderAXIOS.post(salesDetailURL, data).then((response) => {
@@ -31,7 +45,7 @@ const SaleDetailContextProvider = (props) => {
     }
 
     const deleteSale = (id) => {
-        if(id<0){
+        if (id < 0) {
             return setSaleDetail(saleDetail.filter(sale => sale.id !== id))
         }
         zenderAXIOS.delete(`${saleDetailURL}${id}/`).then(() => {
@@ -58,21 +72,30 @@ const SaleDetailContextProvider = (props) => {
     const getSale = (id) => {
         zenderAXIOS.get(`${salesURL}${id}/`).then((response) => {
             setSale(response.data);
-            setSaleDetail(response.data.sell_detail);
+            setSaleDetail(response.data.sell_detail)
+            getItems(response.data.group)
         }).catch(err => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
     }
 
+    const filterItems = (data) => {
+        if (data === '0')
+            return setItems(itemForList);
+        setItems(itemForList.filter((item) =>
+            item.barcode === data
+        ));
+    }
+
     const addToList = (item) => {
         const id = Math.floor(Math.random() * -1000) + 1
-        const newCart = {id, ...item}
+        const newCart = { id, ...item }
         setSaleDetail([...saleDetail, newCart])
     }
 
     return (
         <SaleDetailContext.Provider
-            value={{saleDetail, sale, getSale, addSale, deleteSale, updateSale, updateSaleDate, addToList}}>
+            value={{ saleDetail, sale, getSale, addSale, deleteSale, updateSale, updateSaleDate, addToList, items, filterItems, itemForList }}>
             {props.children}
         </SaleDetailContext.Provider>
     )

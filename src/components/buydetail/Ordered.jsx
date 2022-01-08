@@ -6,7 +6,7 @@ import Currency from '../../helper/Currency';
 import { BuyDetailContext } from '../../contexts/BuyDetailContext';
 
 const Ordered = ({ ordered }) => {
-    const { addOrdered, editOrdered, deleteOrdered } = useContext(BuyDetailContext)
+    const { addOrdered, editOrdered, deleteOrdered, updateItem } = useContext(BuyDetailContext)
     const [quantity, setQuantity] = useState(ordered.quantity)
     const [price, setPrice] = useState(ordered.price)
 
@@ -15,7 +15,7 @@ const Ordered = ({ ordered }) => {
             "quantity": quantity,
             "price": parseFloat(price),
             "order": ordered.order,
-            "item": ordered.item_id
+            "item": ordered.item
         })
     };
 
@@ -24,7 +24,19 @@ const Ordered = ({ ordered }) => {
             "quantity": quantity,
             "price": parseFloat(price),
             "order": ordered.order,
-            "item": ordered.item_id
+            "item": ordered.item
+        })
+    };
+
+    
+    const handlePrice = () => {
+        updateItem(ordered.item, {
+            "price": parseFloat(price),
+        })
+    };
+    const handleDeleted = () => {
+        updateItem(ordered.item, {
+            "deleted": false,
         })
     };
 
@@ -41,10 +53,10 @@ const Ordered = ({ ordered }) => {
             <td>{ordered.id}</td>
             <td>{ordered.item_code}</td>
             <td>{ordered.item_name}</td>
-            <td>{Currency(parseFloat(ordered.price))}</td>
+            <td>{Currency(parseFloat(ordered.item_price))}</td>
             <td>
                 <InputGroup>
-                    <Form.Control name={"price"} type={"number"} min={0}
+                    <Form.Control name={"price"} type={"number"} min={0.0}
                         value={price}
                         onChange={event => setPrice(event.target.value)} />
                 </InputGroup>
@@ -65,6 +77,10 @@ const Ordered = ({ ordered }) => {
                         <FontAwesomeIcon icon={faTrashAlt} /> سڕیەنەوە </Button>
                     {(!ordered.temp) || <Button variant={"outline-success"} onClick={handleUpload}>
                         <FontAwesomeIcon icon={faCartPlus} /> خەزنکردن </Button>}
+                    {(parseFloat(ordered.item_price) === parseFloat(price)) || <Button variant={"success"} onClick={handlePrice}>
+                        <FontAwesomeIcon icon={faCartPlus} /> نوێکردنەوە </Button>}
+                    {(!ordered.item_deleted)  || <Button variant={"danger"} onClick={handleDeleted}>
+                        <FontAwesomeIcon icon={faCartPlus} /> چالاککردنەوە </Button>}
                 </ButtonGroup>
             </td>
         </>

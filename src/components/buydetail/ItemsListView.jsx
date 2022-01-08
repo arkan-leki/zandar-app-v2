@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useState } from 'react'
 import { Button, Form, Table } from 'react-bootstrap'
 import { BuyDetailContext } from '../../contexts/BuyDetailContext'
-import { ItemsContext } from '../../contexts/ItemsContext'
 import Currency from '../../helper/Currency'
 
 const ItemsListView = ({ buy }) => {
-    const { items } = useContext(ItemsContext)
-    const { addToList } = useContext(BuyDetailContext)
+    const { items, addToList } = useContext(BuyDetailContext)
 
     const [quantity, setQuantity] = useState(0)
     return (
@@ -52,10 +50,12 @@ const ItemsListView = ({ buy }) => {
                                         "total": item.price * quantity,
                                         "item_wight": item.wight,
                                         "item_quantity": item.quantity,
-                                        "item_id": item.id,
-                                        "order": buy.id
+                                        "item": item.id,
+                                        "order": buy.id,
+                                        "item_price": item.price,
+                                        "item_deleted": item.deleted,
                                     },
-                                )} disabled={item.deleted}><FontAwesomeIcon
+                                )}><FontAwesomeIcon
                                         icon={faCartPlus} /><span>هەڵگرتن</span></Button>
                             </td>
                         </tr>

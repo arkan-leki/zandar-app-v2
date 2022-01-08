@@ -1,25 +1,25 @@
-import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCartPlus, faShoppingBag, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faShoppingBag, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Currency from "../../helper/Currency";
-import {useContext, useState} from "react";
-import {SaleDetailContext} from "../../contexts/SaleDetailContext";
+import { useContext, useState } from "react";
+import { SaleDetailContext } from "../../contexts/SaleDetailContext";
 
-const SaleItem = ({kala}) => {
-    const {updateSale, deleteSale, addSale} = useContext(SaleDetailContext)
+const SaleItem = ({ kala }) => {
+    const { updateSale, deleteSale, addSale } = useContext(SaleDetailContext)
     const [quantity, setQuantity] = useState(kala.quantity)
-    const [price , setPrice] = useState(kala.price)
+    const [price, setPrice] = useState(kala.price)
 
     const handleUpdate = () => {
-        updateSale(kala.id, {"quantity": quantity})
+        updateSale(kala.id, { "quantity": quantity })
     };
 
     const Qado = () => {
-        if(kala.id<0){
+        if (kala.id < 0) {
             return setPrice(0)
         }
         setPrice(0)
-        updateSale(kala.id, {"price": 0})
+        updateSale(kala.id, { "price": 0 })
     };
 
     const handleUpload = () => {
@@ -34,7 +34,7 @@ const SaleItem = ({kala}) => {
     const handleDelete = () => {
         if (window.confirm("دڵنیای دەتەوێت بیسڕیتەوە")) {
             deleteSale(kala.id)
-        }else{
+        } else {
             console.log('Thing was saved to the database.');
         }
     };
@@ -51,8 +51,8 @@ const SaleItem = ({kala}) => {
                     <a href={`/itemDetail/${kala.item}`}>{kala.id}
                         <div className="mask">
                             <img className="img-fluid w-50 "
-                                 src={kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'}/>
-                            <div className="mask rgba-black-slight"/>
+                                src={kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
+                            <div className="mask rgba-black-slight" />
                         </div>
                     </a>
                 </div>
@@ -70,28 +70,30 @@ const SaleItem = ({kala}) => {
                                 :{kala.item_group_name} </p>
                             <p className="mb-3 text-muted text-uppercase small"> ماوە
                                 :{kala.mawe}</p>
+                            <p className="mb-3 text-muted text-uppercase small"> جۆر
+                                :{kala.dana}</p>
                         </div>
                         <div>
                             <InputGroup className="mb-3">
                                 <InputGroup.Text>$</InputGroup.Text>
                                 <InputGroup.Text>{Currency(parseFloat(price))}</InputGroup.Text>
                                 <Form.Control name={"price"} type={"number"} min={0}
-                                              value={quantity}
-                                              onChange={event => handleInput(event.target.value)}
-                                              aria-label="Dollar amount (with dot and two decimal places)"/>
+                                    value={quantity}
+                                    onChange={event => handleInput(event.target.value)}
+                                    aria-label="Dollar amount (with dot and two decimal places)" />
                             </InputGroup>
                         </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
                             <Button variant={"outline-danger"} onClick={handleDelete}><FontAwesomeIcon
-                                icon={faTrashAlt}/> سڕیەنەوە </Button>
+                                icon={faTrashAlt} /> سڕیەنەوە </Button>
                             {kala.temp || <Button variant={"outline-warning"} onClick={handleUpdate}><FontAwesomeIcon
-                                icon={faCartPlus}/> نوێکردنەوە </Button>}
+                                icon={faCartPlus} /> نوێکردنەوە </Button>}
                             {(!kala.temp) || <Button variant={"outline-success"} onClick={handleUpload}><FontAwesomeIcon
-                                icon={faCartPlus}/> خەزنکردن </Button>}
+                                icon={faCartPlus} /> خەزنکردن </Button>}
                             {<Button variant={"outline-secondary"} onClick={Qado}><FontAwesomeIcon
-                                icon={faShoppingBag}/> کادۆ </Button>}
+                                icon={faShoppingBag} /> کادۆ </Button>}
                         </div>
                         <p className="mb-0"><span><strong
                             id="summary">{Currency(quantity * parseFloat(price))}</strong></span>
