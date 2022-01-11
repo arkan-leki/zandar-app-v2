@@ -2,7 +2,7 @@ import {Button, Form} from "react-bootstrap";
 import Select from "react-select";
 import React, {useContext, useState} from "react";
 import {LocalsContext} from "../../contexts/LocalsContext";
-import {RegionsContext} from "../../contexts/RegionlsContext";
+import {RegionsContext} from "../../contexts/RegionsContext";
 
 const LocalEditForm = ({theLocal}) => {
     const {updateLocal} = useContext(LocalsContext);

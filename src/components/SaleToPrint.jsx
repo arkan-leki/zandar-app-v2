@@ -50,6 +50,10 @@ const SaleToPrint = ({ sale }) => {
                                         ژ.ئۆفیس - 07510675202
                                     </p>
                                     <p className="fs-6">هەولێر - منارە ، بەرامبەر لەنگەی نوێ</p>
+                                    {/* <p className="fs-6">
+                                        ژ.ئۆفیس - 07719930849
+                                    </p>
+                                    <p className="fs-6">کەلار - گەرەکی شۆرش - بەرامبەر ئیدارەی گەرمیان</p> */}
                                 </Row>
                             </Col>
                         </Row>
@@ -123,8 +127,9 @@ const SaleToPrint = ({ sale }) => {
                                     <tr>
                                         <th />
                                         <th />
-                                        <th>{sale.sell_detail && Object.values(sale.sell_detail).reduce((r, { allwight }) => r + allwight, 0).toFixed(0)} کگم</th>
-                                        <th>{sale.totallBar} کارتۆن</th>
+                                        <th />
+                                        {/* <th>{sale.sell_detail && Object.values(sale.sell_detail).reduce((r, { allwight }) => r + allwight, 0).toFixed(0)} کگم</th> */}
+                                        <th>{sale.totallBar}</th>
                                         <th />
                                         <th>{Currency(parseFloat(sale.totall))}</th>
                                     </tr>

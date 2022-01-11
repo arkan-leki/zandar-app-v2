@@ -19,7 +19,6 @@ const SaleDetailContextProvider = (props) => {
             return getSale(id)
         zenderAXIOS.get(salesDetailURL).then((response) => {
             setSaleDetail(response.data)
-            getItems(response.data.group)
         }).catch(err => {
             alert("داواکاریەکەت سەرنەکەوت");
         })
@@ -63,6 +62,14 @@ const SaleDetailContextProvider = (props) => {
         })
     }
 
+    const updateSell = (id, data) => {
+        zenderAXIOS.patch(`${salesURL}${id}/`, data).then((response) => {
+            alert("done");
+        }).catch(() => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
     const updateSaleDate = (dates) => {
         zenderAXIOS.get(salesDetailURL).then((response) => {
             setSaleDetail(response.data.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
@@ -95,7 +102,7 @@ const SaleDetailContextProvider = (props) => {
 
     return (
         <SaleDetailContext.Provider
-            value={{ saleDetail, sale, getSale, addSale, deleteSale, updateSale, updateSaleDate, addToList, items, filterItems, itemForList }}>
+            value={{ saleDetail, sale, getSale, addSale, deleteSale, updateSale, updateSaleDate, addToList, items, filterItems, itemForList, updateSell }}>
             {props.children}
         </SaleDetailContext.Provider>
     )

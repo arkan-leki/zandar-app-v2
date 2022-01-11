@@ -12,7 +12,7 @@ const AddPaymentForm = () => {
     const {locals} = useContext(Locals2Context)
 
     const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
-    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: opt.name}))]
+    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: `${opt.name} ${opt.region_name} ${opt.code}`}))]
 
     const [payed, setPayed] = useState(0)
     const [loan, setLoan] = useState(0)

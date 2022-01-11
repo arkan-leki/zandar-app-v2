@@ -2,7 +2,7 @@ import React, {useContext, useRef, useState} from 'react'
 import {Button, Form} from 'react-bootstrap';
 import Select from 'react-select';
 import {LocalsContext} from '../../contexts/LocalsContext';
-import {RegionsContext} from "../../contexts/RegionlsContext";
+import {RegionsContext} from "../../contexts/RegionsContext";
 
 const AddLocalForm = () => {
     const {addLocal} = useContext(LocalsContext);

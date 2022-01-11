@@ -4,6 +4,7 @@ import { ItemDetailContext } from "../../contexts/ItemDetailContext";
 import Currency from "../../helper/Currency";
 import Select from "react-select";
 import { CatsContext } from "../../contexts/CategoresContext";
+import { Link } from "react-router-dom";
 
 const ItemDetail = () => {
     const { sales, item, updateItem, updateImage } = useContext(ItemDetailContext)
@@ -127,7 +128,7 @@ const ItemDetail = () => {
                         </Form.Group>
                         <hr />
                         <Button variant="success" type="submit">
-                            زیادکردنی داواکاری
+                            زیادکردن بۆ کاڵا
                         </Button>
                     </Form>
                 </Col>
@@ -147,19 +148,21 @@ const ItemDetail = () => {
                         </thead>
                         <tbody>
                             {sales.map((item) => (
-                                <tr>
+                                <tr key={item.id}>
                                     <th>{item.id}</th>
                                     <th>{item.quantity}</th>
                                     <th>{item.price}$</th>
                                     <th>{item.date}</th>
-                                    <th>{item.sell}</th>
+                                    <th><Link className="d-print-none" to={`/saleDetail/${item.sell}`}>{item.sell}-{item.sell_local}</Link></th>
                                 </tr>
                             ))}
                         </tbody>
                         <tfoot>
-                            <th>{Object.values(sales).reduce((r) => r + 1, 0)}</th>
-                            <th>{Object.values(sales).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
-                            <th>{Currency(Object.values(sales).reduce((r, { price }) => r + parseFloat(price), 0))}</th>
+                            <tr>
+                                <th>{Object.values(sales).reduce((r) => r + 1, 0)}</th>
+                                <th>{Object.values(sales).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
+                                <th>{Currency(Object.values(sales).reduce((r, { price }) => r + parseFloat(price), 0))}</th>
+                            </tr>
                         </tfoot>
                     </Table>
                 </Col>

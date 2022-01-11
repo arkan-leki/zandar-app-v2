@@ -71,7 +71,7 @@ const ItemEditForm = ({theItem}) => {
             </Form.Group>
             <hr/>
             <Button variant="success" type="submit">
-                زیادکردنی داواکاری
+                خەزنکردن
             </Button>
         </Form>
     )

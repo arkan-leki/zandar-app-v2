@@ -1,19 +1,19 @@
-import {Alert, Button, Col, FormControl, InputGroup, Row, Table} from "react-bootstrap";
+import { Alert, Button, Col, FormControl, InputGroup, Row, Table } from "react-bootstrap";
 import moment from "moment";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import Currency from "../helper/Currency";
-import React, {useContext, useEffect, useState} from "react";
-import {GroupsContext} from "../contexts/GroupsContext";
-import {ItemsContext} from "../contexts/ItemsContext";
+import React, { useContext, useEffect, useState } from "react";
+import { GroupsContext } from "../contexts/GroupsContext";
+import { ItemsContext } from "../contexts/ItemsContext";
 import RetailItem from "./RetailItem";
-import {SaleDetailContext} from "../contexts/SaleDetailContext";
+import { SaleDetailContext } from "../contexts/SaleDetailContext";
 
 const Retail = () => {
-    const {groups} = useContext(GroupsContext)
-    const {saleDetail,updateSaleDate} = useContext(SaleDetailContext)
-    const {items,setItemsGroup} = useContext(ItemsContext)
+    const { groups } = useContext(GroupsContext)
+    const { saleDetail, updateSaleDate } = useContext(SaleDetailContext)
+    const { items, setItemsGroup } = useContext(ItemsContext)
     const [showAlert, setShowAlert] = useState(false)
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -21,10 +21,10 @@ const Retail = () => {
 
     const [tday, setTday] = useState([]);
 
-    const fetchData = (startDate,endDate,group) => {
+    const fetchData = (startDate, endDate, group) => {
         const _item_sell = []
         saleDetail.filter((i) => i.group === group)
-        updateSaleDate({startDate, endDate}, group)
+        updateSaleDate({ startDate, endDate }, group)
 
         items.filter((i) => i.group === group)
         items.map((_item) => {
@@ -47,7 +47,7 @@ const Retail = () => {
     const onChange = () => {
         fetchData(startDate, endDate, group)
     }
-    const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
+    const groupsOpt = [...groups.map((opt) => ({ value: opt.id, label: opt.name }))]
     const setGroupHandler = (value) => {
         setGroup(value)
         setItemsGroup(group)
@@ -79,12 +79,12 @@ const Retail = () => {
                                         value={moment(new Date(endDate)).format("YYYY-MM-DD")}
                                         onChange={(event => setEndDate(event.target.valueAsDate))}
                                     />
-                                    <Button onClick={onChange}><FontAwesomeIcon icon={faSearch}/></Button>
+                                    <Button onClick={onChange}><FontAwesomeIcon icon={faSearch} /></Button>
                                 </InputGroup>
                             </Col>
                             <Col>
                                 <Select placeholder="هەڵبژاردن..." name="group"
-                                        options={groupsOpt} onChange={(e) => setGroupHandler(e.value)}/>
+                                    options={groupsOpt} onChange={(e) => setGroupHandler(e.value)} />
                             </Col>
                         </Row>
                     </div>
@@ -95,42 +95,42 @@ const Retail = () => {
             </Alert>
             <Table striped bordered hover responsive>
                 <thead>
-                <tr>
-                    <th>گروپ</th>
-                    <th> کۆد</th>
-                    <th> ناو</th>
-                    <th> کڕین</th>
-                    <th> نرخ</th>
-                    <th> فرۆشراو</th>
-                    <th> ماوە</th>
-                    <th> داهات</th>
-                    <th> سەرمایە</th>
-                    <th> قازانج</th>
-                    <th> بەروار</th>
-                </tr>
+                    <tr>
+                        <th>گروپ</th>
+                        <th> کۆد</th>
+                        <th> ناو</th>
+                        <th> کڕین</th>
+                        <th> نرخ</th>
+                        <th> فرۆشراو</th>
+                        <th> ماوە</th>
+                        <th> داهات</th>
+                        <th> سەرمایە</th>
+                        <th> قازانج</th>
+                        <th> بەروار</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {
-                    tday.map((item,index) => (
-                        <tr key={index}>
-                            <RetailItem item={item}/>
-                        </tr>
-                    ))
-                }
+                    {
+                        tday.map((item, index) => (
+                            <tr key={index}>
+                                <RetailItem item={item} />
+                            </tr>
+                        ))
+                    }
                 </tbody>
                 <tfoot>
-                <tr>
-                    <th/>
-                    <th/>
-                    <th>{tday.length}</th>
-                    <th>{Currency(Object.values(tday).reduce((r, { item_price }) => r + parseFloat(item_price), 0))}</th>
-                    <th>{Currency(Object.values(tday).reduce((r, { itemp }) => r + parseFloat(itemp), 0))}</th>
-                    <th>{Object.values(tday).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
-                    <th>{Object.values(tday).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
-                    <th>{Currency(Object.values(tday).reduce((r, { price }) => r + parseFloat(price), 0))}</th>
-                    <th>{Currency(Object.values(tday).reduce((r, { maweprice }) => r + parseFloat(maweprice), 0))}</th>
-                    <th>{Currency(Object.values(tday).reduce((r, { qazanc }) => r + parseFloat(qazanc), 0))}</th>
-                </tr>
+                    <tr>
+                        <th />
+                        <th />
+                        <th>{tday.length}</th>
+                        <th>{Currency(Object.values(tday).reduce((r, { item_price }) => r + parseFloat(item_price), 0))}</th>
+                        <th>{Currency(Object.values(tday).reduce((r, { itemp }) => r + parseFloat(itemp), 0))}</th>
+                        <th>{Object.values(tday).reduce((r, { quantity }) => r + parseFloat(quantity), 0)}</th>
+                        <th>{Object.values(tday).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
+                        <th>{Currency(Object.values(tday).reduce((r, { price }) => r + parseFloat(price), 0))}</th>
+                        <th>{Currency(Object.values(tday).reduce((r, { maweprice }) => r + parseFloat(maweprice), 0))}</th>
+                        <th>{Currency(Object.values(tday).reduce((r, { qazanc }) => r + parseFloat(qazanc), 0))}</th>
+                    </tr>
                 </tfoot>
             </Table>
 

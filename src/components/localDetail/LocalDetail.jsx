@@ -295,6 +295,7 @@ const LocalDetail = () => {
                                 <th scope="col"> کڕیار</th>
                                 <th scope="col"> کاڵا</th>
                                 <th >دانە</th>
+                                <th>نرخ</th>
                                 <th>کۆی داشکان</th>
                                 <th >بەروار</th>
                             </tr>
@@ -307,7 +308,8 @@ const LocalDetail = () => {
                                     <td>{val.local_name}</td>
                                     <td>{val.item_name}</td>
                                     <td>{val.quantity}</td>
-                                    <td>{val.price}</td>
+                                    <td>{Currency(parseFloat(val.price))}</td>
+                                    <td>{Currency(parseFloat(val.price*val.quantity))}</td>
                                     <td>{val.date}</td>
                                 </tr>
                             ))}

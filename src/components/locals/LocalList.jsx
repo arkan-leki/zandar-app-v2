@@ -4,7 +4,7 @@ import {faAddressBook, faGlobe} from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import React, {useContext, useEffect, useState} from "react";
 import {LocalsContext} from "../../contexts/LocalsContext";
-import {RegionsContext} from "../../contexts/RegionlsContext";
+import {RegionsContext} from "../../contexts/RegionsContext";
 import Local from "./Local";
 import Currency from "../../helper/Currency";
 import {GroupsContext} from "../../contexts/GroupsContext";
