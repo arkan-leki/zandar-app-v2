@@ -62,6 +62,7 @@ const BuyList = () => {
                         <th scope="col">کۆمپانیا</th>
                         <th scope="col">ژمارەی وەسڵ</th>
                         <th scope="col">کۆی وەسل</th>
+                        <th scope="col">کۆی مواد</th>
                         <th scope="col">بەروار</th>
                     </tr>
                 </thead>

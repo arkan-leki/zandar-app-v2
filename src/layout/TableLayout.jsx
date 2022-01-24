@@ -13,13 +13,16 @@ const TableLayout = (props) => {
                         <Nav className="me-auto">
                             <Link className="nav-link text-white" to={`/`}>ماڵەوە</Link>
                             <Link className="nav-link text-white" to={`/sales`}>فرۆشتنەکان</Link>
-                            <Link className="nav-link text-white" to={`/locals`}>کڕیارەکان</Link>
+                            <Link className="nav-link text-white" to={`/locals`}>قەزاران</Link>
                             <Link className="nav-link text-white" to={`/buy`}>داخلبونی کاڵا</Link>
                             <Link className="nav-link text-white" to={`/retail`}>دەرچووی مەخزەن</Link>
                             <Link className="nav-link text-white" to={`/items`}>کاڵاکان</Link>
                             <Link className="nav-link text-white" to={`/payments`}>پارەدانەکان</Link>
+                            <Link className="nav-link text-white" to={`/bank`}>مەساڕیف</Link>
+                            <Link className="nav-link text-white" to={`/orders`}>داواکاری</Link>
 
                             <NavDropdown title="زیاتر" id="collasible-nav-dropdown">
+                            <NavDropdown.Item href="/locals2/">کڕیاران</NavDropdown.Item>
                                 <NavDropdown.Item href="/groups/">بنکەکان</NavDropdown.Item>
                                 <NavDropdown.Item href="/regions/">ناوچەکان</NavDropdown.Item>
                                 <NavDropdown.Item href="/visitors/">فرۆشیارەکان</NavDropdown.Item>

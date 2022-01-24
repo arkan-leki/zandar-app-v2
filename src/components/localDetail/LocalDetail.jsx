@@ -1,12 +1,14 @@
-import { Row, Col, Table, Container, Button } from "react-bootstrap";
+import { Row, Col, Table, Container, Button, Modal } from "react-bootstrap";
 import React, { useContext, useRef, useState } from "react";
 import { LocalDetailContext } from "../../contexts/LocalDetailContext";
 import Currency from "../../helper/Currency";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    faAddressBook,
     faHamburger,
-    faPrint} from "@fortawesome/free-solid-svg-icons";
+    faPrint
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import image from "../../zend.png";
 import Select from "react-select";
@@ -14,12 +16,15 @@ import { GroupsContext } from "../../contexts/GroupsContext";
 import { useReactToPrint } from "react-to-print";
 import LocalPayment from './LocalPayment'
 import LocalSell from "./LocalSell";
+import LocalOldAcc from "./LocalOldAcc";
+import AddOldAccForm from "../oldAcc/AddOldAccForm";
 
 const LocalDetail = () => {
 
     const { sales, local, payment, oldAcc, resell } = useContext(LocalDetailContext)
     const { groups } = useContext(GroupsContext)
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
 
     const [group, setGroup] = useState('')
 
@@ -31,13 +36,15 @@ const LocalDetail = () => {
     }
 
     const handleShow = () => setShow(!show);
+    const handleShow2 = () => setShow2(true);
+    const handleClose2 = () => setShow2(false);
 
     const list = () => {
         let arr = []
         if (group) {
             oldAcc.filter((val) => val.group === group).map((val) => (
                 arr.push({
-                    "id": val.id,
+                    "id": ` فرق حساب ${val.id}`,
                     "name": val.local_name,
                     "group": val.group_name,
                     "pay": val.loan,
@@ -65,6 +72,16 @@ const LocalDetail = () => {
                     "date": val.date
                 })
             ))
+            resell.filter((val) => val.group === group).map((val) => (
+                arr.push({
+                    "id": "گەڕانەوە",
+                    "name": val.local_name,
+                    "group": val.group_name,
+                    "pay": 0,
+                    "loan": val.price * val.quantity,
+                    "date": val.date
+                })
+            ))
         } else {
             resell.map((val) => (
                 arr.push({
@@ -78,7 +95,7 @@ const LocalDetail = () => {
             ))
             oldAcc.map((val) => (
                 arr.push({
-                    "id": val.id,
+                    "id": ` فرق حساب ${val.id}`,
                     "name": val.local_name,
                     "group": val.group_name,
                     "pay": val.loan,
@@ -151,14 +168,14 @@ const LocalDetail = () => {
                 </Row>
                 <hr />
                 <Row hidden={show} ref={componentRef}>
-                    <div className="mx-auto" style={{ width: 90 + '%' }} dir={"rtl"}>
+                    <div className="mx-auto fs-6" style={{ width: 90 + '%' }} dir={"rtl"}>
                         <Row className={"mt-2 fs-4 border border-3 border-danger text-primary"}>
                             <Col className={"text-center mt-2"}>
                                 <h4>کۆمپانیایی زەندەر</h4>
                                 <p>بۆ بازگانی گشتی و بریکارینامەی بازرگانی / سنوردار</p>
                             </Col>
                             <Col className={"text-center mt-2"}>
-                                <img src={image} className="img-thumbnail" alt="..." width={50 + '%'} />
+                                <img src={image} className="img-thumbnail" alt="..." width={100 + 'px'} />
                             </Col>
                             <Col className={"text-center mt-2"}>
                                 <h4>کشفی حساب
@@ -218,6 +235,22 @@ const LocalDetail = () => {
                                         </tr>
                                         {list()}
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>{group === '' ? Currency(Object.values(local.totallSell).reduce((r, item) => r + parseFloat(item)), 0) :
+                                                Currency(parseFloat(local.totallSell[group]))} +{group === '' ? Currency(Object.values(local.totallOldloan).reduce((r, item) => r + parseFloat(item)), 0) :
+                                                    Currency(parseFloat(local.totallOldloan[group]))}</th>
+                                            <th>{group === '' ? Currency(Object.values(local.totallPay).reduce((r, item) => r + parseFloat(item)), 0) :
+                                                Currency(parseFloat(local.totallPay[group]))} +{group === '' ? Currency(Object.values(local.totallOldincome).reduce((r, item) => r + parseFloat(item)), 0) :
+                                                    Currency(parseFloat(local.totallOldincome[group]))}</th>
+                                            <th></th>
+                                            <th>{group === '' ? Currency(Object.values(local.mawe).reduce((r, item) => r + parseFloat(item)), 0) :
+                                                Currency(parseFloat(local.mawe[group]))}</th>
+                                        </tr>
+                                    </tfoot>
                                 </Table>
                             </Row>
 
@@ -309,12 +342,66 @@ const LocalDetail = () => {
                                     <td>{val.item_name}</td>
                                     <td>{val.quantity}</td>
                                     <td>{Currency(parseFloat(val.price))}</td>
-                                    <td>{Currency(parseFloat(val.price*val.quantity))}</td>
+                                    <td>{Currency(parseFloat(val.price * val.quantity))}</td>
                                     <td>{val.date}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
+                </Row>
+                <Row className={"d-print-none"}>
+                    <div className="table-title" >
+                        <Row>
+                            <Col md={4}>
+                                <h2>فەرق حساب <b>{local.name}</b></h2>
+                            </Col>
+                            <Col className="d-print-none">
+                                <Row>
+                                    <Col>
+                                        <Button onClick={handleShow2} variant={"outline-success"} data-toggle="modal">
+                                            <FontAwesomeIcon icon={faAddressBook} /> <span>زیادکردنی حساب</span></Button>
+                                    </Col>
+                                </Row>
+
+                            </Col>
+                        </Row>
+                    </div>
+                    <Table striped bordered hover responsive>
+                        <thead>
+                            <tr>
+                                <th scope="col"> زنجیرە </th>
+                                <th >بنکەی فرۆش</th>
+                                <th scope="col"> کڕیار</th>
+                                <th>کۆی داشکان</th>
+                                <th>کۆی فرۆش</th>
+                                <th >بەروار</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {oldAcc.map((val, index) => (
+                                <tr key={index}>
+                                    <LocalOldAcc oldAcc={val} />
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+
+                    <Modal show={show2} onHide={handleClose2}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                زیادکردنی پارەدان {local.id}
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <AddOldAccForm thelocal={local.id} />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose2}>
+                                داخستن
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </Row>
             </Container>
         </section>

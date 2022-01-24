@@ -33,6 +33,12 @@ import Locals2ContextProvider from "./contexts/Locals2Context";
 import ReSellContextProvider from "./contexts/ReSellContext";
 import RegionsList from "./components/region/RegionsList";
 import VisitorsList from "./components/visitors/VisitorsList";
+import OldAccsContextProvider from "./contexts/OldAccsContext";
+import FeeList from "./components/fee/FeeList";
+import FeesContextProvider from "./contexts/FeeContext";
+import OrdersContextProvider from './contexts/OrdersContext';
+import OrdersList from "./components/order/OrdersList";
+import LocalList2 from "./components/locals/LocalList2";
 
 function App() {
     return (
@@ -86,7 +92,9 @@ function App() {
                                         <LocalDetailContextProvider>
                                             <PaymentsContextProvider>
                                                 <ReSellContextProvider>
-                                                    <LocalDetail />
+                                                    <OldAccsContextProvider>
+                                                        <LocalDetail />
+                                                    </OldAccsContextProvider>
                                                 </ReSellContextProvider>
                                             </PaymentsContextProvider>
                                         </LocalDetailContextProvider>
@@ -138,17 +146,37 @@ function App() {
                                         </PaymentsContextProvider>
                                     </>
                                 </Route>
-                                <Route exact path="/regions/">
-                                    <RegionsContextProvider>
-                                        <RegionsList />
-                                    </RegionsContextProvider>
-                                </Route>
-                                <Route exact path="/visitors/">
-                                    <VendorsContextProvider>
-                                        <VisitorsList />
-                                    </VendorsContextProvider>
+                                <Route exact path="/locals2/">
+                                    <>
+                                        <RegionsContextProvider>
+                                                <LocalList2 />
+                                        </RegionsContextProvider>
+                                    </>
                                 </Route>
                             </Locals2ContextProvider>
+
+                            <Route exact path="/bank/">
+                                <>
+                                    <FeesContextProvider>
+                                        <FeeList />
+                                    </FeesContextProvider>
+                                </>
+                            </Route>
+                            <Route exact path="/regions/">
+                                <RegionsContextProvider>
+                                    <RegionsList />
+                                </RegionsContextProvider>
+                            </Route>
+                            <Route exact path="/visitors/">
+                                <VendorsContextProvider>
+                                    <VisitorsList />
+                                </VendorsContextProvider>
+                            </Route>
+                            <Route exact path="/orders/">
+                                <OrdersContextProvider>
+                                    <OrdersList />
+                                </OrdersContextProvider>
+                            </Route>
                         </GroupsContextProvider>
                     </Switch>
                 </TableLayout>

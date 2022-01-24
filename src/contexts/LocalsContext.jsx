@@ -88,8 +88,8 @@ const LocalsContextProvider = (props) => {
 
     const onlyNeed = () => {
         if (groupFilter.value === 0)
-            return setLocals(localsTemp.filter((loc) => Object.values(loc.mawe).reduce((r, item) => r + item, 0) !== 0))
-        setLocals(localsTemp.filter((loc) => loc.mawe[groupFilter.value] !== 0))
+            return setLocals(locals.filter((loc) => Object.values(loc.mawe).reduce((r, item) => r + item, 0) !== 0))
+        setLocals(locals.filter((loc) => loc.mawe[groupFilter.value] !== 0))
     }
 
     const value = {

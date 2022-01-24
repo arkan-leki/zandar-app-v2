@@ -14,8 +14,27 @@ const Locals2ContextProvider = (props) => {
         // eslint-disable-next-line
     }, [])
 
+    const addLocal = (data) => {
+        zenderAXIOS.post(localURL, data).then((response) => {
+            setLocals([response.data, ...locals])
+        }).catch(err => {
+            console.log(err)
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
+    const updateLocal = (id, data) => {
+        zenderAXIOS.patch(`${localURL}${id}/`, data).then((response) => {
+            setLocals(locals.map((local) => local.id === id ? response.data : local))
+        }).catch(err => {
+            alert("داواکاریەکەت سەرنەکەوت");
+        })
+    }
+
     const value = {
-        locals
+        locals,
+        addLocal,
+        updateLocal
     }
     
     return (

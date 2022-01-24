@@ -1,6 +1,6 @@
 import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressBook, faFilter, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faFilter, faGlobe, faPrint } from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import React, { useContext, useEffect, useState } from "react";
 import { GroupsContext } from "../../contexts/GroupsContext";
@@ -69,8 +69,13 @@ const ItemsList = (props) => {
                                     options={groupsOpt} onChange={(e) => setGroupHandler(e.value)} />
                             </Col>
                             <Col>
+
                                 <Button onClick={handleShow} variant={"outline-success"} data-toggle="modal">
                                     <FontAwesomeIcon icon={faAddressBook} /> <span>زیادکردنی کاڵا</span></Button>
+                            </Col>
+                            <Col>
+                                <Button variant={"outline-secondary"} onClick={window.print}> 
+                                    <FontAwesomeIcon icon={faPrint} /></Button>
                             </Col>
                         </Row>
                     </Col>
@@ -96,8 +101,8 @@ const ItemsList = (props) => {
                         <th hidden={true}>وەزن دانە</th>
                         <th hidden={true}>وەزن بار</th>
                         <th hidden={true}>نقل مخزن</th>
-                        <th>هاتوو</th>
-                        <th>فرۆشراو</th>
+                        <th className="d-print-none">هاتوو</th>
+                        <th className="d-print-none">فرۆشراو</th>
                         <th>ماوە</th>
                         <th className="d-print-none">دۆخ</th>
                         <th className="d-print-none" />
@@ -141,9 +146,9 @@ const ItemsList = (props) => {
                             finalprice
                         }) => r + (parseFloat(mawe) * parseFloat(finalprice)), 0))}
                         </th>
-                        <th />
+                        <th className="d-print-none" />
                         <th hidden={true} />
-                        <th>{Object.values(items).reduce((r, { popularity }) => r + parseFloat(popularity), 0)}</th>
+                        <th className="d-print-none">{Object.values(items).reduce((r, { popularity }) => r + parseFloat(popularity), 0)}</th>
                         <th>{Object.values(items).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
                     </tr>
                 </tfoot>

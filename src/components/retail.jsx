@@ -8,11 +8,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { GroupsContext } from "../contexts/GroupsContext";
 import { ItemsContext } from "../contexts/ItemsContext";
 import RetailItem from "./RetailItem";
-import { SaleDetailContext } from "../contexts/SaleDetailContext";
+// import { SaleDetailContext } from "../contexts/SaleDetailContext";
 
 const Retail = () => {
     const { groups } = useContext(GroupsContext)
-    const { saleDetail, updateSaleDate } = useContext(SaleDetailContext)
+    // const { saleDetail, updateSaleDate } = useContext(SaleDetailContext)
     const { items, setItemsGroup } = useContext(ItemsContext)
     const [showAlert, setShowAlert] = useState(false)
     const [startDate, setStartDate] = useState(new Date());
@@ -23,8 +23,8 @@ const Retail = () => {
 
     const fetchData = (startDate, endDate, group) => {
         const _item_sell = []
-        saleDetail.filter((i) => i.group === group)
-        updateSaleDate({ startDate, endDate }, group)
+        // saleDetail.filter((i) => i.group === group)
+        // updateSaleDate({ startDate, endDate }, group)
 
         items.filter((i) => i.group === group)
         items.map((_item) => {
@@ -42,7 +42,7 @@ const Retail = () => {
         setTimeout(() => {
             setShowAlert(false);
         }, 2000)
-    }, [tday])
+    }, [tday, items])
 
     const onChange = () => {
         fetchData(startDate, endDate, group)

@@ -1,19 +1,16 @@
 import { Alert, Button, Col, Modal, Row, Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressBook, faGlobe, faPrint } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faPrint } from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import React, { useContext, useEffect, useState } from "react";
-import { LocalsContext } from "../../contexts/LocalsContext";
+import { Locals2Context } from "../../contexts/Locals2Context";
 import { RegionsContext } from "../../contexts/RegionsContext";
-import Local from "./Local";
-import Currency from "../../helper/Currency";
-import { GroupsContext } from "../../contexts/GroupsContext";
+import Local2 from "./Local2";
 import AddLocalForm from "./AddLocalForm";
 
-const LocalList = () => {
+const LocalList2 = () => {
     const { regions } = useContext(RegionsContext)
-    const { groups } = useContext(GroupsContext)
-    const { locals, setLocalRegion, setGroupFilter, groupFilter, onlyNeed } = useContext(LocalsContext)
+    const { locals, setLocalRegion} = useContext(Locals2Context)
 
     const [showAlert, setShowAlert] = useState(false)
     const [show, setShow] = useState(false);
@@ -42,10 +39,6 @@ const LocalList = () => {
         setRegion(value)
         setLocalRegion(region)
     }
-    const groupsOpt = [{ value: 0, label: 'هەموو' }, ...groups.map((opt) => ({ value: opt.id, label: opt.name }))]
-    const setGroupHandler = (value) => {
-        setGroupFilter(value)
-    }
 
 
     return (
@@ -59,16 +52,9 @@ const LocalList = () => {
                         <Row>
                             <Col md={3}>
                                 <Select placeholder="هەڵبژاردن..." name="group"
-                                    options={groupsOpt} onChange={(e) => setGroupHandler(e)} />
-                            </Col>
-                            <Col md={3}>
-                                <Select placeholder="هەڵبژاردن..." name="group"
                                     options={regionsOpt} onChange={(e) => setRegionHandler(e.value)} />
                             </Col>
-                            <Col>
-                                <Button onClick={onlyNeed} variant={"outline-primary"} data-toggle="modal">
-                                    <FontAwesomeIcon icon={faGlobe} /> <span>قەرزارەکان</span></Button>
-                            </Col>
+
                             <Col>
                                 <Button onClick={handleShow} variant={"outline-success"} data-toggle="modal">
                                     <FontAwesomeIcon icon={faAddressBook} /> <span>زیادکردنی کڕیار</span></Button>
@@ -94,20 +80,13 @@ const LocalList = () => {
                         <th scope="col">ژمارەی موبایل</th>
                         <th scope="col">ناونیشان</th>
                         <th className="d-print-none" scope="col">یەکەم جار</th>
-                        <th className="d-print-none">{groupFilter.label} کۆن</th>
-                        <th className="d-print-none" scope="col">کۆی کڕین</th>
-                        <th className="d-print-none" scope="col">پارەی داواکراو</th>
-                        <th className="d-print-none" scope="col">پارەی دراو</th>
-                        <th>
-                            {groupFilter.label} ماوە
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         locals.map(local => (
                             <tr key={local.id}>
-                                <Local local={local} />
+                                <Local2 local={local} />
                             </tr>
                         ))
                     }
@@ -120,11 +99,6 @@ const LocalList = () => {
                         </td>
                         <td />
                         <td />
-                        <td />
-                        <td>
-                            {groupFilter.value === 0 ? Currency(Object.values(locals).reduce((r, { mawe }) => r + Object.values(mawe).reduce((r, item) => r + item, 0), 0)) :
-                                Currency(Object.values(locals).reduce((r, { mawe }) => r + parseFloat(mawe[groupFilter.value]), 0))}
-                        </td>
                     </tr>
                 </tfoot>
             </Table>
@@ -148,4 +122,4 @@ const LocalList = () => {
     );
 }
 
-export default LocalList
+export default LocalList2

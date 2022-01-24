@@ -19,7 +19,7 @@ const EditForm = ({theSale}) => {
 
     const groupsOpt = [...groups.map((opt) => ({value: opt.id, label: opt.name}))]
     const vendorsOpt = [...vendors.map((opt) => ({value: opt.id, label: opt.name}))]
-    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: opt.name}))]
+    const localsOpt = [...locals.map((opt) => ({value: opt.id, label: `${opt.name} ${opt.region_name} ${opt.code}`}))]
 
     const handleSubmit = (e) => {
         e.preventDefault();

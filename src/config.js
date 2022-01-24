@@ -1,11 +1,11 @@
 const serverVars = {
     authUrl: 'local_auth_url',
-    apiUrl: 'http://127.0.0.1:8000/api/',
+    apiUrl: 'http://127.0.12.1:8000/api/',
 };
 
 const localVars = {
     authUrl: 'local_auth_url',
-    apiUrl: 'http://127.0.0.1:8000/api/',
+    apiUrl: 'http://127.0.12.1:8000/api/',
 
 };
 //https://zender-app.herokuapp.com/api/

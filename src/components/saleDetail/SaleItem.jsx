@@ -11,7 +11,7 @@ const SaleItem = ({ kala }) => {
     const [price, setPrice] = useState(kala.price)
 
     const handleUpdate = () => {
-        updateSale(kala.id, { "quantity": quantity })
+        updateSale(kala.id, { "quantity": quantity, "price": price })
     };
 
     const Qado = () => {
@@ -25,7 +25,7 @@ const SaleItem = ({ kala }) => {
     const handleUpload = () => {
         addSale(kala.id, {
             "quantity": quantity,
-            "price": kala.finalprice,
+            "price": price,
             "sell": kala.sell,
             "item": kala.item
         })
@@ -43,6 +43,9 @@ const SaleItem = ({ kala }) => {
         setQuantity(value)
     };
 
+    const handlePriceInput = (value) => {
+        setPrice(value)
+    };
 
     return (
         <Row className="mb-4">
@@ -76,8 +79,11 @@ const SaleItem = ({ kala }) => {
                         <div>
                             <InputGroup className="mb-3">
                                 <InputGroup.Text>$</InputGroup.Text>
-                                <InputGroup.Text>{Currency(parseFloat(price))}</InputGroup.Text>
-                                <Form.Control name={"price"} type={"number"} min={0}
+                                <Form.Control name={"quantity"} type={"number"} min={0}
+                                    value={price}
+                                    onChange={event => handlePriceInput(event.target.value)}
+                                    aria-label="Dollar amount (with dot and two decimal places)" />
+                                <Form.Control name={"quantity"} type={"number"} min={0}
                                     value={quantity}
                                     onChange={event => handleInput(event.target.value)}
                                     aria-label="Dollar amount (with dot and two decimal places)" />

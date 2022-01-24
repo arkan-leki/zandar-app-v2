@@ -9,7 +9,7 @@ const ReSale = ({theSale}) => {
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
     const [item, setItem] = useState('')
-    const itemsOpt = [...theSale.sell_detail.map((opt) => ({value: opt.item, label: opt.item_name, price: opt.price, quantity: opt.quantity}))]
+    const itemsOpt = [...theSale.sell_detail.map((opt) => ({value: opt.item, label: `${opt.item_name} ${opt.item_code}`, price: opt.price, quantity: opt.quantity}))]
 
     const handleSubmit = (e) => {
         e.preventDefault();

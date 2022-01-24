@@ -22,6 +22,7 @@ const Buy = ({ buy }) => {
             </td>
             <td>{buy.code}</td>
             <td>{buy.totall}</td>
+            <td>{buy.totallQ}</td>
             <td>{buy.date}</td>
         </>
     )

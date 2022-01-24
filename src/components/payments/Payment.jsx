@@ -18,7 +18,7 @@ const Payment = ({ payment }) => {
 
     return (
         <>
-            <td>{payment.id}</td>
+            <td>{payment.bank}</td>
             <td>{payment.group_name}</td>
             <td>{payment.local_name} <Link className="d-print-none" to={`/paymentForm/${payment.id}`}><FontAwesomeIcon icon={faEdit} /></Link></td>
             <td><Link to={`/localDetail/${payment.local}`}>{payment.local_code}</Link></td>

@@ -50,8 +50,8 @@ const Item = ({item}) => {
             <td hidden={true}>{item.wight} کگم</td>
             <td hidden={true}>{item.wightAll} کگم</td>
             <td hidden={true}>{item.stock}</td>
-            <td >{item.ordered}</td>
-            <td>{item.popularity}</td>
+            <td className="d-print-none">{item.ordered}</td>
+            <td className="d-print-none">{item.popularity}</td>
             <td>{item.mawe}</td>
             <td className="d-print-none">
                 {<Form.Check className="mb-1 pl-0">

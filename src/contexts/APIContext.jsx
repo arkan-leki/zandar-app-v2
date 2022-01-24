@@ -27,11 +27,17 @@ const APIContextProvider = (props) => {
     const buysURL = "orders/"
     const orderedURL = "ordereds/"
     const tradersURL = "traders/"
+    const feeURL = "buy/"
+    const requestOrder = "reqOrder/"
+    const requestDetail = "reqDetail/"
 
     const zenderAXIOS = axios.create({
         baseURL: baseURL
     })
     const value = {
+        requestOrder,
+        requestDetail,
+        feeURL,
         itemURL,
         buyURL,
         tradersURL,
