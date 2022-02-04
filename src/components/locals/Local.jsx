@@ -45,9 +45,10 @@ const Local = ({local}) => {
             <th><Link className="text-decoration-none" to={`/form/${local.id}`}>{local.id}</Link></th>
             <th scope="col" className="fs-5">{local.name}</th>
             <th>{local.code}</th>
+            <th>{local.owner_name}</th>
             <th>{local.phone}</th>
             <th>{local.region_name}</th>
-            <td className="d-print-none">{Currency(parseFloat((local.exchange)))}</td>
+            {/* <td className="d-print-none">{Currency(parseFloat((local.exchange)))}</td> */}
             <td className="d-print-none">
                 {Currency(totallOld)}
             </td>

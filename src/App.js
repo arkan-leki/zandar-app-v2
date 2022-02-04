@@ -39,6 +39,7 @@ import FeesContextProvider from "./contexts/FeeContext";
 import OrdersContextProvider from './contexts/OrdersContext';
 import OrdersList from "./components/order/OrdersList";
 import LocalList2 from "./components/locals/LocalList2";
+import CompanyList from "./components/company/CompanyList";
 
 function App() {
     return (
@@ -50,7 +51,9 @@ function App() {
                             <Locals2ContextProvider>
                                 <Route exact path="/">
                                     <PaymentsContextProvider>
-                                        <Board />
+                                        <VendorsContextProvider>
+                                            <Board />
+                                        </VendorsContextProvider>
                                     </PaymentsContextProvider>
                                 </Route>
                                 <Route exact path="/sales/">
@@ -149,7 +152,7 @@ function App() {
                                 <Route exact path="/locals2/">
                                     <>
                                         <RegionsContextProvider>
-                                                <LocalList2 />
+                                            <LocalList2 />
                                         </RegionsContextProvider>
                                     </>
                                 </Route>
@@ -176,6 +179,11 @@ function App() {
                                 <OrdersContextProvider>
                                     <OrdersList />
                                 </OrdersContextProvider>
+                            </Route>
+                            <Route exact path="/company/">
+                                <TradersContextProvider>
+                                    <CompanyList />
+                                </TradersContextProvider>
                             </Route>
                         </GroupsContextProvider>
                     </Switch>

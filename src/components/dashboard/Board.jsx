@@ -1,13 +1,24 @@
 import { Card, Container, Row } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { PaymentsContext } from "../../contexts/PaymentsContext";
 import Currency from "../../helper/Currency";
 import { GroupsContext } from "../../contexts/GroupsContext";
+import { APIContext } from "../../contexts/APIContext";
+
 import moment from 'moment'
 
 const Board = () => {
     const { banks } = useContext(PaymentsContext)
     const { groups } = useContext(GroupsContext)
+    const [vendors, setVendors] = useState([])
+    const { zenderAXIOS } = useContext(APIContext)
+
+    useEffect(() => {
+        zenderAXIOS.get('vendorz/').then((response) => {
+            setVendors(response.data);
+        });
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <Container>
@@ -20,6 +31,20 @@ const Board = () => {
                                 <Card.Title>{group.name}</Card.Title>
                                 <Card.Text>
                                     {Currency(parseFloat(group.totallSell))}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    ))}
+
+                    <br />
+
+                    {vendors.map(vendor => (
+                        <Card border="success" style={{ width: '18rem' }}>
+                            <Card.Header>مانگانە</Card.Header>
+                            <Card.Body>
+                                <Card.Title>{vendor.name}</Card.Title>
+                                <Card.Text>
+                                    {Currency(parseFloat(vendor.totallSell))}
                                 </Card.Text>
                             </Card.Body>
                         </Card>

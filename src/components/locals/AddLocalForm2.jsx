@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {Locals2Context} from '../../contexts/Locals2Context';
 import {RegionsContext} from "../../contexts/RegionsContext";
 
-const AddLocalForm = () => {
+const AddLocalForm2 = () => {
     const {addLocal} = useContext(Locals2Context);
     const {regions} = useContext(RegionsContext)
 
@@ -68,4 +68,4 @@ const AddLocalForm = () => {
     )
 }
 
-export default AddLocalForm
+export default AddLocalForm2

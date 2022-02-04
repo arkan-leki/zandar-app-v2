@@ -9,10 +9,14 @@ import { GroupsContext } from "../../contexts/GroupsContext";
 import Select from "react-select";
 import moment from "moment";
 import Currency from "../../helper/Currency";
+import { VendorsContext } from '../../contexts/VendorsContext'
 
 const SalesList = () => {
     const { groups } = useContext(GroupsContext)
-    const { sales, updateSaleDate, setSaleGroup, allSales } = useContext(SalesContext)
+    
+    const { vendors } = useContext(VendorsContext)
+
+    const { sales, updateSaleDate, setSaleGroup, allSales, setSaleVisitor } = useContext(SalesContext)
     const [showAlert, setShowAlert] = useState(false)
 
     const [show, setShow] = useState(false);
@@ -38,7 +42,7 @@ const SalesList = () => {
     const [endDate, setEndDate] = useState(new Date());
 
     const onChange = () => {
-        updateSaleDate({ startDate, endDate }, group)
+        updateSaleDate({ startDate, endDate }, group, visitor)
     };
 
     const [group, setGroup] = useState('')
@@ -49,6 +53,12 @@ const SalesList = () => {
         setSaleGroup(group)
     }
 
+    const [visitor, setVisitor] = useState([]);
+    const visitorsOpt = [...vendors.map((opt) => ({ value: opt.id, label: opt.name }))]
+    const setVisitorHandler = (value) => {
+        setVisitor(value)
+        setSaleVisitor(visitor)
+    }
 
 
     return (
@@ -83,6 +93,10 @@ const SalesList = () => {
                             <Col md={2}>
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                     options={groupsOpt} onChange={(e) => setGroupHandler(e.value)} />
+                            </Col>
+                            <Col md={2}>
+                                <Select placeholder="هەڵبژاردن..." name="group"
+                                    options={visitorsOpt} onChange={(e) => setVisitorHandler(e.value)} />
                             </Col>
                             <Col>
                                 <Button onClick={handleShow} variant={"outline-success"} data-toggle="modal">
@@ -129,7 +143,7 @@ const SalesList = () => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th />
+                        <th>{Object.values(sales).reduce((r) => r + 1, 0)}</th>
                         <th />
                         <th />
                         <th />

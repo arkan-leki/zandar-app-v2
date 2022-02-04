@@ -12,6 +12,7 @@ const TableLayout = (props) => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Link className="nav-link text-white" to={`/`}>ماڵەوە</Link>
+                            <Link className="nav-link text-white" to={`/company`}>کۆمپانیاکان</Link>
                             <Link className="nav-link text-white" to={`/sales`}>فرۆشتنەکان</Link>
                             <Link className="nav-link text-white" to={`/locals`}>قەزاران</Link>
                             <Link className="nav-link text-white" to={`/buy`}>داخلبونی کاڵا</Link>

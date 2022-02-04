@@ -50,10 +50,22 @@ const SalesContextProvider = (props) => {
         })
     }
 
-    const updateSaleDate = (dates, group) => {
+    const updateSaleDate = (dates, group, visitor) => {
+        if(visitor){
+            setSales(salesTemp.filter((sale) => sale.vendor === visitor))
+            setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
+            return
+        }
         if (group) {
             setSales(salesTemp.filter((sale) => sale.group === group))
+
+            if(visitor){
+                setSales(salesTemp.filter((sale) => sale.vendor === visitor))
+                setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
+                return
+            }
             setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
+
             return
         }
         setSales(salesTemp.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
@@ -63,6 +75,10 @@ const SalesContextProvider = (props) => {
         setSales(salesTemp.filter((sale) => sale.group === data))
     }
 
+    
+    const setSaleVisitor = (data) => {
+        setSales(salesTemp.filter((sale) => sale.vendor === data))
+    }
     const addReSale = (sell, item, quantity, price) => {
         zenderAXIOS.post(reSellURL, {
             sell: sell, item: item, quantity: quantity, price: price
@@ -75,7 +91,7 @@ const SalesContextProvider = (props) => {
         })
     }
 
-    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales, addReSale};
+    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales, addReSale, setSaleVisitor};
 
     return (
         <SalesContext.Provider value={values}>

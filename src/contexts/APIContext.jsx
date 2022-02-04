@@ -30,7 +30,9 @@ const APIContextProvider = (props) => {
     const feeURL = "buy/"
     const requestOrder = "reqOrder/"
     const requestDetail = "reqDetail/"
+    const payloanURL = "payloan/"
 
+    
     const zenderAXIOS = axios.create({
         baseURL: baseURL
     })
@@ -59,7 +61,8 @@ const APIContextProvider = (props) => {
         saleDetailURL,
         salesDetailURL,
         regionURL,
-        reSellURL
+        reSellURL,
+        payloanURL
     }
 
     return (

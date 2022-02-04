@@ -34,8 +34,8 @@ const Item = ({item}) => {
 
     return (
         <>
-            <td className="d-print-none"><img src={item.image} width={100 + 'px'}
-                     className=" rounded-start m-2 d-print-none" alt="....." height={100 + 'px'}/>{item.id}
+            <td ><img src={item.image} width={100 + 'px'}
+                     className=" rounded-start m-2" alt="....." height={100 + 'px'}/>{item.id}
             </td>
             <td>{item.barcode}</td>
             <td>{item.group_name}</td>

@@ -47,7 +47,7 @@ const SaleToPrint = ({ sale }) => {
                                 </h2>
                                 <Row>
                                     {/* <p className="fs-6">
-                                        ژ.ئۆفیس - 07510675202
+                                        ژ.ئۆفیس - 07501156373
                                     </p>
                                     <p className="fs-6">هەولێر - منارە ، بەرامبەر لەنگەی نوێ</p> */}
                                     <p className="fs-6">
@@ -62,6 +62,7 @@ const SaleToPrint = ({ sale }) => {
                                 <Row>
                                     <Row xs={8} className={"text-center  fs-4"}>
                                         <i>فرۆشگا : {sale.local_name}</i>
+                                        <i>ناو : {sale.owner_name}</i>
                                         <i>ناونیشان : {sale.local_region}</i>
                                     </Row>
                                     <Row className={"text-center  fs-6"}>

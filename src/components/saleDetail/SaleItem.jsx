@@ -11,21 +11,18 @@ const SaleItem = ({ kala }) => {
     const [price, setPrice] = useState(kala.price)
 
     const handleUpdate = () => {
-        updateSale(kala.id, { "quantity": quantity, "price": price })
+        updateSale(kala.id, { "quantity": quantity, "price": kala.finalprice })
     };
 
     const Qado = () => {
-        if (kala.id < 0) {
-            return setPrice(0)
-        }
-        setPrice(0)
-        updateSale(kala.id, { "price": 0 })
+        setPrice(price)
+        updateSale(kala.id, { "price": price })
     };
 
     const handleUpload = () => {
         addSale(kala.id, {
             "quantity": quantity,
-            "price": price,
+            "price": kala.finalprice,
             "sell": kala.sell,
             "item": kala.item
         })

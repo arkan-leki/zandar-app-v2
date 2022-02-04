@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Locals2Context } from "../../contexts/Locals2Context";
 import { RegionsContext } from "../../contexts/RegionsContext";
 import Local2 from "./Local2";
-import AddLocalForm from "./AddLocalForm";
+import AddLocalForm2 from "./AddLocalForm2";
 
 const LocalList2 = () => {
     const { regions } = useContext(RegionsContext)
@@ -76,6 +76,7 @@ const LocalList2 = () => {
                     <tr>
                         <th scope="col"> زنجیرە</th>
                         <th scope="col"> فرۆشگا</th>
+                        <th scope="col"> ناو</th>
                         <th scope="col">کۆد</th>
                         <th scope="col">ژمارەی موبایل</th>
                         <th scope="col">ناونیشان</th>
@@ -110,7 +111,7 @@ const LocalList2 = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddLocalForm />
+                    <AddLocalForm2 />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

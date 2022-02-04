@@ -87,7 +87,7 @@ const ItemsList = (props) => {
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th className="d-print-none">#</th>
+                        <th >#</th>
                         <th>کۆد</th>
                         <th>گروپ</th>
                         <th hidden={true}>ناوی کۆمپانیا</th>
