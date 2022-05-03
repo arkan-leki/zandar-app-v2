@@ -5,11 +5,14 @@ export const Locals2Context = createContext(undefined)
 
 const Locals2ContextProvider = (props) => {
     const [locals, setLocals] = useState([])
+    const [localz, setLocalz] = useState([])
+
     const { localURL, zenderAXIOS } = useContext(APIContext)
 
     useEffect(() => {
         zenderAXIOS.get(localURL).then((response) => {
             setLocals(response.data);
+            setLocalz(response.data);
         });
         // eslint-disable-next-line
     }, [])
@@ -31,7 +34,18 @@ const Locals2ContextProvider = (props) => {
         })
     }
 
+    // const setLocalz = (id) => {
+    //     zenderAXIOS.get(localURL).then((response) => {
+    //         setLocals(response.data);
+    //         setLocals(locals.filter((local) => local.id === id ))
+    //     }).catch(err => {
+    //         alert("داواکاریەکەت سەرنەکەوت");
+    //     })
+    // }
+
     const value = {
+        localz,
+        setLocalz,
         locals,
         addLocal,
         updateLocal

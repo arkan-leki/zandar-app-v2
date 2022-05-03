@@ -55,6 +55,7 @@ const VisitorsList = () => {
                         <th scope="col">زنجیرە</th>
                         <th scope="col">ناو</th>
                         <th scope="col">ژمارەی موبایل</th>
+                        
                         <th />
                     </tr>
                 </thead>

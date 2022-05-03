@@ -36,20 +36,22 @@ const SaleDetail = () => {
     }
 
     return (
-        <>
-            <section>
+        <div className="content">
+            <div className="container-fluid">
                 <Row>
                     <Col lg={8}>
                         <div className="mb-3">
                             <div className="pt-4 wish-list">
                                 <h5 className="mb-4">فۆرمی (<span>وەسل.</span> کاڵاکان )</h5>
-                                {saleDetail && saleDetail.map((items, index) => (
-                                    <div key={index}>
-                                        <SaleItem key={index} kala={items} />
-                                        <hr className="mb-4" />
-                                    </div>
-                                )
-                                )}
+                                {saleDetail && saleDetail
+                                    // .sort((a, b) => a.id > b.id ? 1 : -1)
+                                    .map((items, index) => (
+                                        <div key={index}>
+                                            <SaleItem key={index} kala={items} />
+                                            <hr className="mb-4" />
+                                        </div>
+                                    )
+                                    )}
                                 <p className="text-primary mb-0"><i className="fas fa-info-circle mr-1" /> Do not delay
                                     the purchase, adding
                                     items to your cart does not mean booking them.</p>
@@ -141,24 +143,25 @@ const SaleDetail = () => {
                     </Col>
                 </Row>
 
-            </section>
+                {/* </section> */}
 
-            <Modal
-                size="lg"
-                show={show}
-                fullscreen={false}
-                onHide={() => setShow(false)}
-                aria-labelledby="example-modal-sizes-title-lg">
-                <Modal.Header closeButton>
-                    <Modal.Title id="example-modal-sizes-title-lg">
-                        کاڵاکان
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <ItemsCard soldItems={SaleDetail} sale={sale} />
-                </Modal.Body>
-            </Modal>
-        </>
+                <Modal
+                    size="xl"
+                    show={show}
+                    fullscreen={false}
+                    onHide={() => setShow(false)}
+                    aria-labelledby="example-modal-sizes-title-lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            کاڵاکان
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <ItemsCard soldItems={SaleDetail} sale={sale} />
+                    </Modal.Body>
+                </Modal>
+            </div>
+        </div>
     )
 }
 export default SaleDetail

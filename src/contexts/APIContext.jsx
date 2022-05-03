@@ -8,8 +8,9 @@ export const APIContext = createContext(undefined)
 const APIContextProvider = (props) => {
     const baseURL = getConfiguration().apiUrl
     const salesURL = 'sells/'
-    const groupsURL = 'group/'
-    const vendorsURL = 'vendors/'
+    const groupsURL = 'groups/'
+    const groupURL = 'group/'
+    const vendorsURL = 'vendorz/'
     const localsURL = 'locals/'
     const saleURL = 'sell/'
     const salesDetailURL = 'sales/'
@@ -31,12 +32,18 @@ const APIContextProvider = (props) => {
     const requestOrder = "reqOrder/"
     const requestDetail = "reqDetail/"
     const payloanURL = "payloan/"
+    const transportsURL = "transports/"
+    const transportzURL = "transportz/"
+    const employeesURL = "employe/"
 
-    
     const zenderAXIOS = axios.create({
         baseURL: baseURL
     })
     const value = {
+        groupURL,
+        employeesURL,
+        transportzURL,
+        transportsURL,
         requestOrder,
         requestDetail,
         feeURL,

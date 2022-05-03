@@ -17,7 +17,7 @@ const ItemEditForm = ({theItem}) => {
     // const [quantity, setQuantity] = useState(theItem.quantity)
     const [code, setCode] = useState(theItem.barcode)
     const [price, setPrice] = useState(theItem.price)
-    const [addPrice, setAddPrice] = useState(parseFloat(theItem.addprice) * 100)
+    const [addPrice, setAddPrice] = useState(parseFloat(theItem.addprice * 100).toFixed(2))
     const [stock, setStock] = useState(theItem.stock)
     const [category, setCategory] = useState(theItem.category)
 
@@ -31,7 +31,7 @@ const ItemEditForm = ({theItem}) => {
                 "quantity": theItem.quantity,
                 "barcode": code,
                 "price": price,
-                "addprice": addPrice / 100,
+                "addprice": parseFloat(addPrice/ 100).toFixed(4) ,
                 "stock": stock,
                 // "image": null,
                 "deleted": false,

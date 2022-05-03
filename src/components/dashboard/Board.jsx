@@ -38,7 +38,7 @@ const Board = () => {
 
                     <br />
 
-                    {vendors.map(vendor => (
+                    {/* {vendors.map(vendor => (
                         <Card border="success" style={{ width: '18rem' }}>
                             <Card.Header>مانگانە</Card.Header>
                             <Card.Body>
@@ -49,7 +49,26 @@ const Board = () => {
                             </Card.Body>
                         </Card>
                     ))}
-                    <br />
+                    <br /> */}
+
+                    {vendors.map(vendor => (
+                        (vendor.totallSell !== 0) && (<Card border="success" style={{ width: '18rem' }}>
+                            <Card.Header>مانگانە</Card.Header>
+                            <Card.Body>
+                                <Card.Title>{vendor.name}</Card.Title>
+                                <Card.Text>
+                                    {Currency(parseFloat(vendor.totallSell))}
+                                </Card.Text>
+                                {groups.map(group => (
+                                    vendor.totallSellGroup[group.id] &&
+                                    <Card.Text>
+                                        <p>{group.name}</p>
+                                        <p>{Currency(parseFloat(vendor.totallSellGroup[group.id]))}</p>            
+                                    </Card.Text>
+                                ))}
+                            </Card.Body>
+                        </Card>)
+                    ))}
 
                     <Card border="success" style={{ width: '18rem' }}>
                         <Card.Header>هەمیشەی</Card.Header>

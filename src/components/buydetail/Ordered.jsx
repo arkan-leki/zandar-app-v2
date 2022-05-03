@@ -77,7 +77,8 @@ const Ordered = ({ ordered }) => {
                         <FontAwesomeIcon icon={faTrashAlt} /> سڕیەنەوە </Button>
                     {(!ordered.temp) || <Button variant={"outline-success"} onClick={handleUpload}>
                         <FontAwesomeIcon icon={faCartPlus} /> خەزنکردن </Button>}
-                    {(parseFloat(ordered.item_price) === parseFloat(price)) || <Button variant={"success"} onClick={handlePrice}>
+                    {(!(parseFloat(ordered.item_price) < parseFloat(price))) ? <Button variant={"danger"} onClick={handlePrice}>
+                        <FontAwesomeIcon icon={faCartPlus} /> نوێکردنەوە </Button>:<Button variant={"success"} onClick={handlePrice}>
                         <FontAwesomeIcon icon={faCartPlus} /> نوێکردنەوە </Button>}
                     {(!ordered.item_deleted)  || <Button variant={"danger"} onClick={handleDeleted}>
                         <FontAwesomeIcon icon={faCartPlus} /> چالاککردنەوە </Button>}

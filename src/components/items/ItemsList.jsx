@@ -74,7 +74,7 @@ const ItemsList = (props) => {
                                     <FontAwesomeIcon icon={faAddressBook} /> <span>زیادکردنی کاڵا</span></Button>
                             </Col>
                             <Col>
-                                <Button variant={"outline-secondary"} onClick={window.print}> 
+                                <Button variant={"outline-secondary"} onClick={window.print}>
                                     <FontAwesomeIcon icon={faPrint} /></Button>
                             </Col>
                         </Row>

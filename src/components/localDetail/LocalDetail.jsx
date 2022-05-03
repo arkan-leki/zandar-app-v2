@@ -57,8 +57,8 @@ const LocalDetail = () => {
                     "id": <Link to={`/saleDetail/${val.id}`}> کڕین {val.id} </Link>,
                     "name": val.local_name,
                     "group": val.group_name,
-                    "pay": val.totall,
-                    "loan": val.discount,
+                    "pay": val.totall - val.discount,
+                    "loan": val.totalback,
                     "date": val.date
                 })
             ))
@@ -108,8 +108,8 @@ const LocalDetail = () => {
                     "id": <Link to={`/saleDetail/${val.id}`}> کڕین {val.id} </Link>,
                     "name": val.local_name,
                     "group": val.group_name,
-                    "pay": val.totall,
-                    "loan": val.discount,
+                    "pay": val.totall - val.discount,
+                    "loan": val.totalback,
                     "date": val.date
                 })
             ))
@@ -327,6 +327,7 @@ const LocalDetail = () => {
                                 <th >بنکەی فرۆش</th>
                                 <th scope="col"> کڕیار</th>
                                 <th scope="col"> کاڵا</th>
+                                <th scope="col"> کۆد</th>
                                 <th >دانە</th>
                                 <th>نرخ</th>
                                 <th>کۆی داشکان</th>
@@ -336,10 +337,11 @@ const LocalDetail = () => {
                         <tbody>
                             {resell.map((val, index) => (
                                 <tr key={index}>
-                                    <td>{val.id}</td>
+                                    <td>{val.sell}</td>
                                     <td>{val.group_name}</td>
                                     <td>{val.local_name}</td>
                                     <td>{val.item_name}</td>
+                                    <td>{val.item_code}</td>
                                     <td>{val.quantity}</td>
                                     <td>{Currency(parseFloat(val.price))}</td>
                                     <td>{Currency(parseFloat(val.price * val.quantity))}</td>

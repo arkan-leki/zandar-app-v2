@@ -70,8 +70,8 @@ const Sale = ({ sale }) => {
             <td>{sale.local_region} </td>
             <td>{Currency(parseFloat(sale.totall))} </td>
             <td>{Currency(parseFloat(sale.discount))} </td>
-            <td>{Currency(parseFloat(sale.totallint))} </td>
             <td>{Currency(parseFloat(sale.totalback))} </td>
+            <td>{Currency(parseFloat(sale.totallint-sale.totalback))} </td>
             <td>{moment(new Date(sale.date)).format("DD/MM/YYYY")}</td>
             <td className="d-print-none">
                 <Form.Check className="mb-1 pl-0">

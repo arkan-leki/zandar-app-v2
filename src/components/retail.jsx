@@ -8,10 +8,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { GroupsContext } from "../contexts/GroupsContext";
 import { ItemsContext } from "../contexts/ItemsContext";
 import RetailItem from "./RetailItem";
+import { VendorsContext } from "../contexts/VendorsContext";
 // import { SaleDetailContext } from "../contexts/SaleDetailContext";
 
 const Retail = () => {
     const { groups } = useContext(GroupsContext)
+    const { vendors } = useContext(VendorsContext)
+
     // const { saleDetail, updateSaleDate } = useContext(SaleDetailContext)
     const { items, setItemsGroup } = useContext(ItemsContext)
     const [showAlert, setShowAlert] = useState(false)
@@ -21,19 +24,20 @@ const Retail = () => {
 
     const [tday, setTday] = useState([]);
 
-    const fetchData = (startDate, endDate, group) => {
+    const fetchData = (startDate, endDate, group, visitor) => {
         const _item_sell = []
-        // saleDetail.filter((i) => i.group === group)
         // updateSaleDate({ startDate, endDate }, group)
-
+        console.log(visitor);
         items.filter((i) => i.group === group)
         items.map((_item) => {
             let item_sell = _item.item_sell.filter((sale) => (new Date(sale.date) - startDate) >= 0 && (new Date(sale.date) - endDate <= 0))
+            item_sell = item_sell.filter((i) => i.sell_vendorID === visitor)
             let quantity = Object.values(item_sell).reduce((r, { quantity }) => r + quantity, 0)
             let date = Object.values(item_sell).reduce((r, { date }) => date, 0)
             let price = Object.values(item_sell).reduce((r, { price, quantity }) => r + (parseFloat(quantity) * parseFloat(price)), 0);
             return _item_sell.push({ "item": _item.name, "item_price": parseFloat(_item.price), "qazanc": price - (_item.price * quantity), "barcode": _item.barcode, "quantity": quantity, "mawe": _item.mawe, "maweprice": (_item.mawe * _item.price), "price": price, "date": date, "group": _item.group, 'itemp': (price / quantity) })
         })
+
         setTday(_item_sell.filter((_items) => _items.quantity !== 0))
     }
 
@@ -45,13 +49,20 @@ const Retail = () => {
     }, [tday, items])
 
     const onChange = () => {
-        fetchData(startDate, endDate, group)
+        fetchData(startDate, endDate, group, visitor)
     }
     const groupsOpt = [...groups.map((opt) => ({ value: opt.id, label: opt.name }))]
     const setGroupHandler = (value) => {
         setGroup(value)
         setItemsGroup(group)
-        fetchData(startDate, endDate, value)
+        fetchData(startDate, endDate, value, visitor)
+    }
+
+    const [visitor, setVisitor] = useState(1);
+    const visitorsOpt = [...vendors.map((opt) => ({ value: opt.id, label: opt.name }))]
+    const setVisitorHandler = (value) => {
+        setVisitor(value)
+        fetchData(startDate, endDate, group, value)
     }
     return (
         <section className="p-5">
@@ -62,7 +73,7 @@ const Retail = () => {
                     </div>
                     <div className="d-print-none col-sm-6">
                         <Row>
-                            <Col>
+                            <Col md={6}>
                                 <InputGroup className="mb-3">
                                     <FormControl
                                         type="date"
@@ -85,6 +96,10 @@ const Retail = () => {
                             <Col>
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                     options={groupsOpt} onChange={(e) => setGroupHandler(e.value)} />
+                            </Col>
+                            <Col>
+                                <Select placeholder="هەڵبژاردن..." name="vendor"
+                                    options={visitorsOpt} onChange={(e) => setVisitorHandler(e.value)} />
                             </Col>
                         </Row>
                     </div>

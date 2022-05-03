@@ -14,15 +14,23 @@ const CartItem = ({ item, addToCart, sale }) => {
                 <a href={`/itemDetail/${item.id}`} className="text-decoration-none">
                     <h5>{item.barcode}</h5>
                 </a>
-                <Card.Title><strong>{item.name}</strong></Card.Title>
-                <ListGroup className="list-group-flush">
+                <><strong>{item.name}</strong></>
+                <ul class="list-group-flush">
+                    <li class="list-group-item"> نرخ
+                        : {Currency(parseFloat(item.finalprice))} </li>
+                    <li class="list-group-item"> جۆر
+                        : {item.quantity} </li>
+                    <li class="list-group-item"> ماوە : {item.mawe} </li>
+                    <input type={'number'} value={quantity} onChange={event => setQuantity(event.target.valueAsNumber)} />
+                </ul>
+                {/* <ListGroup className="list-group-flush">
                     <ListGroupItem>نرخ
                         : {Currency(parseFloat(item.finalprice))}</ListGroupItem>
                     <ListGroupItem>جۆر
                         : {item.quantity}</ListGroupItem>
                     <ListGroupItem>ماوە : {item.mawe}</ListGroupItem>
                     <input type={'number'} value={quantity} onChange={event => setQuantity(event.target.valueAsNumber)} />
-                </ListGroup>
+                </ListGroup> */}
                 <Card.Footer className="px-1">
                     <Button variant={item.deleted ? "secondary" : "primary"} onClick={() => addToCart(
                         {

@@ -1,14 +1,14 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {APIContext} from './APIContext'
+import { createContext, useContext, useEffect, useState } from "react";
+import { APIContext } from './APIContext'
 import Currency from "../helper/Currency";
 
 export const LocalsContext = createContext(undefined)
 
 const LocalsContextProvider = (props) => {
     const [locals, setLocals] = useState([])
-    const {paymentURL, bankURL, localsURL, zenderAXIOS} = useContext(APIContext)
+    const { paymentURL, bankURL, localsURL, zenderAXIOS } = useContext(APIContext)
     const [localsTemp, setLocalsTemp] = useState([])
-    const [groupFilter, setGroupFilter] = useState({value: 0, label: 'هەموو'})
+    const [groupFilter, setGroupFilter] = useState({ value: 0, label: 'هەموو' })
 
     useEffect(() => {
         zenderAXIOS.get(localsURL).then((response) => {
@@ -26,15 +26,15 @@ const LocalsContextProvider = (props) => {
             response.data.map((mob) => {
                 attemptsValue = Object.values(mob.attempts.filter((para) => {
                     return (para.group) === sale.group && para.datetime <= sale.id
-                })).reduce((r, {totallint}) => r + parseFloat(totallint), 0)
+                })).reduce((r, { totallint }) => r + parseFloat(totallint), 0)
 
                 oldValue = Object.values(mob.oldacc_compnay.filter((para) => {
                     return (para.group) === sale.group && para.datetime <= sale.id
-                })).reduce((r, {loan}) => r + parseFloat(loan), 0)
+                })).reduce((r, { loan }) => r + parseFloat(loan), 0)
 
                 pay = Object.values(mob.payment_compnay.filter((para) => {
                     return (para.group) === sale.group && para.datetime <= sale.id
-                })).reduce((r, {bank_income}) => r + parseFloat(bank_income), 0)
+                })).reduce((r, { bank_income }) => r + parseFloat(bank_income), 0)
                 return Currency(parseFloat((attemptsValue + oldValue + parseFloat(mob.exchange)) - pay - plus))
             })
         });
@@ -89,7 +89,7 @@ const LocalsContextProvider = (props) => {
     const onlyNeed = () => {
         if (groupFilter.value === 0)
             return setLocals(locals.filter((loc) => Object.values(loc.mawe).reduce((r, item) => r + item, 0) !== 0))
-        setLocals(locals.filter((loc) => loc.mawe[groupFilter.value] !== 0))
+        return setLocals(locals.filter((loc) => loc.mawe[groupFilter.value] !== 0))
     }
 
     const value = {

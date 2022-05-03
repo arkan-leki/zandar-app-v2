@@ -7,10 +7,11 @@ import { Locals2Context } from "../../contexts/Locals2Context";
 import { RegionsContext } from "../../contexts/RegionsContext";
 import Local2 from "./Local2";
 import AddLocalForm2 from "./AddLocalForm2";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 const LocalList2 = () => {
     const { regions } = useContext(RegionsContext)
-    const { locals, setLocalRegion} = useContext(Locals2Context)
+    const { locals, setLocalRegion, setLocalz , localz} = useContext(Locals2Context)
 
     const [showAlert, setShowAlert] = useState(false)
     const [show, setShow] = useState(false);
@@ -41,6 +42,38 @@ const LocalList2 = () => {
     }
 
 
+    const handleOnSearch = (string, results) => {
+        // onSearch will have as the first callback parameter
+        // the string searched and for the second the results.
+        console.log(string, results)
+        // locals  = locals.filter((local)=> (results.code == local.code))
+    }
+
+    const handleOnHover = (result) => {
+        // the item hovered
+        console.log(result)
+    }
+
+    const handleOnSelect = (item) => {
+        // the item selected
+        console.log(item)
+        setLocalz(locals.filter((local) => local.id === item.id ))
+    }
+
+    const handleOnFocus = () => {
+        console.log('Focused')
+    }
+
+    const formatResult = (item) => {
+        return (
+            <>
+                <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
+                <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
+                <span style={{ display: 'block', textAlign: 'left' }}>code: {item.code}</span>
+            </>
+        )
+    }
+
     return (
         <section className="p-5 px-2">
             <div className="table-title" >
@@ -54,13 +87,23 @@ const LocalList2 = () => {
                                 <Select placeholder="هەڵبژاردن..." name="group"
                                     options={regionsOpt} onChange={(e) => setRegionHandler(e.value)} />
                             </Col>
-
+                            <Col>
+                                <ReactSearchAutocomplete
+                                    items={locals}
+                                    onSearch={handleOnSearch}
+                                    onHover={handleOnHover}
+                                    onSelect={handleOnSelect}
+                                    onFocus={handleOnFocus}
+                                    autoFocus
+                                    formatResult={formatResult}
+                                />
+                            </Col>
                             <Col>
                                 <Button onClick={handleShow} variant={"outline-success"} data-toggle="modal">
                                     <FontAwesomeIcon icon={faAddressBook} /> <span>زیادکردنی کڕیار</span></Button>
                             </Col>
                             <Col>
-                                <Button variant={"outline-secondary"} onClick={window.print}> 
+                                <Button variant={"outline-secondary"} onClick={window.print}>
                                     <FontAwesomeIcon icon={faPrint} /></Button>
                             </Col>
                         </Row>
@@ -85,7 +128,7 @@ const LocalList2 = () => {
                 </thead>
                 <tbody>
                     {
-                        locals.map(local => (
+                        localz.map(local => (
                             <tr key={local.id}>
                                 <Local2 local={local} />
                             </tr>
@@ -96,7 +139,7 @@ const LocalList2 = () => {
                     <tr>
                         <td />
                         <td>
-                            {Object.values(locals).reduce((r) => r + 1, 0)}
+                            {Object.values(localz).reduce((r) => r + 1, 0)}
                         </td>
                         <td />
                         <td />

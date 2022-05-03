@@ -1,11 +1,11 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {APIContext} from "./APIContext";
+import { createContext, useContext, useEffect, useState } from "react";
+import { APIContext } from "./APIContext";
 
-export  const VendorsContext = createContext(undefined)
+export const VendorsContext = createContext(undefined)
 
 const VendorsContextProvider = (props) => {
     const [vendors, setVendors] = useState([])
-    const {vendorsURL, zenderAXIOS} = useContext(APIContext)
+    const { vendorsURL, zenderAXIOS } = useContext(APIContext)
 
     useEffect(() => {
         zenderAXIOS.get(vendorsURL).then((response) => {
@@ -32,7 +32,8 @@ const VendorsContextProvider = (props) => {
     }
 
 
-    const value = {vendors, addVendor, updateVendor}
+
+    const value = { vendors, addVendor, updateVendor}
     return (
         <VendorsContext.Provider value={value}>
             {props.children}
@@ -40,4 +41,4 @@ const VendorsContextProvider = (props) => {
     )
 }
 
-export default VendorsContextProvider ;
+export default VendorsContextProvider;

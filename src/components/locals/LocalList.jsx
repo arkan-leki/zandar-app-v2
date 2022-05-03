@@ -90,8 +90,8 @@ const LocalList = () => {
                     <tr>
                         <th scope="col"> زنجیرە</th>
                         <th scope="col"> فرۆشگا</th>
-                        <th scope="col"> خاوەنی</th>
                         <th scope="col">کۆد</th>
+                        <th scope="col"> خاوەنی</th>
                         <th scope="col">ژمارەی موبایل</th>
                         <th scope="col">ناونیشان</th>
                         {/* <th className="d-print-none" scope="col">یەکەم جار</th> */}

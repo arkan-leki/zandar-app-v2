@@ -103,13 +103,15 @@ const SaleToPrint = ({ sale }) => {
                                     </tr>
                                 </thead>
                                 <tbody className="fs-6">
-                                    {sale.sell_detail && sale.sell_detail.map((kala, index) => (
+                                    {sale.sell_detail && sale.sell_detail
+                                    .sort((a, b) => a.id > b.id ? 1 : -1)
+                                    .map((kala, index) => (
                                         <tr key={index}>
                                             <th scope="row">
                                                 {kala.item_image !== 'null' ?
                                                     <div className="mask">
                                                         <img className="img-fluid w-10 "
-                                                            src={''+kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
+                                                            src={'' + kala.item_image} alt={'...'} height={50 + 'px'} width={50 + 'px'} />
                                                         <div className="mask rgba-black-slight" />
                                                     </div>
                                                     :
@@ -138,12 +140,19 @@ const SaleToPrint = ({ sale }) => {
                             </Table>
                         </Row>
                         <Row className={"mt-2 text-success"}>
-                            <Col xs={{ order: 'first' }} className={"text-center fs-5 border  border-3 border-warning"}>
-                                <span> حسابی پێشوو : </span>
-                                <p> {Currency(parseFloat(sale.local_mawe[sale.group]))}</p>
-                                <span> حسابی ئێستا : </span>
-                                <p> {Currency(parseFloat(sale.local_mawe[sale.group]) + parseFloat(sale.totallint))}</p>
-                            </Col>
+                            {sale.status ?
+                                <Col xs={{ order: 'first' }} className={"text-center fs-5 border  border-3 border-warning"}>
+                                    <span> حسابی پێشوو : </span>
+                                    <p> {Currency(parseFloat(sale.local_mawe[sale.group]) - parseFloat(sale.totallint))}</p>
+                                    <span> حسابی ئێستا : </span>
+                                    <p> {Currency(parseFloat(sale.local_mawe[sale.group])) }</p>
+                                </Col> :
+                                <Col xs={{ order: 'first' }} className={"text-center fs-5 border  border-3 border-warning"}>
+                                    <span> حسابی پێشوو : </span>
+                                    <p> {Currency(parseFloat(sale.local_mawe[sale.group]))}</p>
+                                    <span> حسابی ئێستا : </span>
+                                    <p> {Currency(parseFloat(sale.local_mawe[sale.group]) + parseFloat(sale.totallint))}</p>
+                                </Col>}
                             <Col className="mx-auto text-center  border-bottom border-5 border-warning justify-center">
                                 <Form>
                                     <Form.Group>

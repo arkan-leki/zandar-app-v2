@@ -1,5 +1,5 @@
-import {createContext, useContext, useEffect, useState} from 'react'
-import {APIContext} from './APIContext'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { APIContext } from './APIContext'
 
 export const SalesContext = createContext(undefined)
 
@@ -7,7 +7,7 @@ const SalesContextProvider = (props) => {
     const [sales, setSales] = useState([])
     const [salesTemp, setSalesTemp] = useState([])
 
-    const {salesURL, zenderAXIOS, reSellURL} = useContext(APIContext)
+    const { salesURL, zenderAXIOS, reSellURL } = useContext(APIContext)
 
     useEffect(() => {
         zenderAXIOS.get(`${salesURL}?status=false`).then((response) => {
@@ -51,7 +51,7 @@ const SalesContextProvider = (props) => {
     }
 
     const updateSaleDate = (dates, group, visitor) => {
-        if(visitor){
+        if (visitor) {
             setSales(salesTemp.filter((sale) => sale.vendor === visitor))
             setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
             return
@@ -59,7 +59,7 @@ const SalesContextProvider = (props) => {
         if (group) {
             setSales(salesTemp.filter((sale) => sale.group === group))
 
-            if(visitor){
+            if (visitor) {
                 setSales(salesTemp.filter((sale) => sale.vendor === visitor))
                 setSales(sales.filter((sale) => (new Date(sale.date) - dates.startDate) >= 0 && (new Date(sale.date) - dates.endDate <= 0)));
                 return
@@ -75,7 +75,7 @@ const SalesContextProvider = (props) => {
         setSales(salesTemp.filter((sale) => sale.group === data))
     }
 
-    
+
     const setSaleVisitor = (data) => {
         setSales(salesTemp.filter((sale) => sale.vendor === data))
     }
@@ -91,7 +91,11 @@ const SalesContextProvider = (props) => {
         })
     }
 
-    const values = {sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales, addReSale, setSaleVisitor};
+    const setSaleRegion = (term) => {
+        setSales(salesTemp.filter((sale) => sale.local_region.includes(term)))
+    }
+
+    const values = { sales, addSale, deleteSale, updateSale, updateSaleDate, setSaleGroup, allSales, addReSale, setSaleVisitor, setSaleRegion };
 
     return (
         <SalesContext.Provider value={values}>

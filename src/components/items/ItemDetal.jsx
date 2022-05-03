@@ -63,6 +63,10 @@ const ItemDetail = () => {
         setIsSelected(true)
     };
 
+    const Clickhandler = (event) => {
+        setDeleted(!deleted);
+    };
+
     return (
         <section>
             <Row className={"p-5"}>
@@ -110,12 +114,12 @@ const ItemDetail = () => {
                         <Form.Group>
                             <Form.Check >
                                 <Form.Check.Label>
-                                    دۆخ
+                                    {item.deleted?"ناچالاک":"چالاک"}
                                     <Form.Check.Input
-                                        defaultChecked={item.deleted}
-                                        value={deleted}
+                                        // defaultChecked={item.deleted}
+                                        checked={deleted}
                                         type="checkbox"
-                                        onChange={() => setDeleted(item.deleted)}
+                                        onChange={Clickhandler}
                                     />
                                     <span className="form-check-sign" />
                                 </Form.Check.Label>
