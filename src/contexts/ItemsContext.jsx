@@ -30,6 +30,12 @@ const ItemsContextProvider = (props) => {
         ));
     }
 
+    const searchItems = (data) => {
+        setItems(itemsTemp.filter((item) =>
+            item.id === data
+        ));
+    }
+
     const setItemsGroup = (data) => {
         if(data ===  0)
             return setItems(itemsTemp);
@@ -52,7 +58,7 @@ const ItemsContextProvider = (props) => {
         })
     }
 
-    const value = {items, filterItems, itemForList, itemsTemp,setItemsGroup, updateItem, addNewItem}
+    const value = {items, filterItems, itemForList, itemsTemp, searchItems, setItemsGroup, updateItem, addNewItem}
     return (
         <ItemsContext.Provider value={value}>
             {props.children}

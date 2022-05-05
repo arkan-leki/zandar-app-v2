@@ -130,8 +130,8 @@ const SaleToPrint = ({ sale }) => {
                                     <tr>
                                         <th />
                                         <th />
-                                        {/* <th /> */}
-                                        <th>{sale.sell_detail && Object.values(sale.sell_detail).reduce((r, { allwight }) => r + allwight, 0).toFixed(0)} کگم</th>
+                                        <th />
+                                        {/* <th>{sale.sell_detail && Object.values(sale.sell_detail).reduce((r, { allwight }) => r + allwight, 0).toFixed(0)} کگم</th> */}
                                         <th>{sale.totallBar}</th>
                                         <th />
                                         <th>{Currency(parseFloat(sale.totall))}</th>

@@ -46,14 +46,14 @@ const SlideBar = () => {
                             </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="./index.html" className="nav-link">
-                                        <i className="far fa-circle nav-icon" />
+                                    <a href="/" className="nav-link">
+                                    <i className="nav-icon far fa-circle text-warning" />
                                         <p className='m-2'>هوموو</p>
                                     </a>
                                 </li>
                                 {groups.map((gro) => (
                                     <li className="nav-item">
-                                        <a href="/" className="nav-link" onClick={(e) => changeGrop(gro.id)}>
+                                        <a href="#" className="nav-link" onClick={(e) => changeGrop(gro.id)}>
                                             <i className="far fa-circle nav-icon" />
                                             <p className='m-2'>{gro.name}</p>
                                         </a>
@@ -110,7 +110,7 @@ const SlideBar = () => {
                                     <span className="right badge badge-danger">نوێ</span>
                                 </p></Link>
                         </li>
-                        <li className="nav-header">LABELS</li>
+                        {/* <li className="nav-header">LABELS</li>
                         <li className="nav-item">
                             <a href="#" className="nav-link">
                                 <i className="nav-icon far fa-circle text-danger" />
@@ -128,7 +128,7 @@ const SlideBar = () => {
                                 <i className="nav-icon far fa-circle text-info" />
                                 <p>Informational</p>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
                 {/* /.sidebar-menu */}
