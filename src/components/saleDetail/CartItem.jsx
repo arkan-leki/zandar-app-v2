@@ -1,4 +1,4 @@
-import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Currency from "../../helper/Currency";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";

@@ -1,7 +1,7 @@
-import { faBusinessTime, faChartBar, faCartArrowDown, faCartPlus, faMale, faMoneyBill, faSearchDollar, faStore, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
+import { faBusinessTime, faChartBar, faCartArrowDown, faMoneyBill, faSearchDollar, faTruckLoading, faWarehouse, faShoppingBag, faMapMarked, faMoneyBillWave, faTruckPickup, faAddressBook, faMarker } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import image from "../og.jpg";
-import userimage from "./img/user2-160x160.jpg";
+import imageLogo from "../og.jpg";
+import userPic from "./img/user2-160x160.jpg";
 
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
@@ -16,19 +16,19 @@ const SlideBar = () => {
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4 d-print-none ">
             {/* Brand Logo */}
-            <a href="index3.html" className="brand-link">
-                <img src={image} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
-                <span className="brand-text font-weight-light">ZanderApp 3</span>
+            <a href="/" className="brand-link">
+                <img src={imageLogo} alt="Xender Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
+                <span className="brand-text font-weight-light">XanderApp 3</span>
             </a>
             {/* Sidebar */}
             <div className="sidebar">
                 {/* Sidebar user panel (optional) */}
                 <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div className="image">
-                        <img src={userimage} className="img-circle elevation-2" alt="User Image" />
+                        <img src={userPic} className="img-circle elevation-2" alt="User Pic" />
                     </div>
                     <div className="info">
-                        <a href="#" className="d-block">Alexander Pierce</a>
+                        <p className="d-block text-white">Arkan Leki</p>
                     </div>
                 </div>
                 {/* Sidebar Menu */}
@@ -47,13 +47,13 @@ const SlideBar = () => {
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
                                     <a href="/" className="nav-link">
-                                    <i className="nav-icon far fa-circle text-warning" />
+                                        <i className="nav-icon far fa-circle text-warning" />
                                         <p className='m-2'>هوموو</p>
                                     </a>
                                 </li>
                                 {groups.map((gro) => (
-                                    <li className="nav-item">
-                                        <a href="#" className="nav-link" onClick={(e) => changeGrop(gro.id)}>
+                                    <li className="nav-item" key={gro.id}>
+                                        <a href="#product" className="nav-link" onClick={(e) => changeGrop(gro.id)}>
                                             <i className="far fa-circle nav-icon" />
                                             <p className='m-2'>{gro.name}</p>
                                         </a>
@@ -76,21 +76,28 @@ const SlideBar = () => {
                                 </p></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white" to={`/sales`}><FontAwesomeIcon icon={faTruckLoading} />
+                            <Link className="nav-link text-white" to={`/buy`}><FontAwesomeIcon icon={faTruckLoading} />
                                 <p className='m-2'>
                                     باری هاتوو
                                     <span className="right badge badge-danger">نوێ</span>
                                 </p></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white" to={`/locals2`}><FontAwesomeIcon icon={faMale} />
+                            <Link className="nav-link text-white" to={`/payments`}><FontAwesomeIcon icon={faMoneyBill} />
                                 <p className='m-2'>
-                                    کڕیاران
+                                    پارەدان
                                     <span className="right badge badge-danger">نوێ</span>
                                 </p></Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link text-white" to={`/locals`}><FontAwesomeIcon icon={faMoneyBill} />
+                            <Link className="nav-link text-white" to={`/bank`}><FontAwesomeIcon icon={faMoneyBillWave} />
+                                <p className='m-2'>
+                                    خەرجی
+                                    <span className="right badge badge-danger">نوێ</span>
+                                </p></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link text-white" to={`/locals`}><FontAwesomeIcon icon={faSearchDollar} />
                                 <p className='m-2'>
                                     قەرزاران
                                     <span className="right badge badge-danger">نوێ</span>
@@ -110,34 +117,45 @@ const SlideBar = () => {
                                     <span className="right badge badge-danger">نوێ</span>
                                 </p></Link>
                         </li>
-                        {/* <li className="nav-header">LABELS</li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
-                                <i className="nav-icon far fa-circle text-danger" />
-                                <p className="text">Important</p>
-                            </a>
+                            <Link className="nav-link text-white" to={`/resellitem`}><FontAwesomeIcon icon={faTruckPickup} />
+                                <p className='m-2'>
+                                    گەڕاوە
+                                    <span className="right badge badge-danger">نوێ</span>
+                                </p></Link>
+                        </li>
+                        <li className="nav-header">سەرەکی</li>
+                        <li className="nav-item">
+                            <Link to={`/groups`} className="nav-link">
+                                <FontAwesomeIcon icon={faMarker} />
+                                <p className=' text m-2'>بنکەکان</p>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
-                                <i className="nav-icon far fa-circle text-warning" />
-                                <p>Warning</p>
-                            </a>
+                            <Link to={`/visitors`} className="nav-link">
+                                <FontAwesomeIcon icon={faShoppingBag} />
+                                <p className=' text m-2'>فرۆشیارەکان</p>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a href="#" className="nav-link">
-                                <i className="nav-icon far fa-circle text-info" />
-                                <p>Informational</p>
-                            </a>
-                        </li> */}
+                            <Link to={`/regions`} className="nav-link">
+                                <FontAwesomeIcon icon={faMapMarked} />
+                                <p className='text m-2'>ناوچەکان</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={`/locals2`} className="nav-link">
+                                <FontAwesomeIcon icon={faAddressBook} />
+                                <p className='text m-2'>کڕیاران</p>
+                            </Link>
+                        </li>
+
                     </ul>
                 </nav>
                 {/* /.sidebar-menu */}
             </div>
             {/* /.sidebar */}
         </aside>
-
-
-
     )
 }
 

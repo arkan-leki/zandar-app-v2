@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {useTable} from 'react-table'
+import React, { useEffect, useState } from 'react'
+import { useTable } from 'react-table'
 
 import axios from "axios";
 import BTable from "react-bootstrap/Table";
@@ -22,34 +22,34 @@ function Table({ columns, data }) {
     return (
         <BTable striped bordered hover size="sm" {...getTableProps()}>
             <thead>
-            {headerGroups.map(group => (
-                <tr {...group.getHeaderGroupProps()}>
-                    {group.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                    ))}
-                </tr>
-            ))}
+                {headerGroups.map(group => (
+                    <tr {...group.getHeaderGroupProps()}>
+                        {group.headers.map(column => (
+                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        ))}
+                    </tr>
+                ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-                prepareRow(row)
-                return (
-                    <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
-                            return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                        })}
-                    </tr>
-                )
-            })}
+                {rows.map((row, i) => {
+                    prepareRow(row)
+                    return (
+                        <tr {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                            })}
+                        </tr>
+                    )
+                })}
             </tbody>
             <tfoot>
-            {footerGroups.map(group => (
-                <tr {...group.getFooterGroupProps()}>
-                    {group.headers.map(column => (
-                        <td {...column.getFooterProps()}>{column.render('Footer')}</td>
-                    ))}
-                </tr>
-            ))}
+                {footerGroups.map(group => (
+                    <tr {...group.getFooterGroupProps()}>
+                        {group.headers.map(column => (
+                            <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                        ))}
+                    </tr>
+                ))}
             </tfoot>
         </BTable>
     )
@@ -63,12 +63,12 @@ function DataTabel() {
                 Footer: 'Name',
                 columns: [
                     {
-                        Header: 'First Name',
-                        accessor: 'local_name',
+                        Header: 'ناو',
+                        accessor: 'name',
                     },
                     {
-                        Header: 'Last Name',
-                        accessor: 'local_code',
+                        Header: 'موبایل',
+                        accessor: 'phone',
                     },
                 ],
             },
@@ -77,12 +77,25 @@ function DataTabel() {
                 Footer: 'Info',
                 columns: [
                     {
-                        Header: 'Total',
-                        accessor: 'totall',
-                        Footer : 'totall' ,
+                        Header: 'items',
+                        accessor: 'items',
                     },
                     {
-                        Header: 'Status',
+                        Header: 'totallSell',
+                        accessor: 'totallSell',
+                    }, {
+                        Header: 'totallOrder',
+                        accessor: 'totallOrder',
+                    }, {
+                        Header: 'totallSellMonthly',
+                        accessor: 'totallSellMonthly',
+                    },
+                    {
+                        Header: 'loans',
+                        accessor: 'loans',
+                    },
+                    {
+                        Header: 'status',
                         accessor: 'status',
                     },
                 ],
@@ -93,14 +106,14 @@ function DataTabel() {
 
     const [data, setData] = useState([])
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/sells/').then((response) => {
+        axios.get('http://127.0.8.1:8000/api/groups/').then((response) => {
             setData(response.data)
         });
         // eslint-disable-next-line
     }, [])
 
     return (
-        <div>
+        <div className='m-5'>
             <Table columns={columns} data={data} />
         </div>
     )

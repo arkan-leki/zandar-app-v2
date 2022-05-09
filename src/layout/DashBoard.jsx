@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { GroupsContext } from '../contexts/GroupsContext';
 import { VendorsContext } from '../contexts/VendorsContext';
 
 import ItemsContextProvider from '../contexts/ItemsContext';
 import Balance from './Balance';
-import BarChart from './BarChart'
 import TopList from './TopList';
 import VisotData from './VisotData';
 import PaymentData from './PaymentData';
@@ -43,46 +42,8 @@ export const UserData = [
 ];
 
 const DashBoard = () => {
-    const { grop, groups } = useContext(GroupsContext)
-    const { vendors } = useContext(VendorsContext)
-    const [dataChart, setDataChart] = useState(
-        {
-            labels: [...groups.map((opt) => ({ value: opt.id, label: opt.name }))],
-            datasets: [
-                {
-                    label: "الوزير",
-                    data: {
-                        "2022-04": 6589.08,
-                        "2022-03": 16168.87,
-                        "2022-02": 12227.89,
-                        "2022-01": 15914.8,
-                        "2021-12": 14898.5,
-                        "2021-11": 15229.69,
-                        "2021-10": 6801.33
-                    },
-                    backgroundColor: "rgba(75,192,192,0.2)",
-                    fill: true,
-                    borderColor: "rgba(75,192,192,1)"
-                },
-                {
-                    label: "Lost",
-                    data: {
-                        "2022-04": 6589.08,
-                        "2022-03": 16168.87,
-                        "2022-02": 12227.89,
-                        "2022-01": 15914.8,
-                        "2021-12": 14898.5,
-                        "2021-11": 15229.69,
-                        "2021-10": 6801.33
-                    },
-                    fill: false,
-                    backgroundColor: "#742774",
-                    borderColor: "#742774"
-                },
-
-            ],
-        },
-    );
+    const { xgrop } = useContext(GroupsContext)
+    const { xvendors } = useContext(VendorsContext)
 
     return (
         <>
@@ -91,16 +52,16 @@ const DashBoard = () => {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-lg-6">
-                            <PaymentData data={groups} />
+                            <PaymentData data={xgrop} />
                             <Balance />
                             <div className="card">
                                 <div className="card-header border-0">
                                     <h3 className="card-title">Products</h3>
                                     <div className="card-tools">
-                                        <a href="#" className="btn btn-tool btn-sm">
+                                        <a href="/" className="btn btn-tool btn-sm">
                                             <i className="fas fa-download" />
                                         </a>
-                                        <a href="#" className="btn btn-tool btn-sm">
+                                        <a href="/" className="btn btn-tool btn-sm">
                                             <i className="fas fa-bars" />
                                         </a>
                                     </div>
@@ -113,8 +74,8 @@ const DashBoard = () => {
                             </div>
                         </div>
                         <div className="col-lg-6">
-                            {vendors.map(vendor => (
-                                <VisotData vendor={vendor} />
+                            {xvendors.map(vendor => (
+                                <VisotData vendor={vendor} key={vendor.id} />
                             )
                             )}
                             <Balance />

@@ -5,11 +5,17 @@ export const VendorsContext = createContext(undefined)
 
 const VendorsContextProvider = (props) => {
     const [vendors, setVendors] = useState([])
-    const { vendorsURL, zenderAXIOS } = useContext(APIContext)
+    const [xvendors, setXVendors] = useState([])
+    const { xvendorsURL , vendorsURL, zenderAXIOS } = useContext(APIContext)
 
     useEffect(() => {
         zenderAXIOS.get(vendorsURL).then((response) => {
             setVendors(response.data);
+            
+        });
+        zenderAXIOS.get(xvendorsURL).then((response) => {
+            setXVendors(response.data);
+            
         });
         // eslint-disable-next-line
     }, [])
@@ -24,16 +30,17 @@ const VendorsContextProvider = (props) => {
     }
 
     const updateVendor = (id, data) => {
+        console.log(data)
         zenderAXIOS.patch(`${vendorsURL}${id}/`, data).then((response) => {
             setVendors(vendors.map((vendor) => vendor.id === id ? response.data : vendor))
         }).catch(err => {
-            alert("داواکاریەکەت سەرنەکەوت");
+            alert(err);
         })
     }
 
 
 
-    const value = { vendors, addVendor, updateVendor}
+    const value = { xvendors,vendors, addVendor, updateVendor}
     return (
         <VendorsContext.Provider value={value}>
             {props.children}

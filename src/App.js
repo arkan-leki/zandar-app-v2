@@ -18,9 +18,7 @@ import ItemsList from "./components/items/ItemsList";
 import CatsContextProvider from "./contexts/CategoresContext";
 import ItemDetailContextProvider from "./contexts/ItemDetailContext";
 import ItemDetal from "./components/items/ItemDetal";
-import Board from "./components/dashboard/Board";
 import PaymentsContextProvider from "./contexts/PaymentsContext";
-import SaleBack from "./components/saleBack/saleBack";
 import BuyList from "./components/buy/BuyList";
 import BuyContextProvider from "./contexts/BuyContext";
 import BuyDetailContextProvider from "./contexts/BuyDetailContext";
@@ -48,6 +46,7 @@ import EmployesList from "./components/emplyee/EmployesList";
 import ResellItem from "./components/ResellItem";
 import AdminPanel from "./layout/AdminPanel";
 import DashBoard from "./layout/DashBoard";
+import DataTabel from "./helper/makeData";
 
 function App() {
     return (
@@ -150,12 +149,8 @@ function App() {
                                             </ItemDetailContextProvider>
                                         </Route>
                                     </>
-                                    <Route exact path="/SaleBack/">
-                                        <ItemsContextProvider>
-                                            <SalesContextProvider>
-                                                <SaleBack />
-                                            </SalesContextProvider>
-                                        </ItemsContextProvider>
+                                    <Route exact path="/groups/">
+                                        <DataTabel />
                                     </Route>
                                     <Route exact path="/buy/">
                                         <>

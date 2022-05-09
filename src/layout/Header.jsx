@@ -8,14 +8,20 @@ const Header = (props) => {
             {/* Left navbar links */}
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <a className="nav-link" data-widget="pushmenu" href="#"><FontAwesomeIcon icon={faBars} /></a>
+                    <a className="nav-link" data-widget="pushmenu" href="/"><FontAwesomeIcon icon={faBars} /></a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" className="nav-link">Home</a>
+                    <a href="/api" className="nav-link">API</a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
-                    <a href="#" className="nav-link">Contact</a>
+                    <a href="/admin/" className="nav-link">Admin</a>
                 </li>
+                {/* <li className="nav-item d-none d-sm-inline-block">
+                <Link className="nav-link " to={`/visitors`}>فرۆشیارەکان</Link>
+                </li>
+                <li className="nav-item d-none d-sm-inline-block">
+                <Link className="nav-link " to={`/regions`}>ناوچەکان</Link>
+                </li> */}
             </ul>
             {/* SEARCH FORM */}
             <form className="form-inline ml-3">
@@ -32,12 +38,12 @@ const Header = (props) => {
             <ul className="navbar-nav mr-auto-navbav">
                 {/* Messages Dropdown Menu */}
                 <li className="nav-item dropdown">
-                    <a className="nav-link" data-toggle="dropdown" href="#">
+                    <a className="nav-link" data-toggle="dropdown" href="/">
                         <i className="far fa-comments" />
                         {/* <span className="badge badge-danger navbar-badge">3</span> */}
                     </a>
                     <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                             {/* Message Start */}
                             <div className="media">
                                 <img src="dist/img/user1-128x128.jpg" alt="User Avatar" className="img-size-50 mr-3 img-circle" />
@@ -53,7 +59,7 @@ const Header = (props) => {
                             {/* Message End */}
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                             {/* Message Start */}
                             <div className="media">
                                 <img src="dist/img/user8-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
@@ -69,7 +75,7 @@ const Header = (props) => {
                             {/* Message End */}
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                             {/* Message Start */}
                             <div className="media">
                                 <img src="dist/img/user3-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
@@ -85,38 +91,38 @@ const Header = (props) => {
                             {/* Message End */}
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item dropdown-footer">See All Messages</a>
+                        <a href="/" className="dropdown-item dropdown-footer">See All Messages</a>
                     </div>
                 </li>
                 {/* Notifications Dropdown Menu */}
                 <li className="nav-item dropdown">
-                    <a className="nav-link" data-toggle="dropdown" href="#">
+                    <a className="nav-link" data-toggle="dropdown" href="/">
                         <i className="far fa-bell" />
                         {/* <span className="badge badge-warning navbar-badge">15</span> */}
                     </a>
                     <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span className="dropdown-item dropdown-header">15 Notifications</span>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                         <FontAwesomeIcon icon={faEnvelope} /> 4 new messages
                             <span className="float-right text-muted text-sm">3 mins</span>
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                             <i className="fas fa-users mr-2" /> 8 friend requests
                             <span className="float-right text-muted text-sm">12 hours</span>
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item">
+                        <a href="/" className="dropdown-item">
                         <FontAwesomeIcon icon={faFile} /> 
                             <span className="float-right text-muted text-sm">2 days</span>
                         </a>
                         <div className="dropdown-divider" />
-                        <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
+                        <a href="/" className="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+                    <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="/">
                         <i className="fas fa-th-large" />
                     </a>
                 </li>

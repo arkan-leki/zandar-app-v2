@@ -179,30 +179,36 @@ const ItemsList = (props) => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th className="d-print-none" />
-                        <th />
-                        <th />
-                        <th>{Object.values(items).reduce((r, { id }) => r + 1, 0)}</th>
-                        <th>{Currency(Object.values(items).reduce((r, {
+                        <th >{Object.values(items).reduce((r, { id }) => r + 1, 0)}</th>
+                        <th>کۆد</th>
+                        <th>گروپ</th>
+                        <th hidden={showHidden}>ناوی کۆمپانیا</th>
+                        <th hidden={showHidden}>جۆر</th>
+                        <th>ناوی مەواد</th>
+                        <th hidden={showHidden} className="d-print-none">{Currency(Object.values(items).reduce((r, {
                             mawe,
                             price
-                        }) => r + (parseFloat(mawe) * parseFloat(price)), 0))}
-                        </th>
-                        <th className="d-print-none">{Currency(Object.values(items).reduce((r, {
+                        }) => r + (parseFloat(mawe) * parseFloat(price)), 0))}</th>
+                        <th hidden={showHidden} className="d-print-none">{Currency(Object.values(items).reduce((r, {
                             mawe,
                             price,
                             finalprice
                         }) => r + (parseFloat(mawe) * (parseFloat(finalprice) - parseFloat(price))), 0))}
                         </th>
-                        <th className="d-print-none">{Currency(Object.values(items).reduce((r, {
+                        <th>{Currency(Object.values(items).reduce((r, {
                             mawe,
                             finalprice
-                        }) => r + (parseFloat(mawe) * parseFloat(finalprice)), 0))}
-                        </th>
-                        <th className="d-print-none" />
-                        <th hidden={true} />
-                        <th className="d-print-none">{Object.values(items).reduce((r, { popularity }) => r + parseFloat(popularity), 0)}</th>
+                        }) => r + (parseFloat(mawe) * parseFloat(finalprice)), 0))}</th>
+                        <th hidden={showHidden}>جۆر بار</th>
+                        <th hidden={showHidden}>دانە</th>
+                        <th hidden={showHidden}>وەزن دانە</th>
+                        <th hidden={showHidden}>وەزن بار</th>
+                        <th hidden={showHidden}>نقل مخزن</th>
+                        <th hidden={showHidden} className="d-print-none">هاتوو</th>
+                        <th hidden={showHidden} className="d-print-none">{Object.values(items).reduce((r, { popularity }) => r + parseFloat(popularity), 0)}</th>
                         <th>{Object.values(items).reduce((r, { mawe }) => r + parseFloat(mawe), 0)}</th>
+                        <th className="d-print-none">دۆخ</th>
+                        <th className="d-print-none" />
                     </tr>
                 </tfoot>
             </Table>

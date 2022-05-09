@@ -10,7 +10,8 @@ const APIContextProvider = (props) => {
     const salesURL = 'sells/'
     const groupsURL = 'groups/'
     const groupURL = 'group/'
-    const vendorsURL = 'vendorz/'
+    const vendorsURL = 'vendors/'
+    const xvendorsURL = 'vendorz/'
     const localsURL = 'locals/'
     const saleURL = 'sell/'
     const salesDetailURL = 'sales/'
@@ -40,6 +41,7 @@ const APIContextProvider = (props) => {
         baseURL: baseURL
     })
     const value = {
+        xvendorsURL,
         groupURL,
         employeesURL,
         transportzURL,

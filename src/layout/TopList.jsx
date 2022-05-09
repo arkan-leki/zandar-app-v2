@@ -14,7 +14,7 @@ const TopList = ({ list }) => {
         const _item_sell = []
         // saleDetail.filter((i) => i.group === group)
         // updateSaleDate({ startDate, endDate }, group)
-        console.log(group);
+        // console.log(group);
         // items
         items.filter((i) => i.group === group).map((_item) => {
             let item_sell = _item.item_sell
@@ -32,9 +32,12 @@ const TopList = ({ list }) => {
         var firstDay = new Date(date.getFullYear(), date.getMonth() - 2, 1);
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         fetchData(firstDay, lastDay, gropId);
+        // eslint-disable-next-line
     }, [items, gropId])
+
+    
     return (
-        <>
+        <div id="product">
             <table className="table table-striped table-valign-middle">
                 <thead>
                     <tr>
@@ -61,15 +64,15 @@ const TopList = ({ list }) => {
                                     </small>
                                     {Currency(parseFloat(item.qazanc))}
                                 </td><td>
-                                    <a href="#" className="text-muted">
+                                    <p className="text-muted">
                                         <i className="fas fa-search" />
-                                    </a>
+                                    </p>
                                 </td>
                             </tr>
                         ))}
                 </tbody>
             </table>
-        </>
+        </div>
     )
 }
 

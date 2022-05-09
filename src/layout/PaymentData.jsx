@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import randomColor from "randomcolor";
-
-import LineChart from './LineCart';
 import moment from 'moment';
 import BarChart from './BarChart';
-import { GroupsContext } from '../contexts/GroupsContext';
 
 const PaymentData = ({ data }) => {
     const [grow, setGrow] = useState(0)
@@ -59,6 +56,7 @@ const PaymentData = ({ data }) => {
         })
         let today = 0
         let last = 0
+        // eslint-disable-next-line
         data.map((grop) =>
         {
             last += (grop.paymentByMonth[moment(new Date()).subtract(1, 'months').format("YYYY-MM")] || 0.0)
@@ -84,7 +82,7 @@ const PaymentData = ({ data }) => {
                 <div className="card-header border-0">
                     <div className="d-flex justify-content-between">
                         <h3 className="card-title">Sales</h3>
-                        <a href="javascript:void(0);">View Report</a>
+                        <p>View Report</p>
                     </div>
                 </div>
                 <div className="card-body">

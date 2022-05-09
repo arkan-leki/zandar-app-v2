@@ -2,7 +2,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
 import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import VisitorsEditForm from '../region/VisitorsEditForm'
+import VisitorsEditForm from './VisitorsEditForm'
 
 const Visitor = ({visitor}) => {
     const [show, setShow] = useState(false);

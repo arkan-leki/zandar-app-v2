@@ -53,15 +53,17 @@ const Ordered = ({ ordered }) => {
             <td>{ordered.id}</td>
             <td>{ordered.item_code}</td>
             <td>{ordered.item_name}</td>
-            <td>{Currency(parseFloat(ordered.item_price))}</td>
-            <td>
+            <td className='d-print-none'>{Currency(parseFloat(ordered.item_price))}</td>
+            <td >{Currency(parseFloat(ordered.price))}</td>
+            <td >{Currency(parseFloat(ordered.quantity))}</td>
+            <td className='d-print-none'>
                 <InputGroup>
                     <Form.Control name={"price"} type={"number"} min={0.0}
                         value={price}
                         onChange={event => setPrice(event.target.value)} />
                 </InputGroup>
             </td>
-            <td>
+            <td className='d-print-none'>
                 <InputGroup>
                     <Form.Control name={"quantity"} type={"number"} min={0}
                         value={quantity}
@@ -69,7 +71,7 @@ const Ordered = ({ ordered }) => {
                 </InputGroup>
             </td>
             <td>{Currency(parseFloat(price*quantity))}</td>
-            <td>
+            <td className='d-print-none'>
                 <ButtonGroup>
                     {(ordered.temp) || <Button variant={"warning"} onClick={handleUpdate}>
                         <FontAwesomeIcon icon={faEdit} /> گۆڕین </Button>}

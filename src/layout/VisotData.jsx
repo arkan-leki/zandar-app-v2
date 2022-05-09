@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import randomColor from "randomcolor";
 import BarChart from './BarChart';
-import LineChart from './LineCart';
 import moment from 'moment';
 
 const VisotData = ({ vendor }) => {
     const banks = Object.keys(vendor.totallSell)
     const Labels = Object.keys(vendor.totallSell[banks[0]]).map((data) => data)
-    const [dataChart, setDataChart] = useState(
-        {
+    const dataChart = {
             labels: Labels,
             datasets: [...Object.keys(vendor.totallSell).map((key) =>
             ({
@@ -26,8 +24,7 @@ const VisotData = ({ vendor }) => {
                 }),
             })
             )]
-        },
-    );
+        };
 
     const gro = ((
         (
@@ -45,7 +42,7 @@ const VisotData = ({ vendor }) => {
                 <div className="card-header border-0">
                     <div className="d-flex justify-content-between">
                         <h3 className="card-title">Sales</h3>
-                        <a href="javascript:void(0);">View Report</a>
+                        <p>View Report</p>
                     </div>
                 </div>
                 <div className="card-body">

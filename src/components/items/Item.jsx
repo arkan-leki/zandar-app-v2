@@ -2,13 +2,13 @@ import Currency from "../../helper/Currency";
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressCard, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import ItemEditForm from "./ItemEditForm";
 
 const Item = ({ item , showHidden }) => {
-    const { deleteItem, updateItem } = useContext(ItemsContext)
+    const { updateItem } = useContext(ItemsContext)
     const [show, setShow] = useState(false);
     const [status, setStatus] = useState(item.deleted);
 
@@ -24,13 +24,13 @@ const Item = ({ item , showHidden }) => {
         updateItem(item.id, { "deleted": stat })
     }
 
-    const handleDelete = (saleID) => {
-        if (window.confirm("دڵنیای دەتەوێت بیسڕیتەوە")) {
-            deleteItem(saleID)
-        } else {
-            console.log('Thing was saved to the database.');
-        }
-    }
+    // const handleDelete = (saleID) => {
+    //     if (window.confirm("دڵنیای دەتەوێت بیسڕیتەوە")) {
+    //         deleteItem(saleID)
+    //     } else {
+    //         console.log('Thing was saved to the database.');
+    //     }
+    // }
 
     return (
         <>

@@ -3,21 +3,21 @@ import { GroupsContext } from '../contexts/GroupsContext'
 import Currency from '../helper/Currency'
 
 const Balance = () => {
-    const { grop  } = useContext(GroupsContext)
+    const { xgrop  } = useContext(GroupsContext)
     useEffect(() => {
         
-    }, [grop])
+    }, [xgrop])
     return (
         <>
-            {grop.map(group => (
-                <div className="card">
+            {xgrop.map((group) => (
+                <div className="card" key={group.id}>
                     <div className="card-header border-0">
                         <h3 className="card-title">Online Store Overview {group.name}</h3>
                         <div className="card-tools">
-                            <a href="#" className="btn btn-sm btn-tool">
+                            <a href='/' className="btn btn-sm btn-tool">
                                 <i className="fas fa-download" />
                             </a>
-                            <a href="#" className="btn btn-sm btn-tool">
+                            <a href="/" className="btn btn-sm btn-tool">
                                 <i className="fas fa-bars" />
                             </a>
                         </div>
