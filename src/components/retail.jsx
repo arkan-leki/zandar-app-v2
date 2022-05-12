@@ -31,7 +31,9 @@ const Retail = () => {
         items.filter((i) => i.group === group)
         items.map((_item) => {
             let item_sell = _item.item_sell.filter((sale) => (new Date(sale.date) - startDate) >= 0 && (new Date(sale.date) - endDate <= 0))
-            item_sell = item_sell.filter((i) => i.sell_vendorID === visitor)
+            if (visitor !== 0)
+                item_sell = item_sell.filter((i) => i.sell_vendorID === visitor)
+
             let quantity = Object.values(item_sell).reduce((r, { quantity }) => r + quantity, 0)
             let date = Object.values(item_sell).reduce((r, { date }) => date, 0)
             let price = Object.values(item_sell).reduce((r, { price, quantity }) => r + (parseFloat(quantity) * parseFloat(price)), 0);
@@ -58,7 +60,7 @@ const Retail = () => {
         fetchData(startDate, endDate, value, visitor)
     }
 
-    const [visitor, setVisitor] = useState(1);
+    const [visitor, setVisitor] = useState(0);
     const visitorsOpt = [...vendors.map((opt) => ({ value: opt.id, label: opt.name }))]
     const setVisitorHandler = (value) => {
         setVisitor(value)

@@ -58,7 +58,7 @@ const LocalDetail = () => {
                     "name": val.local_name,
                     "group": val.group_name,
                     "pay": val.totall - val.discount,
-                    "loan": val.totalback,
+                    "loan": 0,
                     "date": val.date
                 })
             ))
@@ -109,7 +109,7 @@ const LocalDetail = () => {
                     "name": val.local_name,
                     "group": val.group_name,
                     "pay": val.totall - val.discount,
-                    "loan": val.totalback,
+                    "loan": 0,
                     "date": val.date
                 })
             ))

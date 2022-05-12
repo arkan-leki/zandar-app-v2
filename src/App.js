@@ -56,24 +56,25 @@ function App() {
                     <GroupsContextProvider>
                         <VendorsContextProvider>
                             <AdminPanel>
+                                <ItemsContextProvider>
                                 <Locals2ContextProvider>
                                     <Route exact path="/">
                                         <PaymentsContextProvider>
-                                            <VendorsContextProvider>
+                                            <>
                                                 {/* <Board /> */}
                                                 <DashBoard />
-                                            </VendorsContextProvider>
+                                            </>
                                         </PaymentsContextProvider>
                                     </Route>
                                     <Route exact path="/sales/">
                                         <RegionsContextProvider>
-                                            <VendorsContextProvider>
+                                            <>
                                                 <ReSellContextProvider>
                                                     <SalesContextProvider>
                                                         <SalesList />
                                                     </SalesContextProvider>
                                                 </ReSellContextProvider>
-                                            </VendorsContextProvider>
+                                            </>
                                         </RegionsContextProvider>
                                     </Route>
                                     <Route exact path="/saleDetail/:id">
@@ -94,18 +95,18 @@ function App() {
                                     <Route exact path="/retail/">
                                         <>
                                             {/* <SaleDetailContextProvider> */}
-                                                <ItemsContextProvider>
+                                                <>
                                                     <Retail />
-                                                </ItemsContextProvider>
+                                                </>
                                             {/* </SaleDetailContextProvider> */}
                                         </>
                                     </Route>
                                     <Route exact path="/resellitem/">
                                         <>
                                             {/* <SaleDetailContextProvider> */}
-                                            <ItemsContextProvider>
+                                            <>
                                                 <ResellItem />
-                                            </ItemsContextProvider>
+                                            </>
                                             {/* </SaleDetailContextProvider> */}
                                         </>
                                     </Route>
@@ -133,13 +134,13 @@ function App() {
                                     </Route>
                                     <>
                                         <Route exact path="/items/">
-                                            <ItemsContextProvider>
+                                            <>
                                                 <CatsContextProvider>
                                                     <TradersContextProvider>
                                                         <ItemsList />
                                                     </TradersContextProvider>
                                                 </CatsContextProvider>
-                                            </ItemsContextProvider>
+                                            </>
                                         </Route>
                                         <Route exact path="/itemDetail/:id">
                                             <ItemDetailContextProvider>
@@ -181,7 +182,8 @@ function App() {
                                         </>
                                     </Route>
                                 </Locals2ContextProvider>
-
+                                </ItemsContextProvider>
+                                
                                 <Route exact path="/bank/">
                                     <>
                                         <FeesContextProvider>
@@ -195,9 +197,9 @@ function App() {
                                     </RegionsContextProvider>
                                 </Route>
                                 <Route exact path="/visitors/">
-                                    <VendorsContextProvider>
+                                    <>
                                         <VisitorsList />
-                                    </VendorsContextProvider>
+                                    </>
                                 </Route>
                                 <Route exact path="/orders/">
                                     <OrdersContextProvider>

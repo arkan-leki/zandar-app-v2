@@ -46,10 +46,10 @@ const SlideBar = () => {
                             </a>
                             <ul className="nav nav-treeview">
                                 <li className="nav-item">
-                                    <a href="/" className="nav-link">
+                                    <Link to={`/`} className="nav-link">
                                         <i className="nav-icon far fa-circle text-warning" />
                                         <p className='m-2'>هوموو</p>
-                                    </a>
+                                    </Link>
                                 </li>
                                 {groups.map((gro) => (
                                     <li className="nav-item" key={gro.id}>

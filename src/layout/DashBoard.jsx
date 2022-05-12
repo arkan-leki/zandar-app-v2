@@ -1,12 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GroupsContext } from '../contexts/GroupsContext';
 import { VendorsContext } from '../contexts/VendorsContext';
-
 import ItemsContextProvider from '../contexts/ItemsContext';
 import Balance from './Balance';
 import TopList from './TopList';
 import VisotData from './VisotData';
 import PaymentData from './PaymentData';
+import { PaymentsContext } from '../contexts/PaymentsContext';
+import Currency from '../helper/Currency';
+import { APIContext } from '../contexts/APIContext';
+import moment from 'moment'
 
 export const UserData = [
     {
@@ -44,12 +47,87 @@ export const UserData = [
 const DashBoard = () => {
     const { xgrop } = useContext(GroupsContext)
     const { xvendors } = useContext(VendorsContext)
+    const { banks } = useContext(PaymentsContext)
+    const [sales, setSales] = useState([])
+    const { salesURL, zenderAXIOS } = useContext(APIContext)
+    useEffect(() => {
+        zenderAXIOS.get(`${salesURL}?status=false`).then((response) => {
+            setSales(response.data);
+        });
+        // eslint-disable-next-line
+    }, [])
+    useEffect(() => {
+        zenderAXIOS.get(`${salesURL}?status=false`).then((response) => {
+            setSales(response.data);
+        });
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>
 
             <div className="content">
                 <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-lg-3 col-6">
+                            <div className="small-box bg-info">
+                                <div className="inner">
+                                    <h3>{Object.values(sales).reduce((r) => r + 1, 0)}</h3>
+                                    <p>داواکاری نوێ</p>
+                                </div>
+                                <div className="icon">
+                                    <i className="fas fa-shopping-cart" />
+                                </div>
+                                <a href="#" className="small-box-footer">
+                                    زیاتر <i className="fas fa-arrow-circle-right" />
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-6">
+                            <div className="small-box bg-success">
+                                <div className="inner">
+                                    <h3>{Currency(Object.values(banks).reduce((r, { income, loan }) => r + (parseFloat(income) - parseFloat(loan)), 0))}</h3>
+                                    <p>قاسە</p>
+                                </div>
+                                <div className="icon">
+                                    <i className="ion ion-stats-bars" />
+                                </div>
+                                <a href="#" className="small-box-footer">
+                                    زیاتر <i className="fas fa-arrow-circle-right" />
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-6">
+                            <div className="small-box bg-warning">
+                                <div className="inner">
+                                    <h3>
+                                        {Currency(Object.values(banks.filter((fee) => moment(new Date(fee.date)).format("MM/YYYY") === moment(new Date()).format("MM/YYYY"))).reduce((r, { income, loan }) => r + (parseFloat(income) - parseFloat(0)), 0))}
+                                    </h3>
+                                    <p>گەڕاوە</p>
+                                </div>
+                                <div className="icon">
+                                    <i className="fas fa-money-bill" />
+                                </div>
+                                <a href="#" className="small-box-footer">
+                                    زیاتر <i className="fas fa-arrow-circle-right" />
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-6">
+                            <div className="small-box bg-danger">
+                                <div className="inner">
+                                    <h3>{Currency(Object.values(xgrop).reduce((r, { totallSellMonthly }) => r + parseFloat(totallSellMonthly), 0))}</h3>
+                                    <p>فرۆش</p>
+                                </div>
+                                <div className="icon">
+                                    <i className="fas fa-chart-pie" />
+                                </div>
+                                <a href="#" className="small-box-footer">
+                                    زیاتر <i className="fas fa-arrow-circle-right" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-lg-6">
                             <PaymentData data={xgrop} />
@@ -74,7 +152,7 @@ const DashBoard = () => {
                             </div>
                         </div>
                         <div className="col-lg-6">
-                            {xvendors.map(vendor => (
+                            {xvendors.filter((vendor)=> vendor.status === false ).map(vendor => (
                                 <VisotData vendor={vendor} key={vendor.id} />
                             )
                             )}

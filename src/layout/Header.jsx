@@ -11,7 +11,7 @@ const Header = (props) => {
                     <a className="nav-link" data-widget="pushmenu" href="/"><FontAwesomeIcon icon={faBars} /></a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
-                    <a href="/api" className="nav-link">API</a>
+                    <a href="/api/" className="nav-link">API</a>
                 </li>
                 <li className="nav-item d-none d-sm-inline-block">
                     <a href="/admin/" className="nav-link">Admin</a>
